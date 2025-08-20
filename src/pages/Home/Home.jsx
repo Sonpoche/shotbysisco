@@ -7,6 +7,7 @@ import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
 import Reviews from "../../components/Reviews/Reviews";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
+import Slider from "../../components/Slider/Slider";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -143,10 +144,10 @@ const Home = () => {
 
           <div className="hero-header">
             <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.7}>
-              Nico
+              Shotby
             </AnimatedCopy>
             <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.8}>
-              Palmer
+              Sisco
             </AnimatedCopy>
           </div>
         </section>
@@ -199,7 +200,6 @@ const Home = () => {
           </div>
         </section>
 
-        <Reviews />
 
         <section className="hobbies">
           <div className="hobby">

@@ -6,10 +6,10 @@ const ContactForm = () => {
     <div className="contact-form">
       <div className="contact-form-row">
         <div className="contact-form-row-copy-item">
-          <p className="primary sm">Let’s create together</p>
+          <p className="primary sm">Imaginons ensemble</p>
         </div>
         <div className="contact-form-row-copy-item">
-          <p className="primary sm">(Scene — 07)</p>
+          <p className="primary sm">(ShotBySisco)</p>
         </div>
         <div className="contact-form-row-copy-item">
           <p className="primary sm">&copy; 2025</p>
@@ -19,11 +19,10 @@ const ContactForm = () => {
       <div className="contact-form-row">
         <div className="contact-form-col">
           <div className="contact-form-header">
-            <h3>Start a Conversation</h3>
+            <h3>On cadre votre projet ?</h3>
 
             <p>
-              Have a story in mind? Let’s bring it to life. I’d love to hear
-              what you’re working on and explore how we can collaborate.
+              Une histoire en tête ? Donnons-lui vie ensemble. J’aimerais découvrir ton projet et voir comment nous pouvons collaborer.
             </p>
           </div>
 

@@ -185,7 +185,7 @@ const Menu = () => {
         <div className="menu-bar-container">
           <div className="menu-logo" onClick={closeMenu}>
             <Link to="/">
-              <h4>Palmer</h4>
+              <h4>ShotBySisco</h4>
             </Link>
           </div>
           <div className="menu-actions">
