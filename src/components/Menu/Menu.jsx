@@ -1,16 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Menu.css";
-
 import { Link, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 
 const Menu = () => {
   const menuLinks = [
-    { path: "/", label: "Home" },
-    { path: "/work", label: "Work" },
-    { path: "/about", label: "About" },
+    { path: "/", label: "Accueil" },
+    { path: "/portfolio", label: "Portfolio" },
+    { path: "/a-propos", label: "A Propos" },
     { path: "/contact", label: "Contact" },
     { path: "/faq", label: "FAQ" },
+  ];
+
+  const socialLinks = [
+    {
+      name: "Instagram",
+      shortName: "IG", // Version courte alternative
+      url: "https://www.instagram.com/memento.ch?igsh=eG9hYXJ6bDJucmJ6",
+      external: true
+    },
+    {
+      name: "TikTok", 
+      shortName: "TT", // Version courte alternative
+      url: "https://www.tiktok.com/@votrecompte", // À remplacer par votre vrai lien
+      external: true
+    }
   ];
 
   const location = useLocation();
@@ -56,7 +70,7 @@ const Menu = () => {
       document.querySelector(".hamburger-icon").classList.toggle("active");
       setIsMenuOpen(false);
       toggleBodyScroll(false);
-    } else return;
+    }
   };
 
   const handleLinkClick = (path) => {
@@ -65,6 +79,12 @@ const Menu = () => {
     }
   };
 
+  const handleSocialClick = (social, e) => {
+    e.preventDefault();
+    window.open(social.url, '_blank', 'noopener,noreferrer');
+  };
+
+  // Reste du code des useEffect identique...
   useEffect(() => {
     if (location.pathname !== previousPathRef.current && shouldDelayClose) {
       const timer = setTimeout(() => {
@@ -183,11 +203,48 @@ const Menu = () => {
     <div className="menu-container" ref={menuContainer}>
       <div className="menu-bar" ref={menuBarRef}>
         <div className="menu-bar-container">
-          <div className="menu-logo" onClick={closeMenu}>
-            <Link to="/">
-              <h4>ShotBySisco</h4>
-            </Link>
+          <div className="menu-logo-group">
+            <div className="menu-logo" onClick={closeMenu}>
+              <Link to="/">
+                <h4>Memento</h4>
+              </Link>
+            </div>
+            
+            {/* Option 1: Liens textuels simples */}
+            <div className="social-links">
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.url}
+                  className="social-link"
+                  onClick={(e) => handleSocialClick(social, e)}
+                  aria-label={social.name}
+                >
+                  {social.name}
+                </a>
+              ))}
+            </div>
+
+            {/* Option 2: Version avec séparateur (décommentez si préféré) */}
+            {/* <div className="social-links-alt">
+              <a
+                href={socialLinks[0].url}
+                className="social-link"
+                onClick={(e) => handleSocialClick(socialLinks[0], e)}
+              >
+                {socialLinks[0].name}
+              </a>
+              <span className="separator">/</span>
+              <a
+                href={socialLinks[1].url}
+                className="social-link"
+                onClick={(e) => handleSocialClick(socialLinks[1], e)}
+              >
+                {socialLinks[1].name}
+              </a>
+            </div> */}
           </div>
+          
           <div className="menu-actions">
             <div className="menu-toggle">
               <button className="hamburger-icon" onClick={toggleMenu}></button>

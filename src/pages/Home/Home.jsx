@@ -7,7 +7,6 @@ import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
 import Reviews from "../../components/Reviews/Reviews";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
-import Slider from "../../components/Slider/Slider";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -39,6 +38,7 @@ const Home = () => {
       return;
     }
 
+    // Configuration initiale des vidéos
     gsap.set(titles[0], { opacity: 1, scale: 1 });
     gsap.set(titles[1], { opacity: 0, scale: 0.75 });
     gsap.set(titles[2], { opacity: 0, scale: 0.75 });
@@ -60,6 +60,7 @@ const Home = () => {
       },
     });
 
+    // Animations des vidéos
     masterTimeline
       .to(
         titles[0],
@@ -71,7 +72,6 @@ const Home = () => {
         },
         1
       )
-
       .to(
         titles[1],
         {
@@ -94,7 +94,6 @@ const Home = () => {
         },
         2.5
       )
-
       .to(
         titles[2],
         {
@@ -144,83 +143,131 @@ const Home = () => {
 
           <div className="hero-header">
             <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.7}>
-              Shotby
+              Memento
             </AnimatedCopy>
             <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.8}>
-              Sisco
+            
             </AnimatedCopy>
           </div>
         </section>
 
+        
+
         <section ref={stickyTitlesRef} className="sticky-titles">
           <div className="sticky-titles-nav">
-            <p className="primary sm">About Me</p>
-            <p className="primary sm">Let’s Connect</p>
+            <p className="primary sm">À Propos</p>
+            <p className="primary sm">Connectons nos visions</p>
           </div>
           <div className="sticky-titles-footer">
-            <p className="primary sm">Storytelling Through Film</p>
-            <p className="primary sm">Open to Collaborations</p>
+            <p className="primary sm">Le pouvoir des images</p>
+            <p className="primary sm">Collaborations</p>
           </div>
-          <h2 ref={(el) => (titlesRef.current[0] = el)}>
-            I craft films that tell human stories with cinematic depth.
-          </h2>
-          <h2 ref={(el) => (titlesRef.current[1] = el)}>
-            Each project is driven by emotion, clarity, and vision.
-          </h2>
-          <h2 ref={(el) => (titlesRef.current[2] = el)}>
-            This portfolio is a glimpse into the frames that move me.
-          </h2>
+          
+          <div className="video-container" ref={(el) => (titlesRef.current[0] = el)}>
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              preload="auto"
+            >
+              <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871102/test-cloudinary_u7pfrp.mp4" type="video/mp4" />
+            </video>
+            <div className="video-overlay">
+              <h2 className="overlay-text">ÉMOTIONS</h2>
+            </div>
+          </div>
+          
+          <div className="video-container" ref={(el) => (titlesRef.current[1] = el)}>
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              preload="auto"
+            >
+              <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871175/test3-cloudinary_pqj87v.mp4" type="video/mp4" />
+            </video>
+            <div className="video-overlay">
+              <h2 className="overlay-text">VISION</h2>
+            </div>
+          </div>
+          
+          <div className="video-container" ref={(el) => (titlesRef.current[2] = el)}>
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              preload="auto"
+            >
+              <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871178/test2-cloudinary_ymwk8o.mp4" type="video/mp4" />
+            </video>
+            <div className="video-overlay">
+              <h2 className="overlay-text">Qualité</h2>
+            </div>
+          </div>
         </section>
 
         <section ref={stickyWorkHeaderRef} className="sticky-work-header">
           <AnimatedCopy tag="h1" animateOnScroll="true">
-            Palmer selects
+            Memento Selection
           </AnimatedCopy>
         </section>
 
+        
         <section ref={homeWorkRef} className="home-work">
           <div className="home-work-list">
             {workItems.map((work, index) => (
-              <Link
-                to="/sample-project"
-                key={work.id}
-                className="home-work-item"
-              >
+              <div key={work.id} className="home-work-item">
                 <p className="primary sm">{`${String(index + 1).padStart(
                   2,
                   "0"
                 )} - ${String(workItems.length).padStart(2, "0")}`}</p>
                 <h3>{work.title}</h3>
-                <div className="work-item-img">
+                <Link to="/sample-project" className="work-item-img">
                   <img src={work.image} alt={work.title} />
-                </div>
+                </Link>
                 <h4>{work.category}</h4>
-              </Link>
+              </div>
             ))}
           </div>
         </section>
 
+            <Reviews />
 
-        <section className="hobbies">
-          <div className="hobby">
-            <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Camera
-            </AnimatedCopy>
-          </div>
-          <div className="hobby">
-            <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Editing
-            </AnimatedCopy>
-          </div>
-          <div className="hobby">
-            <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Story
-            </AnimatedCopy>
-          </div>
-          <div className="hobby">
-            <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Sound
-            </AnimatedCopy>
+         <section className="hobbies">
+          <div className="home-tools-container">
+            <div className="home-tools-row">
+              <Link to="/about" className="home-tool-card">
+                <div className="home-tool-bg">
+                  <img src="/about/tool-1.jpg" alt="" />
+                </div>
+                <h4>Vidéos</h4>
+                <p className="primary sm">Production Audiovisuelle</p>
+              </Link>
+              <Link to="/about" className="home-tool-card">
+                <div className="home-tool-bg">
+                  <img src="/about/tool-2.jpg" alt="" />
+                </div>
+                <h4>Shooting</h4>
+                <p className="primary sm">Prise de Vue</p>
+              </Link>
+              <Link to="/about" className="home-tool-card">
+                <div className="home-tool-bg">
+                  <img src="/about/tool-3.jpg" alt="" />
+                </div>
+                <h4>Edit</h4>
+                <p className="primary sm">Post Production</p>
+              </Link>
+              <Link to="/about" className="home-tool-card">
+                <div className="home-tool-bg">
+                  <img src="/about/tool-4.jpg" alt="" />
+                </div>
+                <h4>Clip</h4>
+                <p className="primary sm">Vidéo Musicale</p>
+              </Link>
+            </div>
           </div>
         </section>
 

@@ -1,0 +1,46 @@
+[33m4c5e39e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: commit: sisco
+[33mc6ee773[m HEAD@{1}: reset: moving to HEAD~5
+[33m16d2de8[m HEAD@{2}: commit: sisco
+[33md04d288[m HEAD@{3}: commit: sisco
+[33md32a95d[m HEAD@{4}: commit: sisco
+[33maba91dc[m HEAD@{5}: commit: sisco
+[33m497ba15[m HEAD@{6}: commit: sisco
+[33mc6ee773[m HEAD@{7}: commit: sisco
+[33m38de9b4[m HEAD@{8}: commit: sisco
+[33ma2b9499[m HEAD@{9}: checkout: moving from main to main
+[33ma2b9499[m HEAD@{10}: commit: upgrading react, react-router and framer-motion
+[33m5106464[m HEAD@{11}: commit: final tweaks
+[33mb804b9d[m HEAD@{12}: commit: lock scroll when menu is open
+[33md98d3c0[m HEAD@{13}: commit: page transition
+[33m111eedd[m HEAD@{14}: commit: scroll reset on route update
+[33m66c3517[m HEAD@{15}: commit: menu resizing updates
+[33m9b390f7[m HEAD@{16}: commit: made menu bar scroll sensitive
+[33mc060f22[m HEAD@{17}: commit: menu - functional
+[33m52ecdc8[m HEAD@{18}: commit: line height fixes
+[33m3aca72b[m HEAD@{19}: commit: about page animations
+[33m5b0689e[m HEAD@{20}: commit: animations and parallax scroll
+[33meb31896[m HEAD@{21}: commit: lenis
+[33mb10a802[m HEAD@{22}: commit: work carousel routing
+[33ma612242[m HEAD@{23}: commit: work carousel animation
+[33m5ee330a[m HEAD@{24}: commit: Revert "fix: review animation sequence for consistent behavior on Vercel"
+[33ma2df1cb[m HEAD@{25}: commit: fix: review animation sequence for consistent behavior on Vercel
+[33meed1a23[m HEAD@{26}: commit: Revert "fixed reviews transition trigger on prod"
+[33m1ea17ab[m HEAD@{27}: commit: fixed reviews transition trigger on prod
+[33mdb5af7d[m HEAD@{28}: commit: home page finalization
+[33m9d69b98[m HEAD@{29}: commit: home page animations + refactoring content
+[33m0d9047c[m HEAD@{30}: commit: home page
+[33mb183325[m HEAD@{31}: commit: project page
+[33m7aedec9[m HEAD@{32}: commit: work carousel base
+[33m1890844[m HEAD@{33}: commit: rewrite incoming paths for prod
+[33m74c894a[m HEAD@{34}: commit: work carousel structure
+[33m9ab9c3f[m HEAD@{35}: commit: contact page
+[33m3a2584b[m HEAD@{36}: commit: faq page
+[33ma2ceec4[m HEAD@{37}: commit: about page
+[33mfea6dd8[m HEAD@{38}: commit: replaced header fonts to use Rader
+[33m5e2b3ce[m HEAD@{39}: commit: fixed faq section padding for mobile
+[33m814cb0e[m HEAD@{40}: commit: faq component
+[33m15691e1[m HEAD@{41}: commit: contact form component
+[33m2242e15[m HEAD@{42}: commit: fixed footer height
+[33ma652171[m HEAD@{43}: commit: fixed build output directory for vercel deployment
+[33m807e3d5[m HEAD@{44}: commit: fonts and footer
+[33ma6d1790[m HEAD@{45}: commit (initial): first commit

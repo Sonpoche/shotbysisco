@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="footer-contact">
           <h3>
             Créons ensemble <br />
-            contact<span>@</span>shotbysisco.com
+            contact<span>@</span>memento.ch
           </h3>
 
           <p className="secondary">
@@ -28,12 +28,12 @@ const Footer = () => {
             <span>&#8594;</span>
           </Link>
 
-          <Link to="/work" className="footer-nav-item">
+          <Link to="/portfolio" className="footer-nav-item">
             <span>Portfolio</span>
             <span>&#8594;</span>
           </Link>
 
-          <Link to="/about" className="footer-nav-item">
+          <Link to="/a-propos" className="footer-nav-item">
             <span>A Propos</span>
             <span>&#8594;</span>
           </Link>
@@ -51,12 +51,12 @@ const Footer = () => {
       </div>
       <div className="footer-row">
         <div className="footer-header">
-          <h1>Shotby</h1>
-          <h1>Sisco</h1>
+          <h1>Memento</h1>
+          
         </div>
 
         <div className="footer-copyright-line">
-          <p className="primary sm">&copy; ShotBySisco 2025</p>
+          <p className="primary sm">&copy; Memento 2025</p>
           <p className="primary sm">made with love by webdevfred</p>
         </div>
       </div>

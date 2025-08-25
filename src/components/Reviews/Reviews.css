@@ -48,7 +48,7 @@
 .review-thumbnail {
   aspect-ratio: 5/3;
   min-height: 50px;
-  border: 1px dashed var(--bg200);
+  border: 1px solid var(--bg200);
   border-radius: 0.5em;
   overflow: hidden;
   cursor: pointer;
@@ -56,7 +56,7 @@
 }
 
 .review-thumbnail.active {
-  border: 1px dashed var(--bg);
+  border: 1px solid var(--bg);
 }
 
 h4#review-copy,

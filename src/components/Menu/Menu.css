@@ -21,7 +21,7 @@
   backdrop-filter: blur(20px);
   border-radius: 1rem;
   overflow: hidden;
-  border: 1px dashed rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   pointer-events: all;
   z-index: 100000;
 }
@@ -36,11 +36,74 @@
   padding: 0 0.7em 0.1em 1em;
 }
 
+/* Logo et liens sociaux groupés */
+.menu-logo-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25em;
+}
+
 .menu-logo a {
   position: relative;
   display: inline-block;
-  top: -0.05em;
-  color: var(--bg);
+  color: var(--fg);
+}
+
+/* Styles pour les liens sociaux textuels */
+.social-links {
+  display: flex;
+  gap: 0.75em;
+  align-items: center;
+}
+
+.social-link {
+  color: var(--fg);
+  font-family: "Messina Sans Mono";
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  opacity: 0.7;
+}
+
+.social-link:hover {
+  opacity: 1;
+}
+
+/* Version alternative avec séparateur */
+.social-links-alt {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.social-links-alt .social-link {
+  color: var(--fg);
+  font-family: "Messina Sans Mono";
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.social-links-alt .separator {
+  color: var(--fg);
+  opacity: 0.4;
+  font-family: "Messina Sans Mono";
+  font-size: 0.75rem;
+}
+
+.social-links-alt .social-link:hover {
+  opacity: 1;
 }
 
 .menu-actions {
@@ -69,7 +132,8 @@
   background: rgba(0, 0, 0, 0.25);
   background: transparent;
   transition: all 300ms;
-  border: 1px dashed rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
 }
 
 .hamburger-icon:hover {
@@ -137,7 +201,7 @@
 
 .menu-link-item .menu-link-item-holder a {
   position: relative;
-  color: var(--bg);
+  color: var(--fg);
   font-family: "Rader";
   font-size: 7vw;
   text-transform: uppercase;
@@ -150,6 +214,7 @@
   color: rgba(255, 255, 255, 1);
 }
 
+/* Media Queries */
 @media (max-width: 1000px) {
   .menu {
     width: calc(100% - 2.5em);
@@ -173,5 +238,31 @@
 
   .menu-link-item .menu-link-item-holder a {
     font-size: 16vw;
+  }
+
+  .social-links,
+  .social-links-alt {
+    gap: 0.5em;
+  }
+  
+  .social-link {
+    font-size: 0.65rem;
+  }
+}
+
+/* Sur mobile très petit */
+@media (max-width: 600px) {
+  .menu-logo-group {
+    gap: 0.15em;
+  }
+  
+  .social-link {
+    font-size: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+  
+  .social-links,
+  .social-links-alt {
+    gap: 0.4em;
   }
 }

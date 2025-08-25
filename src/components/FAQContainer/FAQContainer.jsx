@@ -79,7 +79,7 @@ const FAQContainer = ({ title = true, fullWidth = false }) => {
         {title && (
           <div className="faq-title">
             <AnimatedCopy tag="h2" animateOnScroll={false} delay={1}>
-              Frequently <br /> Asked Questions
+              Foire <br /> aux questions
             </AnimatedCopy>
           </div>
         )}

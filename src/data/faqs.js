@@ -1,52 +1,52 @@
 export const faqItems = [
   {
-    question: "What types of films do you specialize in?",
+    question: "Quels types de projets réalisez-vous ?",
     answer:
-      "I specialize in narrative short films, documentaries, and branded content. My focus is on strong storytelling and cinematic visuals.",
+      "Je me spécialise dans les vidéos narratives courtes, les documentaires et le contenu de marque. Mon travail met l’accent sur la narration et l’esthétique visuelle.",
   },
   {
-    question: "Are you available for freelance or commissioned work?",
+    question: "Êtes-vous disponible pour des missions freelance ou sur commande ?",
     answer:
-      "Yes, I’m open to freelance and commissioned projects. Feel free to reach out through the contact form to discuss your vision.",
+      "Oui, j’accepte les projets freelance et sur commande. N’hésitez pas à me contacter via le formulaire pour discuter de votre vision.",
   },
   {
-    question: "Do you handle both filming and post-production?",
+    question: "Gérez-vous à la fois le tournage et la post-production ?",
     answer:
-      "Absolutely. I provide end-to-end services, including cinematography, editing, color grading, and sound design.",
+      "Absolument. Je propose un service complet, incluant la prise de vue, le montage, l’étalonnage et le design sonore.",
   },
   {
-    question: "What equipment do you use?",
+    question: "Quel matériel utilisez-vous ?",
     answer:
-      "I shoot with industry-standard gear including 4K cameras, professional audio equipment, and high-end editing software.",
+      "Je travaille avec du matériel professionnel : caméras 4K, équipements audio, et logiciels de montage haut de gamme.",
   },
   {
-    question: "Can you travel for shoots?",
+    question: "Pouvez-vous vous déplacer pour des tournages ?",
     answer:
-      "Yes, I’m available for both local and international projects. Travel logistics can be discussed during the project planning phase.",
+      "Oui, je suis disponible pour des projets locaux et internationaux. Les aspects logistiques sont discutés lors de la planification du projet.",
   },
   {
-    question: "Do you collaborate with other creatives?",
+    question: "Travaillez-vous en collaboration avec d’autres créatifs ?",
     answer:
-      "Definitely. I often work with writers, actors, musicians, and other filmmakers to bring projects to life collaboratively.",
+      "Oui, je collabore souvent avec des scénaristes, acteurs, musiciens et autres créatifs pour donner vie aux projets.",
   },
   {
-    question: "How long does it take to complete a project?",
+    question: "Combien de temps prend un projet ?",
     answer:
-      "Timelines vary by scope, but short films typically take 3–6 weeks. We’ll set a schedule that aligns with your goals and deadlines.",
+      "La durée varie selon l’ampleur, mais les vidéos courtes prennent généralement 3 à 6 semaines. Nous établirons un calendrier adapté à vos objectifs.",
   },
   {
-    question: "Can you help develop a concept or script?",
+    question: "Pouvez-vous aider à développer un concept ou un scénario ?",
     answer:
-      "Yes, I offer creative development services including concept ideation, scripting, and storyboarding to shape your project from scratch.",
+      "Oui, j’offre des services de développement créatif incluant la conception de concept, le script et le storyboard pour structurer votre projet dès le départ.",
   },
   {
-    question: "Where can I view your previous work?",
+    question: "Où puis-je voir vos réalisations précédentes ?",
     answer:
-      "You can explore my film projects on the portfolio page. Each listing includes a short description, trailer, or full version when available.",
+      "Vous pouvez explorer mes projets sur la page portfolio. Chaque projet inclut une courte description, une bande-annonce ou la version complète si disponible.",
   },
   {
-    question: "How can I contact you for a project?",
+    question: "Comment vous contacter pour un projet ?",
     answer:
-      "You can use the contact form or email listed on the site. I aim to respond to all inquiries within 48 hours.",
+      "Vous pouvez utiliser le formulaire de contact ou l’e-mail indiqué sur le site. Je réponds à toutes les demandes sous 48 heures.",
   },
 ];

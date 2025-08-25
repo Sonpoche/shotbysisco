@@ -1,10 +1,10 @@
 @import "./fonts.css";
 
 :root {
-  --bg: #e3e3db;
-  --bg200: rgba(227, 227, 219, 0.25);
-  --fg: #0f0f0f;
-  --fg200: #1f1f1f;
+  --bg: #0f0f0f;        /* Noir profond devient le fond */
+  --bg200: rgba(15, 15, 15, 0.25);
+  --fg: #e3e3db;        /* Beige crème devient le texte */
+  --fg200: #d0d0c8;     /* Version légèrement plus foncée */
 }
 
 * {
@@ -184,4 +184,93 @@ textarea::placeholder {
     font-size: 6vw;
     line-height: 6vw;
   }
+}
+
+/* Effets hover globaux uniquement pour les composants Link avec contenu complexe */
+
+/* Effet miroir léger pour les Links React Router contenant des images ou structures */
+a[href]:has(img), 
+a[href]:has(.home-tool-bg),
+a[href].home-tool-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+a[href]:has(img)::before, 
+a[href]:has(.home-tool-bg)::before,
+a[href].home-tool-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(227, 227, 219, 0.08),
+    transparent
+  );
+  transition: left 1.2s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+a[href]:has(img):hover::before, 
+a[href]:has(.home-tool-bg):hover::before,
+a[href].home-tool-card:hover::before {
+  left: 100%;
+}
+
+/* Effet de soulèvement léger pour ces Links spécifiques */
+a[href]:has(img):hover, 
+a[href]:has(.home-tool-bg):hover,
+a[href].home-tool-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Effet spécifique pour les work-items - seulement sur l'image */
+.home-work-item {
+  transition: all 0.3s ease;
+}
+
+.home-work-item .work-item-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-work-item .work-item-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(227, 227, 219, 0.08),
+    transparent
+  );
+  transition: left 1.2s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.home-work-item:hover .work-item-img::before {
+  left: 100%;
+}
+
+.home-work-item:hover {
+  transform: translateY(-2px);
+}
+
+/* Désactiver l'effet sur certains éléments spécifiques si nécessaire */
+.no-hover-effect::before {
+  display: none !important;
+}
+
+.no-hover-effect:hover {
+  transform: none !important;
 }

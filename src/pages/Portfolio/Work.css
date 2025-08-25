@@ -1,0 +1,122 @@
+.work-carousel {
+  position: fixed;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background-color: var(--fg);
+}
+
+/* Conteneur pour média (vidéo ou image) */
+.work-slider-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.work-slider-media img,
+.work-slider-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-items-preview-container {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 2em;
+  width: 75%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.work-item {
+  position: relative;
+  border: 1px dashed var(--bg200);
+  border-radius: 0.5em;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border 0.3s ease-in-out;
+}
+
+.work-item.active {
+  border: 1px dashed var(--bg);
+}
+
+/* Indicateur pour les vidéos */
+.video-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.video-indicator svg {
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
+}
+
+.carousel-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+  padding: 1.25em;
+}
+
+.carousel-description,
+.carousel-title {
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  width: 100%;
+}
+
+.carousel-title h1 {
+  line-height: 1;
+}
+
+.carousel-title h1,
+.carousel-description p {
+  position: relative;
+  display: block;
+  will-change: transform;
+  color: var(--fg200);
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .work-items-preview-container {
+    width: 100%;
+    padding: 0 1.25em;
+  }
+  
+  .video-indicator {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .video-indicator svg {
+    width: 12px;
+    height: 12px;
+  }
+}

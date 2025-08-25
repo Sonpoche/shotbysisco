@@ -9,7 +9,7 @@ const ContactForm = () => {
           <p className="primary sm">Imaginons ensemble</p>
         </div>
         <div className="contact-form-row-copy-item">
-          <p className="primary sm">(ShotBySisco)</p>
+          <p className="primary sm">(Memento)</p>
         </div>
         <div className="contact-form-row-copy-item">
           <p className="primary sm">&copy; 2025</p>
@@ -27,8 +27,8 @@ const ContactForm = () => {
           </div>
 
           <div className="contact-form-availability">
-            <p className="primary sm">Available for Freelance</p>
-            <p className="primary sm">Clients worldwide</p>
+            <p className="primary sm">Agence</p>
+            <p className="primary sm">Suisse</p>
           </div>
         </div>
 
@@ -46,7 +46,7 @@ const ContactForm = () => {
           </div>
 
           <div className="form-item">
-            <button className="btn">Send Message</button>
+            <button className="btn">Envoyer</button>
           </div>
         </div>
       </div>

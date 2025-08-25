@@ -5,9 +5,9 @@ import { useEffect } from "react";
 import Menu from "./components/Menu/Menu";
 
 import Home from "./pages/Home/Home";
-import Work from "./pages/Work/Work";
+import Work from "./pages/Portfolio/Work";
 import Project from "./pages/Project/Project";
-import About from "./pages/About/About";
+import About from "./pages/APropos/About";
 import FAQ from "./pages/FAQ/FAQ";
 import Contact from "./pages/Contact/Contact";
 
@@ -35,10 +35,10 @@ function App() {
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/a-propos" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
-          <Route path="/work" element={<Work />} />
+          <Route path="/Portfolio" element={<Work />} />
           <Route path="/sample-project" element={<Project />} />
         </Routes>
       </AnimatePresence>

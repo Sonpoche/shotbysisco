@@ -31,11 +31,11 @@
   padding: 1em 0;
   display: flex;
   justify-content: space-between;
-  border-top: 1px dashed var(--fg);
+  border-top: 1px solid var(--fg);
 }
 
 .footer-nav-item:last-child {
-  border-bottom: 1px dashed var(--fg);
+  border-bottom: 1px solid var(--fg);
 }
 
 .footer-contact {
@@ -68,7 +68,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  border-top: 1px dashed var(--fg);
+  border-top: 1px solid var(--fg);
 }
 
 .footer-copyright-line p:nth-child(2) {
