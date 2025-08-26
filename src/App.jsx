@@ -3,6 +3,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 import Menu from "./components/Menu/Menu";
+// Import du FontPreloader
+import FontPreloader from "./components/FontPreloader/FontPreloader";
 
 import Home from "./pages/Home/Home";
 import Work from "./pages/Portfolio/Work";
@@ -30,6 +32,8 @@ function App() {
 
   return (
     <>
+      {/* Ajouter le préchargeur de polices */}
+      <FontPreloader />
       <ScrollToTop />
       <Menu />
       <AnimatePresence mode="wait" initial={false}>

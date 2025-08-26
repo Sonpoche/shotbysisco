@@ -316,7 +316,7 @@
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: var(--bg200);
+    background: var(--fg200);
     transition: all 0.3s ease;
     cursor: pointer;
     border: none;
@@ -324,7 +324,7 @@
   }
   
   .dot.active {
-    background: var(--bg);
+    background: var(--fg);
     width: 12px;
     border-radius: 2px;
   }
