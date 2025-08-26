@@ -1,0 +1,194 @@
+/* TrustedBy.css */
+.trusted-by {
+  position: relative;
+  width: 100vw;
+  padding: 6em 0;
+  background-color: var(--fg);
+  overflow: hidden;
+}
+
+.trusted-by-header {
+  text-align: center;
+  margin-bottom: 4em;
+  padding: 0 2em;
+}
+
+.trusted-by-header p {
+  color: var(--bg);
+  margin-bottom: 1em;
+}
+
+.trusted-by-header h2 {
+  color: var(--bg);
+}
+
+.trusted-by-slider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.slider-row {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.slider-track {
+  display: flex;
+  gap: 4em;
+  width: fit-content;
+  will-change: transform;
+}
+
+.partner-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-logo {
+  width: 180px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border-radius: 1em;
+  border: 1px solid var(--fg);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.partner-logo:hover {
+  transform: scale(1.05);
+  background: var(--bg200);
+  border-color: var(--bg);
+}
+
+.logo-placeholder {
+  text-align: center;
+  padding: 1em;
+}
+
+.logo-placeholder h4 {
+  color: var(--fg);
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+.logo-placeholder img {
+  width: 100%;
+  height: auto;
+  max-height: 60px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.partner-logo:hover .logo-placeholder img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.trusted-by-footer {
+  text-align: center;
+  margin-top: 4em;
+  padding: 0 2em;
+}
+
+.trusted-by-footer p {
+  color: var(--bg);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Animation keyframes de secours si GSAP ne fonctionne pas */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Fallback animation */
+.no-js .slider-track {
+  animation: scrollLeft 30s linear infinite;
+}
+
+.no-js .slider-track.reverse {
+  animation: scrollRight 30s linear infinite;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .trusted-by {
+    padding: 4em 0;
+  }
+
+  .trusted-by-header {
+    margin-bottom: 3em;
+  }
+
+  .slider-track {
+    gap: 2em;
+  }
+
+  .partner-logo {
+    width: 140px;
+    height: 60px;
+  }
+
+  .logo-placeholder h4 {
+    font-size: 1rem;
+  }
+
+  .trusted-by-footer {
+    margin-top: 3em;
+    padding: 0 1.25em;
+  }
+}
+
+@media (max-width: 600px) {
+  .partner-logo {
+    width: 120px;
+    height: 50px;
+  }
+
+  .logo-placeholder h4 {
+    font-size: 0.875rem;
+  }
+
+  .slider-track {
+    gap: 1.5em;
+  }
+}

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 
 import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
-import Reviews from "../../components/Reviews/Reviews";
+import TrustedBy from "../../components/Reviews/TrustedBy";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
 
@@ -151,8 +151,6 @@ const Home = () => {
           </div>
         </section>
 
-        
-
         <section ref={stickyTitlesRef} className="sticky-titles">
           <div className="sticky-titles-nav">
             <p className="primary sm">À Propos</p>
@@ -204,7 +202,7 @@ const Home = () => {
               <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871178/test2-cloudinary_ymwk8o.mp4" type="video/mp4" />
             </video>
             <div className="video-overlay">
-              <h2 className="overlay-text">Qualité</h2>
+              <h2 className="overlay-text">QUALITÉ</h2>
             </div>
           </div>
         </section>
@@ -215,7 +213,6 @@ const Home = () => {
           </AnimatedCopy>
         </section>
 
-        
         <section ref={homeWorkRef} className="home-work">
           <div className="home-work-list">
             {workItems.map((work, index) => (
@@ -234,37 +231,45 @@ const Home = () => {
           </div>
         </section>
 
-            <Reviews />
+        <TrustedBy />
 
-         <section className="hobbies">
+        {/* Section des services avec liens vers le portfolio */}
+        <section className="hobbies">
           <div className="home-tools-container">
             <div className="home-tools-row">
-              <Link to="/about" className="home-tool-card">
+              {/* Lien vers Portfolio - onglet Vidéos */}
+              <Link to="/portfolio?category=videos" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-1.jpg" alt="" />
                 </div>
                 <h4>Vidéos</h4>
                 <p className="primary sm">Production Audiovisuelle</p>
               </Link>
-              <Link to="/about" className="home-tool-card">
+              
+              {/* Lien vers Portfolio - onglet Photos */}
+              <Link to="/portfolio?category=photos" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-2.jpg" alt="" />
                 </div>
-                <h4>Shooting</h4>
+                <h4>Photos</h4>
                 <p className="primary sm">Prise de Vue</p>
               </Link>
-              <Link to="/about" className="home-tool-card">
+              
+              {/* Lien vers Portfolio - onglet Design */}
+              <Link to="/portfolio?category=design" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-3.jpg" alt="" />
                 </div>
-                <h4>Edit</h4>
-                <p className="primary sm">Post Production</p>
+                <h4>Design</h4>
+                <p className="primary sm">Direction Artistique</p>
               </Link>
-              <Link to="/about" className="home-tool-card">
+              
+              {/* Lien vers Portfolio - onglet Clips */}
+              <Link to="/portfolio?category=clip" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-4.jpg" alt="" />
                 </div>
-                <h4>Clip</h4>
+                <h4>Clips</h4>
                 <p className="primary sm">Vidéo Musicale</p>
               </Link>
             </div>

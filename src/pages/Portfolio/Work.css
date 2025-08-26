@@ -23,6 +23,61 @@
   object-fit: cover;
 }
 
+/* Tabs de catégories */
+.work-categories {
+  position: fixed;
+  bottom: calc(2em + 60px + 1.5em); /* Juste au-dessus des thumbnails */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5em;
+  padding: 0.5em;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 2em;
+  border: 1px solid var(--fg200);
+  z-index: 10;
+}
+
+.category-tab {
+  padding: 0.5em 1.5em;
+  background: transparent;
+  border: none;
+  color: var(--fg200);
+  font-family: "Messina Sans Mono";
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 1.5em;
+  outline: none;
+  position: relative;
+}
+
+.category-tab:hover {
+  color: var(--bg);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.category-tab.active {
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.category-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--fg);
+}
+
 .work-items-preview-container {
   position: fixed;
   left: 50%;
@@ -37,15 +92,23 @@
 
 .work-item {
   position: relative;
-  border: 1px dashed var(--bg200);
+  border: 1px solid var(--bg200);
   border-radius: 0.5em;
   overflow: hidden;
   cursor: pointer;
-  transition: border 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  min-width: 80px;
+  flex: 0 0 auto;
+}
+
+.work-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .work-item.active {
-  border: 1px dashed var(--bg);
+  border: 1px solid var(--fg);
 }
 
 /* Indicateur pour les vidéos */
@@ -104,19 +167,236 @@
   text-align: center;
 }
 
+.project-title-container:hover h1 {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+/* Navigation dots - cachés par défaut */
+.thumbnail-dots {
+  display: none;
+}
+
+/* Wrapper pour thumbnails mobile - caché par défaut */
+.thumbnails-wrapper {
+  display: flex;
+  gap: 1em;
+  width: 100%;
+}
+
+/* =================================
+   RESPONSIVE - TABLETTE
+   ================================= */
 @media (max-width: 1000px) {
+  .work-categories {
+    bottom: calc(1.5em + 50px + 1em);
+    gap: 0.2em;
+    padding: 0.3em;
+    max-width: 95%;
+  }
+  
+  .category-tab {
+    padding: 0.3em 0.8em;
+    font-size: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+  
   .work-items-preview-container {
     width: 100%;
-    padding: 0 1.25em;
+    padding: 0 1em;
+    height: 50px;
+    bottom: 1.5em;
+    gap: 0.5em;
+  }
+  
+  .work-item {
+    min-width: 60px;
+    height: 50px;
   }
   
   .video-indicator {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
   
   .video-indicator svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* =================================
+   RESPONSIVE - MOBILE
+   ================================= */
+@media (max-width: 600px) {
+  /* Tabs responsive avec scroll horizontal */
+  .work-categories {
+    position: fixed;
+    bottom: auto;
+    top: auto;
+    bottom: calc(1em + 90px + 1.5em); /* Ajusté pour thumbnails plus hauts */
+    gap: 0.15em;
+    padding: 0.3em;
+    max-width: calc(100% - 1.5em);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .work-categories::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .category-tab {
+    padding: 0.35em 0.7em;
+    font-size: 0.6rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  
+  .category-tab.active::after {
+    display: none;
+  }
+  
+  /* Container pour carousel de thumbnails */
+  .work-items-preview-container {
+    position: fixed !important;
+    bottom: 1em !important;
+    top: auto !important;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2em);
+    height: 90px; /* Doublé de 45px */
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  /* Wrapper avec transition pour le slide */
+  .thumbnails-wrapper {
+    display: flex;
+    gap: 0.5em;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    height: 100%;
+  }
+  
+  .work-item {
+    min-width: calc((100vw - 3em) / 3);
+    max-width: calc((100vw - 3em) / 3);
+    height: 90px; /* Doublé de 45px */
+    flex: 0 0 auto;
+  }
+  
+  /* Indicateur vidéo plus visible */
+  .video-indicator {
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .video-indicator svg {
+    width: 10px;
+    height: 10px;
+    margin-left: 1px;
+  }
+  
+  /* Dots de navigation */
+  .thumbnail-dots {
+    display: flex;
+    position: fixed;
+    bottom: 0.3em;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 0.3em;
+    z-index: 11;
+  }
+  
+  .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--bg200);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+  
+  .dot.active {
+    background: var(--bg);
     width: 12px;
-    height: 12px;
+    border-radius: 2px;
+  }
+  
+  /* Texte plus petit */
+  .carousel-title h1 {
+    font-size: 8vw;
+  }
+  
+  .carousel-description p {
+    font-size: 0.7rem;
+  }
+}
+
+/* =================================
+   RESPONSIVE - TRÈS PETIT MOBILE
+   ================================= */
+@media (max-width: 400px) {
+  .work-categories {
+    position: fixed;
+    bottom: calc(0.8em + 80px + 1.2em); /* Ajusté pour thumbnails plus hauts */
+    padding: 0.25em;
+    gap: 0.1em;
+  }
+  
+  .category-tab {
+    padding: 0.3em 0.6em;
+    font-size: 0.55rem;
+    letter-spacing: 0.01em;
+  }
+  
+  .work-items-preview-container {
+    width: calc(100% - 1.5em);
+    height: 80px; /* Doublé de 40px */
+    bottom: 0.8em !important;
+  }
+  
+  .work-item {
+    min-width: calc((100vw - 2.5em) / 3);
+    max-width: calc((100vw - 2.5em) / 3);
+    height: 80px; /* Doublé de 40px */
+  }
+  
+  .video-indicator {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .video-indicator svg {
+    width: 9px;
+    height: 9px;
+  }
+  
+  .thumbnail-dots {
+    bottom: 0.2em;
+    gap: 0.25em;
+  }
+  
+  .dot {
+    width: 3px;
+    height: 3px;
+  }
+  
+  .dot.active {
+    width: 10px;
+  }
+  
+  .carousel-title h1 {
+    font-size: 7vw;
+  }
+  
+  .carousel-description p {
+    font-size: 0.65rem;
   }
 }

@@ -75,7 +75,7 @@ const Project = () => {
               Directed by
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Nico Palmer
+              Memento
             </AnimatedCopy>
           </div>
         </section>
@@ -120,7 +120,7 @@ const Project = () => {
               Editor
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Nico Palmer
+              Memento
             </AnimatedCopy>
           </div>
 
@@ -156,7 +156,7 @@ const Project = () => {
               Director
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Nico Palmer
+              Memento
             </AnimatedCopy>
           </div>
         </section>
