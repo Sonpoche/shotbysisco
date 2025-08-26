@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-family: BDMegalonaDEMOPersonalUseOnly-RegularItalic, 'BD Megalona DEMO Personal Use Only';
+        font-size: 200px;
+        font-style: italic;
+      }
+
+      .cls-2 {
+        fill: #161414;
+      }
+    </style>
+  </defs>
+  <rect class="cls-2" width="1080" height="1080"/>
+  <text class="cls-1" transform="translate(185.7 581.12)"><tspan x="0" y="0">memento</tspan></text>
+</svg>

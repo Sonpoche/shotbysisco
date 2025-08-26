@@ -50,6 +50,11 @@
   color: var(--fg);
 }
 
+.menu-logo h4 {
+  text-transform: lowercase;
+  letter-spacing: 0.2rem;
+}
+
 /* Styles pour les liens sociaux textuels */
 .social-links {
   display: flex;
@@ -62,7 +67,7 @@
   font-family: "Messina Sans Mono";
   font-size: 0.75rem;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: lowercase;
   letter-spacing: 0.04em;
   text-decoration: none;
   transition: opacity 0.3s ease;
@@ -87,7 +92,7 @@
   font-family: "Messina Sans Mono";
   font-size: 0.75rem;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: lowercase;
   letter-spacing: 0.04em;
   text-decoration: none;
   transition: opacity 0.3s ease;
@@ -189,7 +194,6 @@
 .menu-link-item {
   position: relative;
   padding: 1em 0 0.125em 0;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
   text-align: center;
   pointer-events: all;
 }
@@ -202,9 +206,9 @@
 .menu-link-item .menu-link-item-holder a {
   position: relative;
   color: var(--fg);
-  font-family: "Rader";
+  font-family: "BDMegalona", sans-serif;
   font-size: 7vw;
-  text-transform: uppercase;
+  text-transform: lowercase;
   letter-spacing: -0.01em;
   line-height: 80%;
   transition: color 0.3s;

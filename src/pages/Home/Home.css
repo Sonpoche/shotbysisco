@@ -27,6 +27,7 @@
 .hero-header h1 {
   color: var(--fg);
   line-height: 1;
+  letter-spacing: 0.2rem;
 }
 
 .sticky-titles {
@@ -98,9 +99,8 @@
 .overlay-text {
   font-size: clamp(5rem, 12vw, 10rem);
   font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-family: "Rader", sans-serif;
+  text-transform: lowercase;
+  font-family: "BDMegalona", sans-serif;
   color: rgba(255, 255, 255, 0.95);
   text-shadow: 
     0 2px 4px rgba(0, 0, 0, 0.3),
@@ -263,7 +263,7 @@
 .hobbies .home-tool-card h4 {
   font-size: 2.5rem;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: lowercase;
   letter-spacing: 0.1em;
 }
 
@@ -308,7 +308,6 @@
 
   .overlay-text {
     font-size: clamp(3rem, 15vw, 6rem);
-    letter-spacing: 0.1em;
   }
 
   .hobbies {

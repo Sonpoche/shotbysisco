@@ -50,16 +50,47 @@
 
 .footer-header {
   width: 100%;
-  padding: 4em 0;
+  padding: 1em 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
+.footer-header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .footer-header h1 {
   position: relative;
-  left: -0.5vw;
-  font-size: 15vw;
+  font-size: 5vw;
+  margin: 0;
+  line-height: 1;
+  text-transform: lowercase;
+  letter-spacing: 0.2rem;
+}
+
+.footer-header .tagline {
+  position: relative;
+  font-family: "BDMegalona", sans-serif;
+  font-style: normal;
+  font-size: 2vw;
+  font-weight: 400;
+  text-transform: lowercase;
+  margin-top: -0.2em;
+  opacity: 0.9;
+}
+
+
+/* Styles pour le logo SVG */
+.footer-logo {
+  height: auto;
+  max-height: 15vw; /* Même taille proportionnelle que l'ancien h1 */
+  width: auto;
+  object-fit: contain;
+  position: relative;
+  left: -0.5vw; /* Même positionnement que l'ancien h1 */
 }
 
 .footer-copyright-line {
@@ -73,6 +104,11 @@
 
 .footer-copyright-line p:nth-child(2) {
   text-align: right;
+}
+
+.footer-contact h3 span {
+  font-family: "Messina Sans", sans-serif !important;
+  font-style: normal !important;
 }
 
 @media (max-width: 1000px) {
@@ -95,5 +131,21 @@
   .footer {
     padding: 4em 1.25em 1.25em 1.25em;
     gap: 2em;
+  }
+
+  /* Logo responsive pour mobile */
+  .footer-logo {
+    max-height: 25vw;
+    left: 0; /* Reset du décalage sur mobile */
+  }
+
+  .footer-header h1 {
+    font-size: 20vw;
+  }
+
+  .footer-header .tagline {
+    font-size: 6vw;
+    left: 0;
+    margin-top: -0.2em;
   }
 }

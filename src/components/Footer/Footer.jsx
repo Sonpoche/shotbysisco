@@ -14,7 +14,7 @@ const Footer = () => {
           </h3>
 
           <p className="secondary">
-            De la création de contenu aux shootings photo de marque, je suis toujours ouvert aux collaborations créatives. N’hésite pas à me contacter.
+            De la création de contenu aux shootings photo de marque, je suis toujours ouvert aux collaborations créatives. N'hésite pas à me contacter.
           </p>
 
           <Link to="/contact" className="btn">
@@ -51,8 +51,10 @@ const Footer = () => {
       </div>
       <div className="footer-row">
         <div className="footer-header">
-          <h1>Memento</h1>
-          
+          <div className="footer-header-content">
+            <h1>memento</h1>
+            <p className="tagline">creating memorable visuals</p>
+          </div>
         </div>
 
         <div className="footer-copyright-line">

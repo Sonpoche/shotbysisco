@@ -38,8 +38,8 @@ function App() {
           <Route path="/a-propos" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
-          <Route path="/Portfolio" element={<Work />} />
-          <Route path="/sample-project" element={<Project />} />
+          <Route path="/portfolio" element={<Work />} />
+          <Route path="/projects" element={<Project />} />
         </Routes>
       </AnimatePresence>
     </>

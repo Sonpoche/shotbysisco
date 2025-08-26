@@ -206,7 +206,7 @@ const Menu = () => {
           <div className="menu-logo-group">
             <div className="menu-logo" onClick={closeMenu}>
               <Link to="/">
-                <h4>Memento</h4>
+                <h4>memento</h4>
               </Link>
             </div>
             

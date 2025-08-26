@@ -47,7 +47,7 @@
   font-family: "Messina Sans Mono";
   font-size: 0.75rem;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: lowercase;
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -150,7 +150,7 @@
 .carousel-description,
 .carousel-title {
   position: relative;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+
   width: 100%;
 }
 

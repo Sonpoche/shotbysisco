@@ -32,8 +32,8 @@ h2,
 h3,
 h4,
 h5 {
-  text-transform: uppercase;
-  font-family: "Rader";
+  text-transform: lowercase;
+  font-family: "BDMegalona", sans-serif;
 }
 
 h1 {
@@ -76,7 +76,7 @@ p {
 }
 
 p.primary {
-  text-transform: uppercase;
+  text-transform: lowercase;
   font-family: "Messina Sans Mono";
   font-size: 1rem;
   font-weight: 600;
@@ -92,7 +92,7 @@ p.secondary {
 }
 
 p.primary.sm {
-  text-transform: uppercase;
+  text-transform: lowercase;
   font-family: "Messina Sans Mono";
   font-size: 0.8rem;
   font-weight: 600;
@@ -110,7 +110,7 @@ p.secondary.sm {
 a {
   display: block;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: var(--fg);
   font-family: "Messina Sans Mono";
   font-size: 0.8rem;
@@ -150,7 +150,7 @@ textarea::placeholder {
 
 .btn {
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: lowercase;
   display: block;
   width: max-content;
   padding: 1em 2em;
