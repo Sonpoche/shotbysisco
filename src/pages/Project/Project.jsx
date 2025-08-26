@@ -1,14 +1,46 @@
 import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "./Project.css";
 
 import ParallaxImage from "../../components/ParallaxImage/ParallaxImage";
 import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
-
 import ReactLenis from "lenis/react";
-
 import Transition from "../../components/Transition/Transition";
 
+// Import des données des projets
+import projectsData from "../../data/projectsData";
+
 const Project = () => {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  
+  // Trouver le projet actuel par son slug
+  const currentProject = projectsData.find(project => project.slug === slug);
+  
+  // Si le projet n'existe pas, rediriger ou afficher le premier
+  if (!currentProject) {
+    // Redirect to first project or 404 page
+    return (
+      <div className="page project">
+        <div style={{ padding: '4em 2em', textAlign: 'center' }}>
+          <h2>Projet non trouvé</h2>
+          <button onClick={() => navigate('/portfolio')}>
+            Retour au portfolio
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
+  // Trouver le projet suivant (ou retourner au premier si on est au dernier)
+  const currentIndex = projectsData.findIndex(p => p.id === currentProject.id);
+  const nextProject = projectsData[currentIndex + 1] || projectsData[0];
+  
+  // Fonction pour naviguer vers le projet suivant
+  const handleNextProject = () => {
+    navigate(`/projects/${nextProject.slug}`);
+  };
+
   return (
     <ReactLenis root>
       <div className="page project">
@@ -18,16 +50,16 @@ const Project = () => {
             animateOnScroll={false}
             className="primary sm"
           >
-            Short film on self-discovery
+            {currentProject.subtitle}
           </AnimatedCopy>
           <AnimatedCopy tag="h2" delay={1}>
-            Fragments of Light
+            {currentProject.title}
           </AnimatedCopy>
         </section>
 
         <section className="project-banner-img">
           <div className="project-banner-img-wrapper">
-            <ParallaxImage src="/project/banner.jpg" alt="" />
+            <ParallaxImage src={currentProject.bannerImage} alt={currentProject.title} />
           </div>
         </section>
 
@@ -37,9 +69,7 @@ const Project = () => {
               Overview
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              A visual meditation on identity, *Fragments of Light* explores the
-              quiet journey of self-discovery through minimalism, mood, and
-              motion.
+              {currentProject.description}
             </AnimatedCopy>
           </div>
 
@@ -48,7 +78,7 @@ const Project = () => {
               Year
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              2024
+              {currentProject.year}
             </AnimatedCopy>
           </div>
 
@@ -57,16 +87,16 @@ const Project = () => {
               Category
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Short Film
+              {currentProject.category}
             </AnimatedCopy>
           </div>
 
           <div className="details">
             <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
-              Running Time
+              {currentProject.mediaType === 'video' ? 'Running Time' : 'Format'}
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              6:30
+              {currentProject.runningTime}
             </AnimatedCopy>
           </div>
 
@@ -75,42 +105,20 @@ const Project = () => {
               Directed by
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Memento
+              {currentProject.details.director}
             </AnimatedCopy>
           </div>
         </section>
 
         <section className="project-images">
           <div className="project-images-container">
-            <div className="project-img">
-              <div className="project-img-wrapper">
-                <ParallaxImage src="/project/project-1.jpg" alt="" />
+            {currentProject.images.map((image, index) => (
+              <div key={index} className="project-img">
+                <div className="project-img-wrapper">
+                  <ParallaxImage src={image} alt={`${currentProject.title} - Image ${index + 1}`} />
+                </div>
               </div>
-            </div>
-
-            <div className="project-img">
-              <div className="project-img-wrapper">
-                <ParallaxImage src="/project/project-2.jpg" alt="" />
-              </div>
-            </div>
-
-            <div className="project-img">
-              <div className="project-img-wrapper">
-                <ParallaxImage src="/project/project-3.jpg" alt="" />
-              </div>
-            </div>
-
-            <div className="project-img">
-              <div className="project-img-wrapper">
-                <ParallaxImage src="/project/project-4.jpg" alt="" />
-              </div>
-            </div>
-
-            <div className="project-img">
-              <div className="project-img-wrapper">
-                <ParallaxImage src="/project/project-5.jpg" alt="" />
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -120,7 +128,7 @@ const Project = () => {
               Editor
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Memento
+              {currentProject.details.editor}
             </AnimatedCopy>
           </div>
 
@@ -129,7 +137,7 @@ const Project = () => {
               Sound Design
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Elena Brooks
+              {currentProject.details.soundDesign}
             </AnimatedCopy>
           </div>
 
@@ -138,7 +146,7 @@ const Project = () => {
               Art Director
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Milo Vance
+              {currentProject.details.artDirector}
             </AnimatedCopy>
           </div>
 
@@ -147,7 +155,7 @@ const Project = () => {
               Producer
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Asha Lennox
+              {currentProject.details.producer}
             </AnimatedCopy>
           </div>
 
@@ -156,14 +164,15 @@ const Project = () => {
               Director
             </AnimatedCopy>
             <AnimatedCopy tag="h4" animateOnScroll={true}>
-              Memento
+              {currentProject.details.director}
             </AnimatedCopy>
           </div>
         </section>
 
-        <section className="next-project">
+        {/* Section Next Project - MAINTENANT CLIQUABLE */}
+        <section className="next-project" onClick={handleNextProject} style={{ cursor: 'pointer' }}>
           <AnimatedCopy tag="p" animateOnScroll={true} className="primary sm">
-            02 - 05
+            {String(currentIndex + 2).padStart(2, '0')} - {String(projectsData.length).padStart(2, '0')}
           </AnimatedCopy>
           <AnimatedCopy tag="h3" animateOnScroll={true}>
             Next
@@ -171,12 +180,12 @@ const Project = () => {
 
           <div className="next-project-img">
             <div className="next-project-img-wrapper">
-              <ParallaxImage src="/work/work-2.jpg" alt="" />
+              <ParallaxImage src={nextProject.thumbnail} alt={nextProject.title} />
             </div>
           </div>
 
           <AnimatedCopy tag="h4" animateOnScroll={true}>
-            Market Pulse
+            {nextProject.title}
           </AnimatedCopy>
         </section>
       </div>

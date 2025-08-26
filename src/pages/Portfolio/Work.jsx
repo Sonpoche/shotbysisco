@@ -1,4 +1,5 @@
 import projects from "../../data/projects";
+import projectsData from "../../data/projectsData"; // Import des données complètes
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Work.css";
@@ -142,6 +143,18 @@ const Work = () => {
           setIsAnimating(true);
         },
       });
+    }
+  };
+
+  // Fonction pour naviguer vers le projet individuel
+  const handleProjectClick = (projectTitle) => {
+    // Trouver le projet correspondant dans projectsData
+    const project = projectsData.find(p => p.title === projectTitle);
+    if (project) {
+      navigate(`/projects/${project.slug}`);
+    } else {
+      // Fallback vers le premier projet si non trouvé
+      navigate(`/projects/${projectsData[0].slug}`);
     }
   };
 
@@ -306,7 +319,7 @@ const Work = () => {
             <div 
               className="project-title-container"
               style={{ cursor: 'pointer' }}
-              onClick={() => navigate("/sample-project")}
+              onClick={() => handleProjectClick(activeProject.title)}
             >
               <h1>{activeProject.title}</h1>
             </div>

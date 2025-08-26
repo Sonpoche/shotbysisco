@@ -65,7 +65,7 @@
 .social-link {
   color: var(--fg);
   font-family: "Messina Sans Mono";
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 600;
   text-transform: lowercase;
   letter-spacing: 0.04em;
@@ -261,7 +261,7 @@
   }
   
   .social-link {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     letter-spacing: 0.02em;
   }
   

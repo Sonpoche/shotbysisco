@@ -39,6 +39,9 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/portfolio" element={<Work />} />
+          {/* Route dynamique pour les projets individuels */}
+          <Route path="/projects/:slug" element={<Project />} />
+          {/* Route legacy pour /projects sans slug - affiche le premier projet */}
           <Route path="/projects" element={<Project />} />
         </Routes>
       </AnimatePresence>

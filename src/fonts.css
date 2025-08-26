@@ -1,31 +1,13 @@
 @font-face {
   font-family: "BDMegalona";
-  src: url("/fonts/BDMegalona-Italic.otf") format("opentype");
+  src: url("/fonts/BDMegalona-Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
+  /* Optimisations iOS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
-/* Si vous avez d'autres variantes de BDMegalona, ajoutez-les ici */
-/* Exemple si vous aviez BDMegalona-Regular.otf :
-@font-face {
-  font-family: "BDMegalona";
-  src: url("/fonts/BDMegalona-Regular.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-*/
-
-/* Si vous aviez BDMegalona-Bold.otf :
-@font-face {
-  font-family: "BDMegalona";
-  src: url("/fonts/BDMegalona-Bold.otf") format("opentype");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-*/
 
 @font-face {
   font-family: "Messina Sans";

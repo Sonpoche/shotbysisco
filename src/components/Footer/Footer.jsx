@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="footer-row">
         <div className="footer-contact">
           <h3>
-            Créons ensemble <br />
+            Creons ensemble <br />
             contact<span>@</span>memento.ch
           </h3>
 

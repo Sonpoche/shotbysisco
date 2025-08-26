@@ -1,6 +1,7 @@
 import workList from "../../data/workList";
+import projectsData from "../../data/projectsData"; // Import des données complètes
 import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Ajouter useNavigate
 import "./Home.css";
 
 import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
@@ -17,11 +18,24 @@ gsap.registerPlugin(ScrollTrigger);
 import Transition from "../../components/Transition/Transition";
 
 const Home = () => {
+  const navigate = useNavigate(); // Ajouter le hook de navigation
   const workItems = Array.isArray(workList) ? workList : [];
   const stickyTitlesRef = useRef(null);
   const titlesRef = useRef([]);
   const stickyWorkHeaderRef = useRef(null);
   const homeWorkRef = useRef(null);
+
+  // Fonction pour naviguer vers un projet spécifique
+  const handleWorkItemClick = (workTitle) => {
+    // Trouver le projet correspondant dans projectsData
+    const project = projectsData.find(p => p.title === workTitle);
+    if (project) {
+      navigate(`/projects/${project.slug}`);
+    } else {
+      // Fallback vers le premier projet si non trouvé
+      navigate(`/projects/${projectsData[0].slug}`);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -143,7 +157,7 @@ const Home = () => {
 
           <div className="hero-header">
             <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.7}>
-              Memento
+              memento
             </AnimatedCopy>
             <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.8}>
             
@@ -172,7 +186,7 @@ const Home = () => {
               <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871102/test-cloudinary_u7pfrp.mp4" type="video/mp4" />
             </video>
             <div className="video-overlay">
-              <h2 className="overlay-text">ÉMOTIONS</h2>
+              <h2 className="overlay-text">emotions</h2>
             </div>
           </div>
           
@@ -187,7 +201,7 @@ const Home = () => {
               <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871175/test3-cloudinary_pqj87v.mp4" type="video/mp4" />
             </video>
             <div className="video-overlay">
-              <h2 className="overlay-text">VISION</h2>
+              <h2 className="overlay-text">vision</h2>
             </div>
           </div>
           
@@ -202,7 +216,7 @@ const Home = () => {
               <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871178/test2-cloudinary_ymwk8o.mp4" type="video/mp4" />
             </video>
             <div className="video-overlay">
-              <h2 className="overlay-text">QUALITÉ</h2>
+              <h2 className="overlay-text">qualite</h2>
             </div>
           </div>
         </section>
@@ -222,9 +236,14 @@ const Home = () => {
                   "0"
                 )} - ${String(workItems.length).padStart(2, "0")}`}</p>
                 <h3>{work.title}</h3>
-                <Link to="/sample-project" className="work-item-img">
+                {/* MODIFIER LE LIEN ICI - Utiliser la fonction de navigation */}
+                <div 
+                  className="work-item-img"
+                  onClick={() => handleWorkItemClick(work.title)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <img src={work.image} alt={work.title} />
-                </Link>
+                </div>
                 <h4>{work.category}</h4>
               </div>
             ))}
