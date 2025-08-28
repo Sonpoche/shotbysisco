@@ -52,7 +52,16 @@
 
 .menu-logo h4 {
   text-transform: lowercase;
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.1rem;
+  /* Appliquer les mêmes styles que les autres titres pour la cohérence */
+  font-family: "BDMegalona", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-style: italic;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
 }
 
 /* Styles pour les liens sociaux textuels */
@@ -203,19 +212,63 @@
   will-change: transform;
 }
 
+/* CORRECTION PRINCIPALE : Styles pour les liens du menu avec optimisations iOS */
 .menu-link-item .menu-link-item-holder a {
   position: relative;
   color: var(--fg);
-  font-family: "BDMegalona", sans-serif;
+  /* Stack de polices avec fallbacks iOS-friendly comme dans index.css */
+  font-family: "BDMegalona", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 7vw;
   text-transform: lowercase;
   letter-spacing: -0.01em;
   line-height: 80%;
   transition: color 0.3s;
+  
+  /* AJOUT : Forcer le style italic sur iOS */
+  font-style: italic;
+  /* AJOUT : Optimisations iOS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* AJOUT : Préventions pour iOS */
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
 }
 
 .menu-link-item .menu-link-item-holder:hover a {
   color: rgba(255, 255, 255, 1);
+}
+
+/* AJOUT : Styles spécifiques pour iOS comme dans index.css */
+@supports (-webkit-touch-callout: none) {
+  .menu-link-item .menu-link-item-holder a {
+    /* Forcer le chargement des polices sur iOS */
+    font-display: block;
+    /* Assurer la transformation en lowercase */
+    text-transform: lowercase;
+    /* Forcer l'italic */
+    font-style: italic !important;
+  }
+  
+  .menu-logo h4 {
+    font-display: block;
+    text-transform: lowercase;
+    font-style: italic !important;
+  }
+}
+
+/* AJOUT : Force l'affichage des polices sur iOS comme dans index.css */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .menu-link-item .menu-link-item-holder a {
+    font-family: "BDMegalona", -webkit-pictograph, fantasy, cursive;
+    font-style: italic !important;
+  }
+  
+  .menu-logo h4 {
+    font-family: "BDMegalona", -webkit-pictograph, fantasy, cursive;
+    font-style: italic !important;
+  }
 }
 
 /* Media Queries */

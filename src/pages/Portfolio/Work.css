@@ -78,6 +78,7 @@
   background: var(--fg);
 }
 
+/* Container principal des thumbnails - MODIFIÉ POUR CENTRER */
 .work-items-preview-container {
   position: fixed;
   left: 50%;
@@ -86,8 +87,27 @@
   width: 75%;
   height: 60px;
   display: flex;
-  justify-content: center;
+  justify-content: center; /* Centrer les thumbnails */
+  align-items: center;
   gap: 1em;
+  overflow-x: auto; /* Scroll horizontal si nécessaire */
+  overflow-y: hidden;
+  scrollbar-width: none; /* Cacher scrollbar Firefox */
+}
+
+/* Cacher scrollbar Webkit */
+.work-items-preview-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Wrapper pour thumbnails - MODIFIÉ POUR CENTRER */
+.thumbnails-wrapper {
+  display: flex;
+  gap: 1em;
+  justify-content: center; /* Centrer les éléments */
+  align-items: center;
+  flex-wrap: nowrap;
+  /* Important: ne pas définir min-width ici pour permettre le centrage */
 }
 
 .work-item {
@@ -97,7 +117,8 @@
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  min-width: 80px;
+  width: 80px;
+  height: 60px;
   flex: 0 0 auto;
 }
 
@@ -150,7 +171,6 @@
 .carousel-description,
 .carousel-title {
   position: relative;
-
   width: 100%;
 }
 
@@ -177,11 +197,30 @@
   display: none;
 }
 
-/* Wrapper pour thumbnails mobile - caché par défaut */
-.thumbnails-wrapper {
-  display: flex;
-  gap: 1em;
-  width: 100%;
+/* =================================
+   RESPONSIVE - DESKTOP 
+   ================================= */
+@media (min-width: 1001px) {
+  .work-items-preview-container {
+    justify-content: center; /* Forcer le centrage sur desktop */
+  }
+  
+  .thumbnails-wrapper {
+    justify-content: center;
+    width: auto; /* Largeur auto pour permettre le centrage */
+    min-width: 0; /* Reset du min-width */
+  }
+  
+  /* Si peu de projets, centrer sans scroll */
+  .work-items-preview-container:not(.has-scroll) {
+    overflow-x: hidden;
+  }
+  
+  /* Si beaucoup de projets, permettre le scroll */
+  .work-items-preview-container.has-scroll .thumbnails-wrapper {
+    justify-content: flex-start;
+    min-width: fit-content;
+  }
 }
 
 /* =================================
@@ -210,7 +249,7 @@
   }
   
   .work-item {
-    min-width: 60px;
+    width: 60px;
     height: 50px;
   }
   
@@ -270,6 +309,7 @@
     gap: 0;
     padding: 0;
     overflow: hidden;
+    justify-content: flex-start; /* Reset pour mobile */
   }
   
   /* Wrapper avec transition pour le slide */
@@ -279,6 +319,8 @@
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     height: 100%;
+    justify-content: flex-start; /* Reset pour mobile */
+    min-width: 100%; /* Prendre toute la largeur */
   }
   
   .work-item {

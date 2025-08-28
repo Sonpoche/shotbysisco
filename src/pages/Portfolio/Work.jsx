@@ -34,10 +34,12 @@ const Work = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasScroll, setHasScroll] = useState(false);
   
   const carouselInfoRef = useRef(null);
   const mediaRef = useRef(null);
   const thumbnailsWrapperRef = useRef(null);
+  const containerRef = useRef(null);
 
   // Détecter si on est sur mobile
   useEffect(() => {
@@ -56,6 +58,23 @@ const Work = () => {
       setActiveCategory(newCategory);
     }
   }, [location.search]);
+
+  // Vérifier si on a besoin du scroll (desktop uniquement)
+  useEffect(() => {
+    const checkScroll = () => {
+      if (!isMobile && containerRef.current && thumbnailsWrapperRef.current) {
+        const containerWidth = containerRef.current.clientWidth;
+        const wrapperWidth = thumbnailsWrapperRef.current.scrollWidth;
+        setHasScroll(wrapperWidth > containerWidth);
+      }
+    };
+    
+    checkScroll();
+    // Vérifier aussi quand les projets changent
+    const timer = setTimeout(checkScroll, 100);
+    
+    return () => clearTimeout(timer);
+  }, [filteredProjects, isMobile]);
 
   // Filtrer les projets selon la catégorie
   useEffect(() => {
@@ -274,7 +293,7 @@ const Work = () => {
           ))}
         </div>
 
-        <div className="work-items-preview-container">
+        <div className={`work-items-preview-container ${hasScroll && !isMobile ? 'has-scroll' : ''}`} ref={containerRef}>
           <div className="thumbnails-wrapper" ref={thumbnailsWrapperRef}>
             {filteredProjects.map((project) => (
               <div

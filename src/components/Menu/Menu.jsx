@@ -19,10 +19,11 @@ const Menu = () => {
       url: "https://www.instagram.com/memento.ch?igsh=eG9hYXJ6bDJucmJ6",
       external: true
     },
+    
     {
-      name: "TikTok", 
+      name: "linkedin", 
       shortName: "TT", // Version courte alternative
-      url: "https://www.tiktok.com/@votrecompte", // À remplacer par votre vrai lien
+      url: "https://www.linkedin.com/@votrecompte", // À remplacer par votre vrai lien
       external: true
     }
   ];
@@ -210,39 +211,26 @@ const Menu = () => {
               </Link>
             </div>
             
-            {/* Option 1: Liens textuels simples */}
+            {/* Liens textuels avec séparateur */}
             <div className="social-links">
               {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.url}
-                  className="social-link"
-                  onClick={(e) => handleSocialClick(social, e)}
-                  aria-label={social.name}
-                >
-                  {social.name}
-                </a>
+                <React.Fragment key={index}>
+                  <a
+                    href={social.url}
+                    className="social-link"
+                    onClick={(e) => handleSocialClick(social, e)}
+                    aria-label={social.name}
+                  >
+                    {social.name}
+                  </a>
+                  {index < socialLinks.length - 1 && (
+                    <span className="separator" style={{ color: 'var(--fg)', opacity: 0.4 }}>-</span>
+                  )}
+                </React.Fragment>
               ))}
             </div>
 
-            {/* Option 2: Version avec séparateur (décommentez si préféré) */}
-            {/* <div className="social-links-alt">
-              <a
-                href={socialLinks[0].url}
-                className="social-link"
-                onClick={(e) => handleSocialClick(socialLinks[0], e)}
-              >
-                {socialLinks[0].name}
-              </a>
-              <span className="separator">/</span>
-              <a
-                href={socialLinks[1].url}
-                className="social-link"
-                onClick={(e) => handleSocialClick(socialLinks[1], e)}
-              >
-                {socialLinks[1].name}
-              </a>
-            </div> */}
+            
           </div>
           
           <div className="menu-actions">

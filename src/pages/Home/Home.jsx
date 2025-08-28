@@ -261,7 +261,7 @@ const Home = () => {
                 <div className="home-tool-bg">
                   <img src="/about/tool-1.jpg" alt="" />
                 </div>
-                <h4>Vidéos</h4>
+                <h4>Videos</h4>
                 <p className="primary sm">Production Audiovisuelle</p>
               </Link>
               
