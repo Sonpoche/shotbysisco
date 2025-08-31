@@ -1,10 +1,9 @@
-import workList from "../../data/workList";
-import projectsData from "../../data/projectsData"; // Import des données complètes
-import React, { useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Ajouter useNavigate
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
+import VideoCarousel from "../../components/VideoCarousel/VideoCarousel"; // Import du nouveau composant
 import TrustedBy from "../../components/Reviews/TrustedBy";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
@@ -18,132 +17,10 @@ gsap.registerPlugin(ScrollTrigger);
 import Transition from "../../components/Transition/Transition";
 
 const Home = () => {
-  const navigate = useNavigate(); // Ajouter le hook de navigation
-  const workItems = Array.isArray(workList) ? workList : [];
-  const stickyTitlesRef = useRef(null);
-  const titlesRef = useRef([]);
-  const stickyWorkHeaderRef = useRef(null);
-  const homeWorkRef = useRef(null);
-
-  // Fonction pour naviguer vers un projet spécifique
-  const handleWorkItemClick = (workTitle) => {
-    // Trouver le projet correspondant dans projectsData
-    const project = projectsData.find(p => p.title === workTitle);
-    if (project) {
-      navigate(`/projects/${project.slug}`);
-    } else {
-      // Fallback vers le premier projet si non trouvé
-      navigate(`/projects/${projectsData[0].slug}`);
-    }
-  };
-
   useEffect(() => {
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    const stickySection = stickyTitlesRef.current;
-    const titles = titlesRef.current.filter(Boolean);
-
-    if (!stickySection || titles.length !== 3) {
-      window.removeEventListener("resize", handleResize);
-      return;
-    }
-
-    // Configuration initiale des vidéos
-    gsap.set(titles[0], { opacity: 1, scale: 1 });
-    gsap.set(titles[1], { opacity: 0, scale: 0.75 });
-    gsap.set(titles[2], { opacity: 0, scale: 0.75 });
-
-    const pinTrigger = ScrollTrigger.create({
-      trigger: stickySection,
-      start: "top top",
-      end: `+=${window.innerHeight * 5}`,
-      pin: true,
-      pinSpacing: true,
-    });
-
-    const masterTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: stickySection,
-        start: "top top",
-        end: `+=${window.innerHeight * 4}`,
-        scrub: 0.5,
-      },
-    });
-
-    // Animations des vidéos
-    masterTimeline
-      .to(
-        titles[0],
-        {
-          opacity: 0,
-          scale: 0.75,
-          duration: 0.3,
-          ease: "power2.out",
-        },
-        1
-      )
-      .to(
-        titles[1],
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.in",
-        },
-        1.25
-      );
-
-    masterTimeline
-      .to(
-        titles[1],
-        {
-          opacity: 0,
-          scale: 0.75,
-          duration: 0.3,
-          ease: "power2.out",
-        },
-        2.5
-      )
-      .to(
-        titles[2],
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.in",
-        },
-        2.75
-      );
-
-    const workHeaderSection = stickyWorkHeaderRef.current;
-    const homeWorkSection = homeWorkRef.current;
-
-    let workHeaderPinTrigger;
-    if (workHeaderSection && homeWorkSection) {
-      workHeaderPinTrigger = ScrollTrigger.create({
-        trigger: workHeaderSection,
-        start: "top top",
-        endTrigger: homeWorkSection,
-        end: "bottom bottom",
-        pin: true,
-        pinSpacing: false,
-      });
-    }
-
+    // Nettoyage des animations GSAP qui ne sont plus nécessaires
     return () => {
-      pinTrigger.kill();
-      if (workHeaderPinTrigger) {
-        workHeaderPinTrigger.kill();
-      }
-      if (masterTimeline.scrollTrigger) {
-        masterTimeline.scrollTrigger.kill();
-      }
-      masterTimeline.kill();
-      window.removeEventListener("resize", handleResize);
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
 
@@ -165,90 +42,8 @@ const Home = () => {
           </div>
         </section>
 
-        <section ref={stickyTitlesRef} className="sticky-titles">
-          <div className="sticky-titles-nav">
-            <p className="primary sm">À Propos</p>
-            <p className="primary sm">Connectons nos visions</p>
-          </div>
-          <div className="sticky-titles-footer">
-            <p className="primary sm">Le pouvoir des images</p>
-            <p className="primary sm">Collaborations</p>
-          </div>
-          
-          <div className="video-container" ref={(el) => (titlesRef.current[0] = el)}>
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              preload="auto"
-            >
-              <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871102/test-cloudinary_u7pfrp.mp4" type="video/mp4" />
-            </video>
-            <div className="video-overlay">
-              <h2 className="overlay-text">emotions</h2>
-            </div>
-          </div>
-          
-          <div className="video-container" ref={(el) => (titlesRef.current[1] = el)}>
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              preload="auto"
-            >
-              <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871175/test3-cloudinary_pqj87v.mp4" type="video/mp4" />
-            </video>
-            <div className="video-overlay">
-              <h2 className="overlay-text">vision</h2>
-            </div>
-          </div>
-          
-          <div className="video-container" ref={(el) => (titlesRef.current[2] = el)}>
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              preload="auto"
-            >
-              <source src="https://res.cloudinary.com/drochrcnp/video/upload/v1755871178/test2-cloudinary_ymwk8o.mp4" type="video/mp4" />
-            </video>
-            <div className="video-overlay">
-              <h2 className="overlay-text">qualite</h2>
-            </div>
-          </div>
-        </section>
-
-        <section ref={stickyWorkHeaderRef} className="sticky-work-header">
-          <AnimatedCopy tag="h1" animateOnScroll="true">
-            Memento Selection
-          </AnimatedCopy>
-        </section>
-
-        <section ref={homeWorkRef} className="home-work">
-          <div className="home-work-list">
-            {workItems.map((work, index) => (
-              <div key={work.id} className="home-work-item">
-                <p className="primary sm">{`${String(index + 1).padStart(
-                  2,
-                  "0"
-                )} - ${String(workItems.length).padStart(2, "0")}`}</p>
-                <h3>{work.title}</h3>
-                {/* MODIFIER LE LIEN ICI - Utiliser la fonction de navigation */}
-                <div 
-                  className="work-item-img"
-                  onClick={() => handleWorkItemClick(work.title)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <img src={work.image} alt={work.title} />
-                </div>
-                <h4>{work.category}</h4>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* Nouveau composant VideoCarousel remplace les sections sticky-titles et sticky-work-header */}
+        <VideoCarousel />
 
         <TrustedBy />
 
