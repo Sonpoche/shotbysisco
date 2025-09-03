@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 
 import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
-import VideoCarousel from "../../components/VideoCarousel/VideoCarousel"; // Import du nouveau composant
+import VideoCarousel from "../../components/VideoCarousel/VideoCarousel";
 import TrustedBy from "../../components/Reviews/TrustedBy";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
@@ -34,7 +34,7 @@ const Home = () => {
 
           <div className="hero-header">
             <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.7}>
-              creating memorable visuals stories
+              creating memorable stories
             </AnimatedCopy>
             <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.8}>
             
@@ -45,51 +45,46 @@ const Home = () => {
         {/* Nouveau composant VideoCarousel remplace les sections sticky-titles et sticky-work-header */}
         <VideoCarousel />
 
-        <TrustedBy />
-
-        {/* Section des services avec liens vers le portfolio */}
+        {/* Section des services avec liens vers le portfolio - 3 SERVICES */}
         <section className="hobbies">
+          <div className="services-header">
+            <h2>Chaque instant merite son histoire</h2>
+            <p className="services-subtitle">Trois approches pour sublimer vos projets visuels</p>
+          </div>
+          
           <div className="home-tools-container">
-            <div className="home-tools-row">
-              {/* Lien vers Portfolio - onglet Vidéos */}
-              <Link to="/portfolio?category=videos" className="home-tool-card">
+            <div className="home-tools-row three-cards">
+              {/* Lien vers Portfolio - onglet Events */}
+              <Link to="/portfolio?category=events" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-1.jpg" alt="" />
                 </div>
-                <h4>Videos</h4>
-                <p className="primary sm">Production Audiovisuelle</p>
+                <h4>Events</h4>
+                <p className="primary sm">Capturer l'instant</p>
               </Link>
               
-              {/* Lien vers Portfolio - onglet Photos */}
-              <Link to="/portfolio?category=photos" className="home-tool-card">
+              {/* Lien vers Portfolio - onglet Stories */}
+              <Link to="/portfolio?category=stories" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-2.jpg" alt="" />
                 </div>
-                <h4>Photos</h4>
-                <p className="primary sm">Prise de Vue</p>
+                <h4>Stories</h4>
+                <p className="primary sm">Raconter votre histoire</p>
               </Link>
               
-              {/* Lien vers Portfolio - onglet Design */}
-              <Link to="/portfolio?category=design" className="home-tool-card">
+              {/* Lien vers Portfolio - onglet Moments */}
+              <Link to="/portfolio?category=moments" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-3.jpg" alt="" />
                 </div>
-                <h4>Design</h4>
-                <p className="primary sm">Direction Artistique</p>
-              </Link>
-              
-              {/* Lien vers Portfolio - onglet Clips */}
-              <Link to="/portfolio?category=clip" className="home-tool-card">
-                <div className="home-tool-bg">
-                  <img src="/about/tool-4.jpg" alt="" />
-                </div>
-                <h4>Clips</h4>
-                <p className="primary sm">Vidéo Musicale</p>
+                <h4>Moments</h4>
+                <p className="primary sm">Figer l'émotion</p>
               </Link>
             </div>
           </div>
         </section>
 
+        <TrustedBy />
         <ContactForm />
         <Footer />
       </div>

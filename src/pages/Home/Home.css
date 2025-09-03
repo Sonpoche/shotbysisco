@@ -27,8 +27,8 @@
 .hero-header h1 {
   color: var(--fg);
   line-height: 1;
-  letter-spacing: 0.1rem;
-  font-size: 5rem;
+  letter-spacing: 0.05rem;
+  font-size: 4rem;
 }
 
 .sticky-titles {
@@ -194,6 +194,52 @@
   padding-bottom: 0;
 }
 
+/* Header de la section services */
+.services-header {
+  text-align: center;
+  margin-bottom: 3em;
+  padding: 0 2em;
+}
+
+.services-header h2 {
+  font-family: "BDMegalona", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  font-style: italic;
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--fg);
+  margin-bottom: 0.75em;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.services-subtitle {
+  font-family: "Messina Sans", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--fg);
+  opacity: 0.7;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .hobbies .home-tools-container {
   margin: 2em;
 }
@@ -201,6 +247,15 @@
 .hobbies .home-tools-row {
   display: flex;
   gap: 2em;
+}
+
+/* Layout spécifique pour 3 cartes */
+.hobbies .home-tools-row.three-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .hobbies .home-tool-card {
@@ -220,6 +275,11 @@
   text-decoration: none;
   transition: transform 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
+}
+
+/* Aspect ratio carré pour 3 cartes */
+.hobbies .home-tools-row.three-cards .home-tool-card {
+  aspect-ratio: 1;
 }
 
 .hobbies .home-tool-card:hover {
@@ -315,6 +375,21 @@
     padding-bottom: 0;
   }
 
+  /* Header responsive */
+  .services-header {
+    margin-bottom: 2em;
+    padding: 0 1em;
+  }
+
+  .services-header h2 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 0.5em;
+  }
+
+  .services-subtitle {
+    font-size: 0.95rem;
+  }
+
   .hobbies .home-tools-container {
     margin: 1.25em;
   }
@@ -322,6 +397,17 @@
   .hobbies .home-tools-row {
     flex-direction: column;
     gap: 1.25em;
+  }
+  
+  /* Layout 3 cartes sur mobile */
+  .hobbies .home-tools-row.three-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+  }
+  
+  .hobbies .home-tools-row.three-cards .home-tool-card {
+    aspect-ratio: 5/3; /* Plus horizontal sur mobile */
   }
 
   .hobbies .home-tool-card h4 {
@@ -342,5 +428,20 @@
 
   .hobby {
     aspect-ratio: 5/3;
+  }
+  
+  .hero-header h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .services-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .services-subtitle {
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
 }

@@ -12,13 +12,12 @@ const Work = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Catégories disponibles
+  // Catégories disponibles - 3 CATÉGORIES SEULEMENT
   const categories = [
     { id: "all", label: "Tout" },
-    { id: "photos", label: "Photos" },
-    { id: "videos", label: "Vidéos" },
-    { id: "clip", label: "Clips" },
-    { id: "design", label: "Design" },
+    { id: "events", label: "Events" },
+    { id: "stories", label: "Stories" },
+    { id: "moments", label: "Moments" },
   ];
 
   // Récupérer la catégorie depuis l'URL ou utiliser "all" par défaut
@@ -278,7 +277,7 @@ const Work = () => {
           )}
         </div>
 
-        {/* Tabs de catégories */}
+        {/* Tabs de catégories - AVEC NOUVELLES CATÉGORIES */}
         <div className="work-categories">
           {categories.map((category) => (
             <button

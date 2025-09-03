@@ -7,7 +7,7 @@ const projects = [
     thumbnail: "/work/work-1.jpg",
     media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871102/test-cloudinary_u7pfrp.mp4",
     mediaType: "video",
-    category: "videos"
+    category: "events"
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ const projects = [
     thumbnail: "/work/work-2.jpg",
     media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871178/test2-cloudinary_ymwk8o.mp4",
     mediaType: "video",
-    category: "videos"
+    category: "events"
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const projects = [
     thumbnail: "/work/work-3.jpg",
     media: "/work/work-3.jpg",
     mediaType: "image",
-    category: "photos"
+    category: "events"
   },
   {
     id: 4,
@@ -34,7 +34,7 @@ const projects = [
     thumbnail: "/work/work-4.jpg",
     media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871175/test3-cloudinary_pqj87v.mp4",
     mediaType: "video",
-    category: "clip"
+    category: "stories"
   },
   {
     id: 5,
@@ -43,7 +43,7 @@ const projects = [
     thumbnail: "/work/work-5.jpg",
     media: "/work/work-5.jpg",
     mediaType: "image",
-    category: "photos"
+    category: "stories"
   },
   {
     id: 6,
@@ -52,7 +52,7 @@ const projects = [
     thumbnail: "/work/work-1.jpg",
     media: "/work/work-1.jpg",
     mediaType: "image",
-    category: "photos"
+    category: "stories"
   },
   {
     id: 7,
@@ -61,7 +61,7 @@ const projects = [
     thumbnail: "/work/work-2.jpg",
     media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871102/test-cloudinary_u7pfrp.mp4",
     mediaType: "video",
-    category: "clip"
+    category: "moments"
   },
   {
     id: 8,
@@ -70,7 +70,7 @@ const projects = [
     thumbnail: "/work/work-3.jpg",
     media: "/work/work-3.jpg",
     mediaType: "image",
-    category: "design"
+    category: "moments"
   },
   {
     id: 9,
@@ -79,7 +79,7 @@ const projects = [
     thumbnail: "/work/work-4.jpg",
     media: "/work/work-4.jpg",
     mediaType: "image",
-    category: "photos"
+    category: "moments"
   },
   {
     id: 10,
@@ -88,7 +88,7 @@ const projects = [
     thumbnail: "/work/work-5.jpg",
     media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871178/test2-cloudinary_ymwk8o.mp4",
     mediaType: "video",
-    category: "videos"
+    category: "events"
   },
   {
     id: 11,
@@ -97,7 +97,7 @@ const projects = [
     thumbnail: "/work/work-1.jpg",
     media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871175/test3-cloudinary_pqj87v.mp4",
     mediaType: "video",
-    category: "clip"
+    category: "stories"
   },
   {
     id: 12,
@@ -106,7 +106,7 @@ const projects = [
     thumbnail: "/work/work-2.jpg",
     media: "/work/work-2.jpg",
     mediaType: "image",
-    category: "design"
+    category: "moments"
   }
 ];
 

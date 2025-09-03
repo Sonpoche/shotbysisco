@@ -53,7 +53,7 @@ const Footer = () => {
         <div className="footer-header">
           <div className="footer-header-content">
             <h1>memento</h1>
-            <p className="tagline">creating memorable visuals</p>
+            <p className="tagline">creating memorable stories</p>
           </div>
         </div>
 
