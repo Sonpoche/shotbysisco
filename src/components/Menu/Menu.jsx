@@ -7,7 +7,7 @@ const Menu = () => {
   const menuLinks = [
     { path: "/", label: "Accueil" },
     { path: "/portfolio", label: "Portfolio" },
-    { path: "/a-propos", label: "A Propos" },
+    { path: "/services", label: "Services" },
     { path: "/contact", label: "Contact" },
     { path: "/faq", label: "FAQ" },
   ];

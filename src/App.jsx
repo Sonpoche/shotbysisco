@@ -9,7 +9,7 @@ import FontPreloader from "./components/FontPreloader/FontPreloader";
 import Home from "./pages/Home/Home";
 import Work from "./pages/Portfolio/Work";
 import Project from "./pages/Project/Project";
-import About from "./pages/APropos/About";
+import Services from "./pages/Services/Services";
 import FAQ from "./pages/FAQ/FAQ";
 import Contact from "./pages/Contact/Contact";
 
@@ -39,7 +39,7 @@ function App() {
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
-          <Route path="/a-propos" element={<About />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/portfolio" element={<Work />} />

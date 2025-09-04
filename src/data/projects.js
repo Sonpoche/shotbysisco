@@ -5,7 +5,7 @@ const projects = [
     title: "Fragments of Light",
     description: "Short film on self-discovery",
     thumbnail: "/work/work-1.jpg",
-    media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871102/test-cloudinary_u7pfrp.mp4",
+    media: "https://videos.agencememento.com/test-web.mp4",
     mediaType: "video",
     category: "events"
   },
@@ -14,7 +14,7 @@ const projects = [
     title: "Market Pulse",
     description: "Street life, raw and real",
     thumbnail: "/work/work-2.jpg",
-    media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871178/test2-cloudinary_ymwk8o.mp4",
+    media: "https://videos.agencememento.com/test2-web.mp4",
     mediaType: "video",
     category: "events"
   },
@@ -32,7 +32,7 @@ const projects = [
     title: "Chroma/City",
     description: "Urban color in motion",
     thumbnail: "/work/work-4.jpg",
-    media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871175/test3-cloudinary_pqj87v.mp4",
+    media: "https://videos.agencememento.com/test3-web.mp4",
     mediaType: "video",
     category: "stories"
   },
@@ -59,7 +59,7 @@ const projects = [
     title: "Neon Dreams",
     description: "Music video for indie artist",
     thumbnail: "/work/work-2.jpg",
-    media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871102/test-cloudinary_u7pfrp.mp4",
+    media: "https://videos.agencememento.com/test-web.mp4",
     mediaType: "video",
     category: "moments"
   },
@@ -86,7 +86,7 @@ const projects = [
     title: "Midnight Stories",
     description: "Nocturnal documentary",
     thumbnail: "/work/work-5.jpg",
-    media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871178/test2-cloudinary_ymwk8o.mp4",
+    media: "https://videos.agencememento.com/test2-web.mp4",
     mediaType: "video",
     category: "events"
   },
@@ -95,7 +95,7 @@ const projects = [
     title: "Abstract Motion",
     description: "Experimental video art",
     thumbnail: "/work/work-1.jpg",
-    media: "https://res.cloudinary.com/drochrcnp/video/upload/v1755871175/test3-cloudinary_pqj87v.mp4",
+    media: "https://videos.agencememento.com/test3-web.mp4",
     mediaType: "video",
     category: "stories"
   },

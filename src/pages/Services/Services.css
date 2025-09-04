@@ -1,0 +1,481 @@
+/* Services.css */
+
+/* Hero Section */
+.services-hero {
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8em 2em 4em 2em;
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.02) 0%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.services-hero-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.services-hero h1 {
+  font-family: "BDMegalona", sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 600;
+  font-style: italic;
+  text-transform: lowercase;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.3em;
+  color: var(--fg);
+}
+
+.hero-subtitle {
+  font-family: "Messina Sans Mono", sans-serif;
+  font-size: 1.1rem;
+  color: var(--fg);
+  opacity: 0.7;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Tabs Section */
+.services-tabs-section {
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+  margin-bottom: 2em;
+}
+
+.services-tabs {
+  display: flex;
+  gap: 0.5em;
+  padding: 0.5em;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 2em;
+  border: 1px solid var(--fg200);
+}
+
+.service-tab {
+  padding: 0.75em 2em;
+  background: transparent;
+  border: none;
+  color: var(--fg200);
+  font-family: "Messina Sans Mono", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 1.5em;
+  outline: none;
+}
+
+.service-tab:hover {
+  color: var(--bg);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.service-tab.active {
+  color: var(--fg);
+  background: var(--bg);
+  transform: scale(1.05);
+}
+
+/* Service Content */
+.service-content {
+  padding: 0 2em 4em 2em;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.service-header {
+  text-align: center;
+  margin-bottom: 4em;
+}
+
+.service-header h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.5em;
+  color: var(--fg);
+}
+
+.service-description {
+  font-size: 1.2rem;
+  color: var(--fg);
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Service Cards Grid */
+.service-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
+  margin-bottom: 6em;
+}
+
+.service-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--fg200);
+  border-radius: 1.5em;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--fg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.service-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: #000;
+}
+
+.service-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover img {
+  transform: scale(1.1);
+}
+
+.service-card-overlay {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 40px;
+  height: 40px;
+  background: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover .service-card-overlay {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.card-number {
+  font-family: "Messina Sans Mono", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.service-card-content {
+  padding: 1.5em;
+}
+
+.service-card-content h3 {
+  font-family: "BDMegalona", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-style: italic;
+  text-transform: lowercase;
+  margin-bottom: 0.3em;
+  color: var(--fg);
+}
+
+.service-card-content p {
+  font-size: 0.95rem;
+  color: var(--fg);
+  opacity: 0.7;
+  line-height: 1.4;
+}
+
+/* Features Section */
+.service-features {
+  margin-bottom: 6em;
+}
+
+.features-title {
+  font-size: 2rem;
+  margin-bottom: 2em;
+  text-align: center;
+  color: var(--fg);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
+}
+
+.feature-item {
+  display: flex;
+  gap: 1.5em;
+  padding: 2em;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--fg200);
+  border-radius: 1em;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--fg);
+}
+
+.feature-icon {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  background: var(--bg);
+  color: var(--fg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Messina Sans Mono", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.feature-content h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5em;
+  color: var(--fg);
+}
+
+.feature-content p {
+  font-size: 0.95rem;
+  color: var(--fg);
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
+/* CTA Section */
+.service-cta {
+  text-align: center;
+  padding: 4em 2em;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 2em;
+  border: 1px solid var(--fg200);
+}
+
+.service-cta h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.5em;
+  color: var(--fg);
+}
+
+.cta-subtitle {
+  font-size: 1.1rem;
+  color: var(--fg);
+  opacity: 0.7;
+  margin-bottom: 2em;
+}
+
+.cta-button {
+  padding: 1em 3em;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--fg);
+  border-radius: 2em;
+  font-family: "Messina Sans Mono", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background: var(--fg);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+
+/* =================================
+   RESPONSIVE - TABLET
+   ================================= */
+@media (max-width: 1000px) {
+  .services-hero {
+    padding: 6em 1.5em 3em 1.5em;
+  }
+  
+  .service-content {
+    padding: 0 1.5em 3em 1.5em;
+  }
+  
+  .service-cards-container {
+    padding: 0 1em;
+  }
+  
+  .cards-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+  }
+  
+  .large-card {
+    grid-row: span 1;
+    min-height: 350px;
+  }
+  
+  .middle-column {
+    grid-column: span 2;
+    flex-direction: row;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+  
+  .service-cta {
+    padding: 3em 1.5em;
+  }
+}
+
+/* =================================
+   RESPONSIVE - MOBILE
+   ================================= */
+@media (max-width: 600px) {
+  .services-hero {
+    padding: 5em 1em 2em 1em;
+    min-height: 40vh;
+  }
+  
+  .services-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .services-tabs-section {
+    padding: 1em;
+    margin-bottom: 1.5em;
+  }
+  
+  .services-tabs {
+    gap: 0.25em;
+    padding: 0.35em;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .service-tab {
+    padding: 0.6em 1.2em;
+    font-size: 0.8rem;
+    flex: 1;
+  }
+  
+  .service-content {
+    padding: 0 1em 2em 1em;
+  }
+  
+  .service-header {
+    margin-bottom: 2.5em;
+  }
+  
+  .service-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .service-description {
+    font-size: 1rem;
+  }
+  
+  .service-cards-container {
+    margin-bottom: 3em;
+    padding: 0;
+  }
+  
+  .cards-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  .large-card {
+    min-height: 300px;
+  }
+  
+  .middle-column {
+    flex-direction: column;
+  }
+  
+  .service-card-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .service-card-content p {
+    font-size: 0.85rem;
+  }
+  
+  .service-features {
+    margin-bottom: 3em;
+  }
+  
+  .features-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5em;
+  }
+  
+  .features-grid {
+    gap: 1em;
+  }
+  
+  .feature-item {
+    padding: 1.5em 1em;
+    gap: 1em;
+  }
+  
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+  
+  .feature-content h4 {
+    font-size: 1.1rem;
+  }
+  
+  .feature-content p {
+    font-size: 0.85rem;
+  }
+  
+  .service-cta {
+    padding: 2em 1em;
+    border-radius: 1em;
+  }
+  
+  .service-cta h2 {
+    font-size: 1.8rem;
+  }
+  
+  .cta-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.5em;
+  }
+  
+  .cta-button {
+    padding: 0.8em 2em;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 250px;
+  }
+}

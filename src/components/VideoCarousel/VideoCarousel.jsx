@@ -9,6 +9,7 @@ const VideoCarousel = () => {
   const [momentum, setMomentum] = useState(0);
   const velocityTrackerRef = useRef([]);
   const lastXRef = useRef(0);
+  const intervalRef = useRef(null);
 
   // Base videos - URLs R2 avec posters
   const baseVideos = [
@@ -42,7 +43,7 @@ const VideoCarousel = () => {
     }
   ];
 
-  // CrÃ©er 5 sets pour une meilleure boucle (pas de trou)
+  // Créer 5 sets pour une meilleure boucle (pas de trou)
   const videos = [
     ...baseVideos,
     ...baseVideos,
@@ -50,6 +51,12 @@ const VideoCarousel = () => {
     ...baseVideos,
     ...baseVideos
   ];
+
+  // Détecter iOS
+  const isIOS = () => {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  };
 
   // Optimisation : Observer pour lazy loading
   useEffect(() => {
@@ -81,62 +88,158 @@ const VideoCarousel = () => {
     };
   }, []);
 
-  // Auto-scroll amÃ©liorÃ© - fonctionne desktop ET mobile
+  // Auto-scroll avec solution hybride pour iOS
   useEffect(() => {
     let animationId;
-    let velocity = 0.5; // Vitesse légèrement augmentée
+    // Vitesse adaptative selon l'écran
+    const isMobile = window.innerWidth <= 768;
+    const velocity = isMobile ? 1 : 0.5; // Plus rapide sur mobile
     
-    const animate = () => {
-      if (!isDragging && carouselRef.current) {
-        // Scroll automatique continu
-        carouselRef.current.scrollLeft += velocity;
-        
-        // Boucle infinie transparente
-        const scrollWidth = carouselRef.current.scrollWidth;
-        const currentScroll = carouselRef.current.scrollLeft;
-        const oneSetWidth = scrollWidth / 5; // 5 sets
-        
-        // Reset invisible au milieu pour Ã©viter les extrÃªmes
-        if (currentScroll >= oneSetWidth * 3.5) {
-          carouselRef.current.scrollLeft = currentScroll - oneSetWidth;
-        } else if (currentScroll <= oneSetWidth * 0.5) {
-          carouselRef.current.scrollLeft = currentScroll + oneSetWidth;
-        }
+    // Solution 1: Utiliser setInterval pour iOS comme fallback
+    if (isIOS()) {
+      // Clear any existing interval
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
       
-      // Momentum aprÃ¨s drag
-      if (momentum !== 0 && !isDragging) {
-        if (carouselRef.current) {
-          carouselRef.current.scrollLeft += momentum;
-          setMomentum(momentum * 0.95); // DÃ©cÃ©lÃ©ration
-          if (Math.abs(momentum) < 0.1) {
-            setMomentum(0);
+      intervalRef.current = setInterval(() => {
+        if (!isDragging && carouselRef.current) {
+          carouselRef.current.scrollLeft += velocity;
+          
+          // Boucle infinie transparente
+          const scrollWidth = carouselRef.current.scrollWidth;
+          const currentScroll = carouselRef.current.scrollLeft;
+          const oneSetWidth = scrollWidth / 5;
+          
+          if (currentScroll >= oneSetWidth * 3.5) {
+            carouselRef.current.scrollLeft = currentScroll - oneSetWidth;
+          } else if (currentScroll <= oneSetWidth * 0.5) {
+            carouselRef.current.scrollLeft = currentScroll + oneSetWidth;
           }
         }
-      }
+        
+        // Gérer le momentum
+        if (momentum !== 0 && !isDragging && carouselRef.current) {
+          carouselRef.current.scrollLeft += momentum;
+          setMomentum(prev => {
+            const newMomentum = prev * 0.95;
+            return Math.abs(newMomentum) < 0.1 ? 0 : newMomentum;
+          });
+        }
+      }, 16); // ~60fps
+      
+    } else {
+      // Solution 2: requestAnimationFrame pour autres navigateurs
+      const animate = () => {
+        if (!isDragging && carouselRef.current) {
+          carouselRef.current.scrollLeft += velocity;
+          
+          const scrollWidth = carouselRef.current.scrollWidth;
+          const currentScroll = carouselRef.current.scrollLeft;
+          const oneSetWidth = scrollWidth / 5;
+          
+          if (currentScroll >= oneSetWidth * 3.5) {
+            carouselRef.current.scrollLeft = currentScroll - oneSetWidth;
+          } else if (currentScroll <= oneSetWidth * 0.5) {
+            carouselRef.current.scrollLeft = currentScroll + oneSetWidth;
+          }
+        }
+        
+        if (momentum !== 0 && !isDragging) {
+          if (carouselRef.current) {
+            carouselRef.current.scrollLeft += momentum;
+            setMomentum(momentum * 0.95);
+            if (Math.abs(momentum) < 0.1) {
+              setMomentum(0);
+            }
+          }
+        }
+        
+        animationId = requestAnimationFrame(animate);
+      };
       
       animationId = requestAnimationFrame(animate);
-    };
+    }
     
-    animationId = requestAnimationFrame(animate);
+    // Solution 3: Forcer le réveil sur iOS avec un touch event passif
+    if (isIOS()) {
+      const wakeAnimation = () => {
+        if (carouselRef.current) {
+          // Forcer un petit changement pour maintenir l'animation active
+          carouselRef.current.style.willChange = 'scroll-position';
+          setTimeout(() => {
+            if (carouselRef.current) {
+              carouselRef.current.style.willChange = 'auto';
+            }
+          }, 100);
+        }
+      };
+      
+      // Réveiller l'animation toutes les 5 secondes sur iOS
+      const wakeInterval = setInterval(wakeAnimation, 5000);
+      
+      return () => {
+        clearInterval(wakeInterval);
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+      };
+    }
     
     return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
       if (animationId) {
         cancelAnimationFrame(animationId);
       }
     };
   }, [isDragging, momentum]);
 
-  // Position initiale au 2e set (pour avoir du contenu des deux cÃ´tÃ©s)
+  // Position initiale au 2e set
   useEffect(() => {
     if (carouselRef.current) {
       const timer = setTimeout(() => {
         const oneSetWidth = carouselRef.current.scrollWidth / 5;
-        carouselRef.current.scrollLeft = oneSetWidth * 2; // Au milieu
+        carouselRef.current.scrollLeft = oneSetWidth * 2;
       }, 100);
       return () => clearTimeout(timer);
     }
   }, []);
+
+  // Solution 4: Utiliser CSS pour iOS (fallback)
+  useEffect(() => {
+    if (isIOS() && carouselRef.current) {
+      // Ajouter une classe CSS pour animation sur iOS
+      carouselRef.current.classList.add('ios-auto-scroll');
+      
+      // Listener pour reprendre l'animation après interaction
+      const handleInteraction = () => {
+        if (carouselRef.current) {
+          carouselRef.current.classList.remove('ios-auto-scroll');
+          setTimeout(() => {
+            if (carouselRef.current && !isDragging) {
+              carouselRef.current.classList.add('ios-auto-scroll');
+            }
+          }, 100);
+        }
+      };
+      
+      document.addEventListener('touchend', handleInteraction);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          handleInteraction();
+        }
+      });
+      
+      return () => {
+        document.removeEventListener('touchend', handleInteraction);
+      };
+    }
+  }, [isDragging]);
 
   // Mouse handlers avec momentum amélioré
   const handleMouseDown = (e) => {
@@ -147,16 +250,29 @@ const VideoCarousel = () => {
     setStartX(e.pageX - carouselRef.current.offsetLeft);
     setScrollLeft(carouselRef.current.scrollLeft);
     carouselRef.current.style.cursor = 'grabbing';
+    
+    // Désactiver l'animation CSS sur iOS pendant le drag
+    if (isIOS() && carouselRef.current) {
+      carouselRef.current.classList.remove('ios-auto-scroll');
+    }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
     carouselRef.current.style.cursor = 'grab';
     
-    // Calculer le momentum basÃ© sur la vÃ©locitÃ©
     if (velocityTrackerRef.current.length > 0) {
       const avgVelocity = velocityTrackerRef.current.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTrackerRef.current.length, 5);
       setMomentum(-avgVelocity * 0.4);
+    }
+    
+    // Réactiver l'animation CSS sur iOS après le drag
+    if (isIOS() && carouselRef.current) {
+      setTimeout(() => {
+        if (carouselRef.current && !isDragging) {
+          carouselRef.current.classList.add('ios-auto-scroll');
+        }
+      }, 1000);
     }
   };
 
@@ -164,11 +280,14 @@ const VideoCarousel = () => {
     if (!isDragging) return;
     e.preventDefault();
     
+    // Sensibilité adaptée selon l'écran
+    const isMobile = window.innerWidth <= 768;
+    const sensitivity = isMobile ? 1.8 : 1.2; // Plus réactif sur mobile
+    
     const x = e.pageX - carouselRef.current.offsetLeft;
-    const walk = (x - startX) * 1.2; // Plus réactif
+    const walk = (x - startX) * sensitivity;
     carouselRef.current.scrollLeft = scrollLeft - walk;
     
-    // Tracker la vÃ©locitÃ© pour le momentum
     const velocity = e.pageX - lastXRef.current;
     velocityTrackerRef.current.push(velocity);
     if (velocityTrackerRef.current.length > 10) velocityTrackerRef.current.shift();
@@ -181,7 +300,7 @@ const VideoCarousel = () => {
     }
   };
 
-  // Touch handlers optimisÃ©s
+  // Touch handlers optimisés pour iOS
   const handleTouchStart = (e) => {
     setIsDragging(true);
     setMomentum(0);
@@ -189,6 +308,10 @@ const VideoCarousel = () => {
     velocityTrackerRef.current = [];
     setStartX(e.touches[0].pageX);
     setScrollLeft(carouselRef.current.scrollLeft);
+    
+    if (isIOS() && carouselRef.current) {
+      carouselRef.current.classList.remove('ios-auto-scroll');
+    }
   };
 
   const handleTouchEnd = () => {
@@ -198,13 +321,24 @@ const VideoCarousel = () => {
       const avgVelocity = velocityTrackerRef.current.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTrackerRef.current.length, 5);
       setMomentum(-avgVelocity * 0.4);
     }
+    
+    if (isIOS() && carouselRef.current) {
+      setTimeout(() => {
+        if (carouselRef.current && !isDragging) {
+          carouselRef.current.classList.add('ios-auto-scroll');
+        }
+      }, 1000);
+    }
   };
 
   const handleTouchMove = (e) => {
     if (!isDragging) return;
     
+    // Sensibilité plus élevée pour mobile
+    const sensitivity = 1.8;
+    
     const x = e.touches[0].pageX;
-    const walk = (x - startX) * 1.2;
+    const walk = (x - startX) * sensitivity;
     carouselRef.current.scrollLeft = scrollLeft - walk;
     
     const velocity = x - lastXRef.current;
@@ -218,7 +352,7 @@ const VideoCarousel = () => {
       <div className="carousel-header">
         <h1>agence memento</h1>
         <p className="carousel-subtitle">
-          Contenus vidÃ©os/photos premium pour entreprises
+          Contenus vidéos/photos premium pour entreprises
         </p>
       </div>
 

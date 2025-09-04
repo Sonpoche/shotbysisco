@@ -1,4 +1,4 @@
-/* VideoCarousel.css - Version OptimisÃƒÂ©e */
+/* VideoCarousel.css - Version Optimisée avec iOS Fix */
 
 .video-carousel-section {
   position: relative;
@@ -65,15 +65,52 @@
   cursor: grabbing;
 }
 
-/* Track - Desktop optimisÃ© pour 4 cartes visibles */
+/* Animation CSS pour iOS - Fallback */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari seulement */
+  .video-carousel-wrapper.ios-auto-scroll {
+    animation: smoothScroll 60s linear infinite;
+    will-change: scroll-position;
+  }
+  
+  .video-carousel-wrapper.ios-auto-scroll .video-carousel-track {
+    animation: slideTrack 60s linear infinite;
+  }
+  
+  @keyframes smoothScroll {
+    0% {
+      scroll-behavior: smooth;
+    }
+    100% {
+      scroll-behavior: smooth;
+    }
+  }
+  
+  @keyframes slideTrack {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-20%);
+    }
+  }
+  
+  .video-carousel-wrapper.dragging,
+  .video-carousel-wrapper.dragging .video-carousel-track {
+    animation: none !important;
+  }
+}
+
+/* Track - Desktop optimisé pour 4 cartes visibles */
 .video-carousel-track {
   display: flex;
   gap: 2em;
   width: max-content;
   padding: 0 calc((100vw - (350px * 4 + 2em * 3)) / 2);
+  will-change: transform;
 }
 
-/* Video Cards - Taille augmentÃ©e pour desktop */
+/* Video Cards - Taille augmentée pour desktop */
 .video-card {
   flex: 0 0 auto;
   width: 350px;
@@ -217,7 +254,7 @@
 @media (max-width: 768px) {
   .video-carousel-track {
     gap: 1em;
-    padding: 0 calc((100vw - 240px) / 2); /* Centrer avec demi-slides visibles */
+    padding: 0 calc((100vw - 240px) / 2);
   }
 
   .video-card {
@@ -237,7 +274,7 @@
     font-size: 0.85rem;
   }
 
-  /* DÃ©sactiver hover sur mobile */
+  /* Désactiver hover sur mobile */
   .video-card-inner:hover {
     transform: none;
   }
@@ -252,6 +289,13 @@
       transparent 100%
     );
     padding: 1.25em 1em;
+  }
+  
+  /* Animation mobile iOS optimisée */
+  @supports (-webkit-touch-callout: none) {
+    .video-carousel-wrapper.ios-auto-scroll .video-carousel-track {
+      animation-duration: 30s; /* Plus rapide pour mobile */
+    }
   }
 }
 
@@ -276,7 +320,7 @@
 
   .video-carousel-track {
     gap: 0.75em;
-    padding: 0 calc((100vw - 220px) / 2); /* 1 slide centré + demi-slides */
+    padding: 0 calc((100vw - 220px) / 2);
   }
 
   .video-card {
@@ -308,13 +352,20 @@
   .carousel-scroll-hint p {
     font-size: 0.8rem;
   }
+  
+  /* Animation mobile iOS plus rapide */
+  @supports (-webkit-touch-callout: none) {
+    .video-carousel-wrapper.ios-auto-scroll .video-carousel-track {
+      animation-duration: 25s; /* Encore plus rapide */
+    }
+  }
 }
 
-/* TrÃƒÂ¨s petit mobile - 1 slide centré + demi-slides */
+/* Très petit mobile - 1 slide centré + demi-slides */
 @media (max-width: 380px) {
   .video-carousel-track {
     gap: 0.5em;
-    padding: 0 calc((100vw - 200px) / 2); /* Optimisé pour très petits écrans */
+    padding: 0 calc((100vw - 200px) / 2);
   }
 
   .video-card {
