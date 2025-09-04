@@ -29,16 +29,19 @@ const Home = () => {
       <div className="page home">
         <section className="hero">
           <div className="hero-img">
-            <img src="/home/hero.jpg" alt="" />
-          </div>
-
-          <div className="hero-header">
-            <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.7}>
-              creating memorable stories
-            </AnimatedCopy>
-            <AnimatedCopy tag="h1" animateOnScroll={false} delay={0.8}>
-            
-            </AnimatedCopy>
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            >
+              <source src="https://videos.agencememento.com/test5-web.mp4" type="video/mp4" />
+            </video>
           </div>
         </section>
 

@@ -1,4 +1,4 @@
-/* VideoCarousel.css - Version OptimisÃ©e */
+/* VideoCarousel.css - Version OptimisÃƒÂ©e */
 
 .video-carousel-section {
   position: relative;
@@ -213,16 +213,16 @@
   }
 }
 
-/* Mobile landscape - 2 cartes visibles */
+/* Mobile landscape - 1 slide centré + 2 demi-slides visibles */
 @media (max-width: 768px) {
   .video-carousel-track {
     gap: 1em;
-    padding: 0 calc((100vw - (220px * 2 + 1em)) / 2);
+    padding: 0 calc((100vw - 240px) / 2); /* Centrer avec demi-slides visibles */
   }
 
   .video-card {
-    width: 220px;
-    height: 391px;
+    width: 240px;
+    height: 427px;
   }
 
   .video-card-inner {
@@ -255,7 +255,7 @@
   }
 }
 
-/* Mobile portrait - 1.5 cartes visibles */
+/* Mobile portrait - 1 slide centré + 2 demi-slides visibles */
 @media (max-width: 480px) {
   .video-carousel-section {
     padding: 2em 0 1.5em 0;
@@ -276,12 +276,12 @@
 
   .video-carousel-track {
     gap: 0.75em;
-    padding: 0 1em;
+    padding: 0 calc((100vw - 220px) / 2); /* 1 slide centré + demi-slides */
   }
 
   .video-card {
-    width: 240px;
-    height: 426px;
+    width: 220px;
+    height: 391px;
   }
 
   .video-card-inner {
@@ -310,16 +310,16 @@
   }
 }
 
-/* TrÃ¨s petit mobile - 1.2 cartes visibles */
+/* TrÃƒÂ¨s petit mobile - 1 slide centré + demi-slides */
 @media (max-width: 380px) {
   .video-carousel-track {
     gap: 0.5em;
-    padding: 0 0.75em;
+    padding: 0 calc((100vw - 200px) / 2); /* Optimisé pour très petits écrans */
   }
 
   .video-card {
-    width: 280px;
-    height: 497px;
+    width: 200px;
+    height: 356px;
   }
   
   .carousel-header h1 {

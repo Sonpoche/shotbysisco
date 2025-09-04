@@ -7,6 +7,8 @@ const VideoCarousel = () => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [momentum, setMomentum] = useState(0);
+  const velocityTrackerRef = useRef([]);
+  const lastXRef = useRef(0);
 
   // Base videos - URLs R2 avec posters
   const baseVideos = [
@@ -40,7 +42,7 @@ const VideoCarousel = () => {
     }
   ];
 
-  // Créer 5 sets pour une meilleure boucle (pas de trou)
+  // CrÃ©er 5 sets pour une meilleure boucle (pas de trou)
   const videos = [
     ...baseVideos,
     ...baseVideos,
@@ -79,35 +81,34 @@ const VideoCarousel = () => {
     };
   }, []);
 
-  // Auto-scroll amélioré
+  // Auto-scroll amÃ©liorÃ© - fonctionne desktop ET mobile
   useEffect(() => {
     let animationId;
-    let velocity = 0.35; // Vitesse plus lente et premium
+    let velocity = 0.5; // Vitesse légèrement augmentée
     
     const animate = () => {
       if (!isDragging && carouselRef.current) {
-        // Scroll normal
+        // Scroll automatique continu
         carouselRef.current.scrollLeft += velocity;
         
         // Boucle infinie transparente
         const scrollWidth = carouselRef.current.scrollWidth;
-        const clientWidth = carouselRef.current.clientWidth;
         const currentScroll = carouselRef.current.scrollLeft;
         const oneSetWidth = scrollWidth / 5; // 5 sets
         
-        // Reset invisible au milieu pour éviter les extrêmes
-        if (currentScroll >= oneSetWidth * 3) {
+        // Reset invisible au milieu pour Ã©viter les extrÃªmes
+        if (currentScroll >= oneSetWidth * 3.5) {
           carouselRef.current.scrollLeft = currentScroll - oneSetWidth;
-        } else if (currentScroll <= oneSetWidth) {
+        } else if (currentScroll <= oneSetWidth * 0.5) {
           carouselRef.current.scrollLeft = currentScroll + oneSetWidth;
         }
       }
       
-      // Momentum après drag
+      // Momentum aprÃ¨s drag
       if (momentum !== 0 && !isDragging) {
         if (carouselRef.current) {
           carouselRef.current.scrollLeft += momentum;
-          setMomentum(momentum * 0.95); // Décélération
+          setMomentum(momentum * 0.95); // DÃ©cÃ©lÃ©ration
           if (Math.abs(momentum) < 0.1) {
             setMomentum(0);
           }
@@ -126,7 +127,7 @@ const VideoCarousel = () => {
     };
   }, [isDragging, momentum]);
 
-  // Position initiale au 2e set (pour avoir du contenu des deux côtés)
+  // Position initiale au 2e set (pour avoir du contenu des deux cÃ´tÃ©s)
   useEffect(() => {
     if (carouselRef.current) {
       const timer = setTimeout(() => {
@@ -137,15 +138,12 @@ const VideoCarousel = () => {
     }
   }, []);
 
-  // Mouse handlers avec momentum
-  let lastX = 0;
-  let velocityTracker = [];
-
+  // Mouse handlers avec momentum amélioré
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setMomentum(0);
-    lastX = e.pageX;
-    velocityTracker = [];
+    lastXRef.current = e.pageX;
+    velocityTrackerRef.current = [];
     setStartX(e.pageX - carouselRef.current.offsetLeft);
     setScrollLeft(carouselRef.current.scrollLeft);
     carouselRef.current.style.cursor = 'grabbing';
@@ -155,10 +153,10 @@ const VideoCarousel = () => {
     setIsDragging(false);
     carouselRef.current.style.cursor = 'grab';
     
-    // Calculer le momentum basé sur la vélocité
-    if (velocityTracker.length > 0) {
-      const avgVelocity = velocityTracker.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTracker.length, 5);
-      setMomentum(-avgVelocity * 0.3); // Réduire pour un effet plus smooth
+    // Calculer le momentum basÃ© sur la vÃ©locitÃ©
+    if (velocityTrackerRef.current.length > 0) {
+      const avgVelocity = velocityTrackerRef.current.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTrackerRef.current.length, 5);
+      setMomentum(-avgVelocity * 0.4);
     }
   };
 
@@ -167,14 +165,14 @@ const VideoCarousel = () => {
     e.preventDefault();
     
     const x = e.pageX - carouselRef.current.offsetLeft;
-    const walk = (x - startX) * 0.8; // Ralenti pour un effet premium
+    const walk = (x - startX) * 1.2; // Plus réactif
     carouselRef.current.scrollLeft = scrollLeft - walk;
     
-    // Tracker la vélocité pour le momentum
-    const velocity = e.pageX - lastX;
-    velocityTracker.push(velocity);
-    if (velocityTracker.length > 10) velocityTracker.shift();
-    lastX = e.pageX;
+    // Tracker la vÃ©locitÃ© pour le momentum
+    const velocity = e.pageX - lastXRef.current;
+    velocityTrackerRef.current.push(velocity);
+    if (velocityTrackerRef.current.length > 10) velocityTrackerRef.current.shift();
+    lastXRef.current = e.pageX;
   };
 
   const handleMouseLeave = () => {
@@ -183,12 +181,12 @@ const VideoCarousel = () => {
     }
   };
 
-  // Touch handlers optimisés
+  // Touch handlers optimisÃ©s
   const handleTouchStart = (e) => {
     setIsDragging(true);
     setMomentum(0);
-    lastX = e.touches[0].pageX;
-    velocityTracker = [];
+    lastXRef.current = e.touches[0].pageX;
+    velocityTrackerRef.current = [];
     setStartX(e.touches[0].pageX);
     setScrollLeft(carouselRef.current.scrollLeft);
   };
@@ -196,9 +194,9 @@ const VideoCarousel = () => {
   const handleTouchEnd = () => {
     setIsDragging(false);
     
-    if (velocityTracker.length > 0) {
-      const avgVelocity = velocityTracker.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTracker.length, 5);
-      setMomentum(-avgVelocity * 0.3);
+    if (velocityTrackerRef.current.length > 0) {
+      const avgVelocity = velocityTrackerRef.current.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTrackerRef.current.length, 5);
+      setMomentum(-avgVelocity * 0.4);
     }
   };
 
@@ -206,7 +204,7 @@ const VideoCarousel = () => {
     if (!isDragging) return;
     
     const x = e.touches[0].pageX;
-    const walk = (x - startX) * 0.8;
+    const walk = (x - startX) * 1.2;
     carouselRef.current.scrollLeft = scrollLeft - walk;
     
     const velocity = x - lastXRef.current;
@@ -220,7 +218,7 @@ const VideoCarousel = () => {
       <div className="carousel-header">
         <h1>agence memento</h1>
         <p className="carousel-subtitle">
-          Contenus vidéos/photos premium pour entreprises
+          Contenus vidÃ©os/photos premium pour entreprises
         </p>
       </div>
 
