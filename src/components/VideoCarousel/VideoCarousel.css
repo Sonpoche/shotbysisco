@@ -1,4 +1,4 @@
-/* VideoCarousel.css - Layout Corrigé */
+/* VideoCarousel.css - Version OptimisÃ©e */
 
 .video-carousel-section {
   position: relative;
@@ -28,7 +28,7 @@
 }
 
 .carousel-subtitle {
-  font-family: "Messina Sans", sans-serif;
+  font-family: "Messina Sans Mono", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: var(--fg);
@@ -65,26 +65,27 @@
   cursor: grabbing;
 }
 
-/* Track */
+/* Track - Desktop optimisÃ© pour 4 cartes visibles */
 .video-carousel-track {
   display: flex;
-  gap: 1.5em;
+  gap: 2em;
   width: max-content;
-  padding: 0 calc((100vw - (320px * 6 + 1.5em * 5)) / 2); /* Centre 6 cartes */
+  padding: 0 calc((100vw - (350px * 4 + 2em * 3)) / 2);
 }
 
-/* Video Cards */
+/* Video Cards - Taille augmentÃ©e pour desktop */
 .video-card {
   flex: 0 0 auto;
-  width: 320px;
-  height: 568px;
+  width: 350px;
+  height: 622px;
   position: relative;
+  will-change: transform;
 }
 
 .video-card-inner {
   width: 100%;
   height: 100%;
-  border-radius: 1rem;
+  border-radius: 1.2rem;
   overflow: hidden;
   position: relative;
   border: 0.5px solid var(--fg);
@@ -166,29 +167,20 @@
   }
 }
 
-/* Media Queries */
+/* Track responsive sans padding */
 @media (max-width: 1400px) {
-  .video-card {
-    width: 280px;
-    height: 497px;
+  .video-carousel-track {
+    gap: 1.25rem;
+    padding: 0;
   }
   
-  .video-carousel-track {
-    padding: 0 2em;
+  .video-card {
+    width: 300px;
+    height: 533px;
   }
 }
 
-@media (max-width: 1200px) {
-  .video-card {
-    width: 240px;
-    height: 426px;
-  }
-  
-  .video-carousel-track {
-    gap: 1.25em;
-  }
-}
-
+/* Tablet portrait - 2.5 cartes visibles */
 @media (max-width: 1000px) {
   .video-carousel-section {
     padding: 3em 0 2em 0;
@@ -202,14 +194,14 @@
     font-size: clamp(2rem, 6vw, 3.5rem);
   }
 
-  .video-card {
-    width: 200px;
-    height: 355px;
+  .video-carousel-track {
+    gap: 1.25em;
+    padding: 0 2em;
   }
 
-  .video-carousel-track {
-    gap: 1em;
-    padding: 0 1.5em;
+  .video-card {
+    width: 280px;
+    height: 497px;
   }
 
   .video-card-overlay {
@@ -219,26 +211,22 @@
   .video-card-overlay h3 {
     font-size: 1.5rem;
   }
-  
-  .carousel-scroll-hint {
-    margin-top: 1.5em;
-    padding: 1.5em;
-  }
-  
-  .carousel-scroll-hint p {
-    font-size: 0.85rem;
-  }
 }
 
+/* Mobile landscape - 2 cartes visibles */
 @media (max-width: 768px) {
-  .video-card {
-    width: 180px;
-    height: 320px;
+  .video-carousel-track {
+    gap: 1em;
+    padding: 0 calc((100vw - (220px * 2 + 1em)) / 2);
   }
 
-  .video-carousel-track {
-    gap: 0.75em;
-    padding: 0 1em;
+  .video-card {
+    width: 220px;
+    height: 391px;
+  }
+
+  .video-card-inner {
+    border-radius: 1rem;
   }
 
   .video-card-overlay h3 {
@@ -248,9 +236,27 @@
   .video-card-overlay p {
     font-size: 0.85rem;
   }
+
+  /* DÃ©sactiver hover sur mobile */
+  .video-card-inner:hover {
+    transform: none;
+  }
+
+  /* Overlay toujours visible sur mobile */
+  .video-card-overlay {
+    transform: translateY(0);
+    background: linear-gradient(
+      to top,
+      rgba(15, 15, 15, 0.9) 0%,
+      rgba(15, 15, 15, 0.6) 40%,
+      transparent 100%
+    );
+    padding: 1.25em 1em;
+  }
 }
 
-@media (max-width: 600px) {
+/* Mobile portrait - 1.5 cartes visibles */
+@media (max-width: 480px) {
   .video-carousel-section {
     padding: 2em 0 1.5em 0;
   }
@@ -261,21 +267,21 @@
   }
 
   .carousel-header h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .carousel-subtitle {
     font-size: 0.9rem;
   }
 
-  .video-card {
-    width: 160px;
-    height: 284px;
+  .video-carousel-track {
+    gap: 0.75em;
+    padding: 0 1em;
   }
 
-  .video-carousel-track {
-    gap: 0.5em;
-    padding: 0 0.75em;
+  .video-card {
+    width: 240px;
+    height: 426px;
   }
 
   .video-card-inner {
@@ -283,11 +289,12 @@
   }
 
   .video-card-overlay {
-    padding: 1.25em 0.75em;
+    padding: 1em 0.75em;
   }
 
   .video-card-overlay h3 {
     font-size: 1.2rem;
+    margin-bottom: 0.2em;
   }
 
   .video-card-overlay p {
@@ -303,13 +310,19 @@
   }
 }
 
-@media (max-width: 480px) {
+/* TrÃ¨s petit mobile - 1.2 cartes visibles */
+@media (max-width: 380px) {
+  .video-carousel-track {
+    gap: 0.5em;
+    padding: 0 0.75em;
+  }
+
   .video-card {
-    width: 140px;
-    height: 249px;
+    width: 280px;
+    height: 497px;
   }
   
-  .video-card-overlay h3 {
-    font-size: 1.1rem;
+  .carousel-header h1 {
+    font-size: 1.75rem;
   }
 }

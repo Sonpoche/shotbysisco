@@ -6,208 +6,213 @@ const VideoCarousel = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [momentum, setMomentum] = useState(0);
 
-  // Base videos - URLs optimisées
+  // Base videos - URLs R2 avec posters
   const baseVideos = [
     {
       id: 1,
-      src: "https://res.cloudinary.com/drochrcnp/video/upload/f_auto,q_auto:good/v1756842233/test-web_dtllrt.mp4",
+      src: "https://videos.agencememento.com/test-web.mp4",
+      poster: "https://videos.agencememento.com/test-poster.jpg",
       title: "emotions",
       subtitle: "Visual Poetry"
     },
     {
       id: 2,
-      src: "https://res.cloudinary.com/drochrcnp/video/upload/f_auto,q_auto:good/v1756842283/test3-web_ralvnr.mp4",
+      src: "https://videos.agencememento.com/test2-web.mp4",
+      poster: "https://videos.agencememento.com/test2-poster.jpg",
       title: "vision",
       subtitle: "Creative Direction"
     },
     {
       id: 3,
-      src: "https://res.cloudinary.com/drochrcnp/video/upload/f_auto,q_auto:good/v1756842286/test2-web_a7entv.mp4",
+      src: "https://videos.agencememento.com/test3-web.mp4",
+      poster: "https://videos.agencememento.com/test3-poster.jpg",
       title: "qualite",
       subtitle: "Premium Content"
     },
     {
       id: 4,
-      src: "https://res.cloudinary.com/drochrcnp/video/upload/f_auto,q_auto:good/v1756842230/test4-web_mpwljb.mp4",
+      src: "https://videos.agencememento.com/test4-web.mp4",
+      poster: "https://videos.agencememento.com/test4-poster.jpg",
       title: "stories",
       subtitle: "Brand Narrative"
-    },
-    {
-      id: 5,
-      src: "https://res.cloudinary.com/drochrcnp/video/upload/f_auto,q_auto:good/v1756842233/test-web_dtllrt.mp4",
-      title: "moments",
-      subtitle: "Captured Beauty"
-    },
-    {
-      id: 6,
-      src: "https://res.cloudinary.com/drochrcnp/video/upload/f_auto,q_auto:good/v1756842286/test2-web_a7entv.mp4",
-      title: "creative",
-      subtitle: "Dynamic Content"
     }
   ];
 
-  // Créer 3 sets pour un bon équilibre
-  const videos = [...baseVideos, ...baseVideos, ...baseVideos];
+  // Créer 5 sets pour une meilleure boucle (pas de trou)
+  const videos = [
+    ...baseVideos,
+    ...baseVideos,
+    ...baseVideos,
+    ...baseVideos,
+    ...baseVideos
+  ];
 
-  // Forcer le play sur toutes les vidéos, surtout sur mobile
+  // Optimisation : Observer pour lazy loading
   useEffect(() => {
-    const playAllVideos = () => {
-      const videos = document.querySelectorAll('.video-card video');
-      videos.forEach(video => {
-        // Forcer le muted pour permettre l'autoplay sur mobile
-        video.muted = true;
-        video.play().catch(() => {
-          // Si ça échoue, on réessaye après une interaction
-          video.addEventListener('loadeddata', () => {
-            video.play().catch(() => {});
-          }, { once: true });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          const video = entry.target.querySelector('video');
+          if (video) {
+            if (entry.isIntersecting) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          }
         });
-      });
-    };
+      },
+      { 
+        root: carouselRef.current,
+        rootMargin: '100px',
+        threshold: 0.1 
+      }
+    );
 
-    // Essayer au montage
-    setTimeout(playAllVideos, 100);
-    
-    // Relancer périodiquement
-    const interval = setInterval(playAllVideos, 3000);
-    
-    // Forcer au premier touch/click sur mobile
-    const handleFirstInteraction = () => {
-      playAllVideos();
-      document.removeEventListener('touchstart', handleFirstInteraction);
-      document.removeEventListener('click', handleFirstInteraction);
-    };
-    
-    document.addEventListener('touchstart', handleFirstInteraction, { once: true });
-    document.addEventListener('click', handleFirstInteraction, { once: true });
-    
+    const cards = document.querySelectorAll('.video-card');
+    cards.forEach(card => observer.observe(card));
+
     return () => {
-      clearInterval(interval);
-      document.removeEventListener('touchstart', handleFirstInteraction);
-      document.removeEventListener('click', handleFirstInteraction);
+      cards.forEach(card => observer.unobserve(card));
     };
   }, []);
 
-  // Auto-scroll avec détection mobile
+  // Auto-scroll amélioré
   useEffect(() => {
     let animationId;
-    let scrollSpeed = 0.5;
-    
-    // Détecter si on est sur mobile
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      scrollSpeed = 0.3; // Plus lent sur mobile pour économiser les ressources
-    }
+    let velocity = 0.35; // Vitesse plus lente et premium
     
     const animate = () => {
       if (!isDragging && carouselRef.current) {
-        carouselRef.current.scrollLeft += scrollSpeed;
+        // Scroll normal
+        carouselRef.current.scrollLeft += velocity;
         
+        // Boucle infinie transparente
         const scrollWidth = carouselRef.current.scrollWidth;
+        const clientWidth = carouselRef.current.clientWidth;
         const currentScroll = carouselRef.current.scrollLeft;
-        const setWidth = scrollWidth / 3;
+        const oneSetWidth = scrollWidth / 5; // 5 sets
         
-        // Loop infini : on boucle entre les 3 sets
-        if (currentScroll >= setWidth * 2) {
-          carouselRef.current.scrollLeft = currentScroll - setWidth;
-        } else if (currentScroll <= setWidth * 0.1) {
-          carouselRef.current.scrollLeft = currentScroll + setWidth;
+        // Reset invisible au milieu pour éviter les extrêmes
+        if (currentScroll >= oneSetWidth * 3) {
+          carouselRef.current.scrollLeft = currentScroll - oneSetWidth;
+        } else if (currentScroll <= oneSetWidth) {
+          carouselRef.current.scrollLeft = currentScroll + oneSetWidth;
+        }
+      }
+      
+      // Momentum après drag
+      if (momentum !== 0 && !isDragging) {
+        if (carouselRef.current) {
+          carouselRef.current.scrollLeft += momentum;
+          setMomentum(momentum * 0.95); // Décélération
+          if (Math.abs(momentum) < 0.1) {
+            setMomentum(0);
+          }
         }
       }
       
       animationId = requestAnimationFrame(animate);
     };
     
-    // Démarrer l'animation
     animationId = requestAnimationFrame(animate);
-    
-    // Sur mobile, démarrer après la première interaction
-    if (isMobile) {
-      const startAutoScroll = () => {
-        if (!animationId) {
-          animationId = requestAnimationFrame(animate);
-        }
-      };
-      
-      document.addEventListener('touchstart', startAutoScroll, { once: true });
-    }
     
     return () => {
       if (animationId) {
         cancelAnimationFrame(animationId);
       }
     };
-  }, [isDragging]);
+  }, [isDragging, momentum]);
 
-  // Position initiale au milieu
+  // Position initiale au 2e set (pour avoir du contenu des deux côtés)
   useEffect(() => {
     if (carouselRef.current) {
-      setTimeout(() => {
-        const scrollWidth = carouselRef.current.scrollWidth;
-        carouselRef.current.scrollLeft = scrollWidth / 3;
+      const timer = setTimeout(() => {
+        const oneSetWidth = carouselRef.current.scrollWidth / 5;
+        carouselRef.current.scrollLeft = oneSetWidth * 2; // Au milieu
       }, 100);
+      return () => clearTimeout(timer);
     }
   }, []);
 
-  // Mouse handlers
+  // Mouse handlers avec momentum
+  let lastX = 0;
+  let velocityTracker = [];
+
   const handleMouseDown = (e) => {
     setIsDragging(true);
+    setMomentum(0);
+    lastX = e.pageX;
+    velocityTracker = [];
     setStartX(e.pageX - carouselRef.current.offsetLeft);
     setScrollLeft(carouselRef.current.scrollLeft);
+    carouselRef.current.style.cursor = 'grabbing';
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
+    carouselRef.current.style.cursor = 'grab';
     
-    // Gestion du loop après le drag
-    if (carouselRef.current) {
-      const currentScroll = carouselRef.current.scrollLeft;
-      const scrollWidth = carouselRef.current.scrollWidth;
-      const setWidth = scrollWidth / 3;
-      
-      // Toujours garder la position entre setWidth*0.1 et setWidth*2
-      if (currentScroll < 0) {
-        // Très rare mais au cas où
-        carouselRef.current.scrollLeft = setWidth;
-      } else if (currentScroll < setWidth * 0.1) {
-        // Proche du début -> ajouter un set
-        carouselRef.current.scrollLeft = currentScroll + setWidth;
-      } else if (currentScroll > setWidth * 2.9) {
-        // Proche de la fin -> retirer un set
-        carouselRef.current.scrollLeft = currentScroll - setWidth;
-      }
+    // Calculer le momentum basé sur la vélocité
+    if (velocityTracker.length > 0) {
+      const avgVelocity = velocityTracker.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTracker.length, 5);
+      setMomentum(-avgVelocity * 0.3); // Réduire pour un effet plus smooth
     }
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging) return;
     e.preventDefault();
+    
     const x = e.pageX - carouselRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
+    const walk = (x - startX) * 0.8; // Ralenti pour un effet premium
     carouselRef.current.scrollLeft = scrollLeft - walk;
+    
+    // Tracker la vélocité pour le momentum
+    const velocity = e.pageX - lastX;
+    velocityTracker.push(velocity);
+    if (velocityTracker.length > 10) velocityTracker.shift();
+    lastX = e.pageX;
   };
 
   const handleMouseLeave = () => {
-    setIsDragging(false);
+    if (isDragging) {
+      handleMouseUp();
+    }
   };
 
-  // Touch handlers
+  // Touch handlers optimisés
   const handleTouchStart = (e) => {
     setIsDragging(true);
+    setMomentum(0);
+    lastX = e.touches[0].pageX;
+    velocityTracker = [];
     setStartX(e.touches[0].pageX);
     setScrollLeft(carouselRef.current.scrollLeft);
   };
 
   const handleTouchEnd = () => {
-    handleMouseUp();
+    setIsDragging(false);
+    
+    if (velocityTracker.length > 0) {
+      const avgVelocity = velocityTracker.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTracker.length, 5);
+      setMomentum(-avgVelocity * 0.3);
+    }
   };
 
   const handleTouchMove = (e) => {
     if (!isDragging) return;
+    
     const x = e.touches[0].pageX;
-    const walk = (x - startX) * 1.5;
+    const walk = (x - startX) * 0.8;
     carouselRef.current.scrollLeft = scrollLeft - walk;
+    
+    const velocity = x - lastXRef.current;
+    velocityTrackerRef.current.push(velocity);
+    if (velocityTrackerRef.current.length > 10) velocityTrackerRef.current.shift();
+    lastXRef.current = x;
   };
 
   return (
@@ -236,11 +241,12 @@ const VideoCarousel = () => {
               <div key={`${video.id}-${index}`} className="video-card">
                 <div className="video-card-inner">
                   <video
+                    poster={video.poster}
                     autoPlay
                     loop
                     muted
                     playsInline
-                    preload="auto"
+                    preload="metadata"
                   >
                     <source src={video.src} type="video/mp4" />
                   </video>
