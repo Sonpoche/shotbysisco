@@ -1,0 +1,331 @@
+/* src/components/BentoGrid/BentoGrid.css */
+.bento-grid {
+  display: grid;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 1rem;
+  padding: 2rem 0;
+}
+
+/* =================================
+   LAYOUT 1 - Events (2x2 avec un grand bloc)
+   ================================= */
+.bento-grid-events {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, minmax(240px, auto));
+}
+
+.bento-grid-events .bento-item:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.bento-grid-events .bento-item:nth-child(2) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.bento-grid-events .bento-item:nth-child(3) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.bento-grid-events .bento-item:nth-child(4) {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+/* =================================
+   LAYOUT 2 - Stories (Un bloc vertical dominant)
+   ================================= */
+.bento-grid-stories {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, minmax(240px, auto));
+}
+
+.bento-grid-stories .bento-item:nth-child(1) {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+
+.bento-grid-stories .bento-item:nth-child(2) {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.bento-grid-stories .bento-item:nth-child(3) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.bento-grid-stories .bento-item:nth-child(4) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+/* =================================
+   LAYOUT 3 - Moments (Layout en L)
+   ================================= */
+.bento-grid-moments {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, minmax(180px, auto));
+}
+
+.bento-grid-moments .bento-item:nth-child(1) {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+
+.bento-grid-moments .bento-item:nth-child(2) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.bento-grid-moments .bento-item:nth-child(3) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.bento-grid-moments .bento-item:nth-child(4) {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+/* =================================
+   STYLES COMMUNS
+   ================================= */
+.bento-item {
+  position: relative;
+  border-radius: 20px;
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Background gradient subtil avec les couleurs du theme */
+.bento-item-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(227, 227, 219, 0.03) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+/* Variations de gradient pour certaines cartes */
+.bento-item:nth-child(1) .bento-item-background {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(227, 227, 219, 0.04) 0%,
+    transparent 60%
+  );
+}
+
+.bento-item:nth-child(3) .bento-item-background {
+  background: radial-gradient(
+    ellipse at bottom right,
+    rgba(227, 227, 219, 0.03) 0%,
+    transparent 50%
+  );
+}
+
+.bento-item-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.bento-icon {
+  display: inline-flex;
+  color: var(--fg200);
+  opacity: 0.6;
+  align-self: flex-start;
+}
+
+.bento-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Groupe titre et description colles en bas */
+.bento-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.bento-title {
+  font-family: "BDMegalona", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-style: italic;
+  text-transform: lowercase;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.bento-description {
+  font-family: "Messina Sans Mono", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.875rem;
+  color: var(--fg200);
+  opacity: 0.7;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Grandes cartes - plus de contenu */
+.bento-grid-events .bento-item:nth-child(1) .bento-title,
+.bento-grid-events .bento-item:nth-child(4) .bento-title,
+.bento-grid-stories .bento-item:nth-child(2) .bento-title,
+.bento-grid-moments .bento-item:nth-child(4) .bento-title {
+  font-size: 1.5rem;
+}
+
+.bento-grid-events .bento-item:nth-child(1) .bento-description,
+.bento-grid-events .bento-item:nth-child(4) .bento-description,
+.bento-grid-stories .bento-item:nth-child(2) .bento-description,
+.bento-grid-moments .bento-item:nth-child(4) .bento-description {
+  font-size: 0.95rem;
+  max-width: 80%;
+}
+
+/* Hover effect subtil avec les couleurs du theme */
+.bento-item:hover {
+  border-color: rgba(227, 227, 219, 0.2);
+}
+
+.bento-item:hover .bento-item-background {
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(227, 227, 219, 0.06) 0%,
+    transparent 50%
+  );
+}
+
+.bento-item:hover .bento-description {
+  opacity: 0.9;
+}
+
+.bento-item:hover .bento-icon {
+  opacity: 0.8;
+}
+
+/* =================================
+   RESPONSIVE - TABLET
+   ================================= */
+@media (max-width: 900px) {
+  .bento-grid-events,
+  .bento-grid-stories,
+  .bento-grid-moments {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+  
+  /* Reset Events layout */
+  .bento-grid-events .bento-item:nth-child(1) {
+    grid-column: span 2;
+  }
+  .bento-grid-events .bento-item:nth-child(2),
+  .bento-grid-events .bento-item:nth-child(3) {
+    grid-column: span 1;
+  }
+  .bento-grid-events .bento-item:nth-child(4) {
+    grid-column: span 2;
+  }
+  
+  /* Reset Stories layout */
+  .bento-grid-stories .bento-item:nth-child(1) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  .bento-grid-stories .bento-item:nth-child(2) {
+    grid-column: span 1;
+  }
+  .bento-grid-stories .bento-item:nth-child(3),
+  .bento-grid-stories .bento-item:nth-child(4) {
+    grid-column: span 1;
+  }
+  
+  /* Moments reste pareil */
+  .bento-item {
+    padding: 2rem;
+  }
+}
+
+/* =================================
+   RESPONSIVE - MOBILE (CORRIGE)
+   ================================= */
+@media (max-width: 600px) {
+  .bento-grid {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .bento-grid-events,
+  .bento-grid-stories,
+  .bento-grid-moments {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  
+  /* Reset tous les spans pour mobile */
+  .bento-grid-events .bento-item,
+  .bento-grid-stories .bento-item,
+  .bento-grid-moments .bento-item {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    min-height: 200px;
+  }
+  
+  .bento-item {
+    padding: 1.75rem;
+    margin: 0;
+    width: 100%;
+  }
+  
+  /* Ajustements du contenu pour mobile */
+  .bento-item-content {
+    align-items: flex-start;
+  }
+  
+  .bento-icon {
+    margin-bottom: 1.5rem;
+  }
+  
+  .bento-title {
+    font-size: 1.125rem !important;
+  }
+  
+  .bento-description {
+    font-size: 0.875rem !important;
+    max-width: 100% !important;
+  }
+  
+  .bento-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .bento-text-group {
+    padding-top: 0.5rem;
+  }
+}

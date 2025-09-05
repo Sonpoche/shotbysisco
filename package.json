@@ -11,18 +11,22 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@tabler/icons-react": "^3.34.1",
+    "clsx": "^2.1.1",
     "framer-motion": "^11.11.17",
     "gsap": "^3.13.0",
     "lenis": "^1.2.3",
     "lightswind": "^3.1.15",
     "lucide-react": "^0.483.0",
+    "motion": "^12.23.12",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-player": "^3.3.1",
     "react-router": "^7.4.0",
     "react-router-dom": "^7.4.0",
-    "split-type": "^0.3.4"
+    "split-type": "^0.3.4",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
