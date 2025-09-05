@@ -1,7 +1,7 @@
 /* TrustedBy.css */
 .trusted-by {
   position: relative;
-  width: 100vw;
+  width: 100%;
   padding: 6em 0;
   background-color: var(--fg);
   overflow: hidden;

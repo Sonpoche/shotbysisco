@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100svh;
   overflow: hidden;
   display: flex;
@@ -33,7 +33,7 @@
 
 .sticky-titles {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100svh;
   overflow: hidden;
   padding: 2em;
@@ -137,7 +137,7 @@
 /* Section work header réduite */
 .sticky-work-header {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 40vh; /* Réduit de 100vh à 40vh */
   padding: 2em;
   display: flex;
@@ -189,7 +189,7 @@
 
 /* Section hobbies avec des classes uniques pour éviter les conflits */
 .hobbies {
-  width: 100vw;
+  width: 100%;
   padding: 2em;
   padding-bottom: 0;
 }

@@ -2,7 +2,7 @@
 
 .video-carousel-section {
   position: relative;
-  width: 100vw;
+  width: 100%;
   padding: 4em 0 2em 0;
   background-color: var(--bg);
   overflow: hidden;
@@ -106,7 +106,7 @@
   display: flex;
   gap: 2em;
   width: max-content;
-  padding: 0 calc((100vw - (350px * 4 + 2em * 3)) / 2);
+  padding: 0 calc((100% - (350px * 4 + 2em * 3)) / 2);
   will-change: transform;
 }
 
@@ -254,7 +254,7 @@
 @media (max-width: 768px) {
   .video-carousel-track {
     gap: 1em;
-    padding: 0 calc((100vw - 240px) / 2);
+    padding: 0 calc((100% - 240px) / 2);
   }
 
   .video-card {
@@ -320,7 +320,7 @@
 
   .video-carousel-track {
     gap: 0.75em;
-    padding: 0 calc((100vw - 220px) / 2);
+    padding: 0 calc((100% - 220px) / 2);
   }
 
   .video-card {
@@ -365,7 +365,7 @@
 @media (max-width: 380px) {
   .video-carousel-track {
     gap: 0.5em;
-    padding: 0 calc((100vw - 200px) / 2);
+    padding: 0 calc((100% - 200px) / 2);
   }
 
   .video-card {
