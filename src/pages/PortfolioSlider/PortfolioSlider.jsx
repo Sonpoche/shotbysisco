@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import "./PortfolioSlider.css";
 import Transition from "../../components/Transition/Transition";
-import projects from "../../data/projects"; // Pour les vidéos
-import projectsData from "../../data/projectsData"; // Pour les slugs et navigation
+import projects from "../../data/projects";
+import projectsData from "../../data/projectsData";
 
 const PortfolioSlider = () => {
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ const PortfolioSlider = () => {
   
   // Refs
   const sliderRef = useRef(null);
-  const slideTitleRef = useRef(null);
   const thumbnailWheelRef = useRef(null);
   const slidesRef = useRef([]);
   const thumbnailsRef = useRef([]);
@@ -20,7 +19,7 @@ const PortfolioSlider = () => {
   // State
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1000);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [currentTitle, setCurrentTitle] = useState(""); // STATE pour le titre
+  const [currentTitle, setCurrentTitle] = useState("");
   
   // Animation variables
   const currentX = useRef(0);
@@ -33,14 +32,6 @@ const PortfolioSlider = () => {
   
   // Configuration
   const endScale = 5;
-  
-  // Catégories pour filtrage
-  const categories = [
-    { id: "all", label: "Tout" },
-    { id: "events", label: "Events" },
-    { id: "stories", label: "Stories" },
-    { id: "moments", label: "Moments" },
-  ];
   
   const [activeCategory, setActiveCategory] = useState("all");
   const [filteredProjects, setFilteredProjects] = useState(projects);
@@ -62,7 +53,6 @@ const PortfolioSlider = () => {
   const createSlides = () => {
     if (!sliderRef.current) return;
     
-    // Clear existing slides
     sliderRef.current.innerHTML = '';
     slidesRef.current = [];
     
@@ -73,7 +63,6 @@ const PortfolioSlider = () => {
       
       const project = filteredProjects[i % filteredProjects.length];
       
-      // Container pour l'image/vidéo
       const mediaContainer = document.createElement("div");
       mediaContainer.className = "portfolio-slide-media";
       
@@ -96,27 +85,21 @@ const PortfolioSlider = () => {
       
       slide.appendChild(mediaContainer);
       
-      // Ajouter un click handler pour naviguer vers le projet
-      slide.addEventListener('click', () => {
-        if (Math.abs(targetX.current - currentX.current) < 5) {
-          const slug = findProjectSlug(project.title);
-          navigate(`/projects/${slug}`);
-        }
-      });
+      // PAS de click handler sur les slides
       
       sliderRef.current.appendChild(slide);
       slidesRef.current.push(slide);
     }
   };
   
-  // Créer la roue de miniatures
+  // Créer la roue de miniatures avec moins d'écart
   const createThumbnailItems = () => {
     if (!thumbnailWheelRef.current) return;
     
     thumbnailWheelRef.current.innerHTML = '';
     thumbnailsRef.current = [];
     
-    // Augmenter le nombre de miniatures pour réduire l'écart
+    // Dupliquer pour réduire l'écart
     const duplicatedProjects = [...filteredProjects, ...filteredProjects];
     const totalThumbnails = duplicatedProjects.length;
     
@@ -149,11 +132,19 @@ const PortfolioSlider = () => {
     }
   };
   
-  // Initialiser le slider
+  // Initialiser le slider avec les bonnes largeurs mobile
   const initializeSlider = () => {
     if (!slidesRef.current.length) return;
     
-    slideWidth.current = window.innerWidth * 0.45;
+    // LARGEURS DIFFÉRENTES MOBILE/DESKTOP
+    if (window.innerWidth < 600) {
+      slideWidth.current = window.innerWidth * 0.90; // 90% sur petit mobile
+    } else if (window.innerWidth < 1000) {
+      slideWidth.current = window.innerWidth * 0.85; // 85% sur tablette
+    } else {
+      slideWidth.current = window.innerWidth * 0.45; // 45% sur desktop
+    }
+    
     viewportCenter.current = window.innerWidth / 2;
     
     slidesRef.current.forEach((slide, index) => {
@@ -243,7 +234,7 @@ const PortfolioSlider = () => {
       const slideCenterX = x + slideWidth.current / 2;
       const distanceFromCenter = Math.abs(slideCenterX - viewportCenter.current);
       
-      // Gérer la lecture des vidéos selon la distance du centre
+      // Gérer la lecture des vidéos
       const video = slide.querySelector('video');
       if (video) {
         if (distanceFromCenter < slideWidth.current * 1.5) {
@@ -257,7 +248,7 @@ const PortfolioSlider = () => {
         }
       }
       
-      // Sur mobile, réduire l'effet de zoom pour les slides non centrés
+      // Adapter l'effet de zoom pour mobile
       const outerDistance = isMobile ? slideWidth.current * 1.5 : slideWidth.current * 3;
       const progress = Math.min(distanceFromCenter / outerDistance, 1);
       
@@ -266,7 +257,7 @@ const PortfolioSlider = () => {
           ? 2 * progress * progress
           : 1 - Math.pow(-2 * progress + 2, 2) / 2;
       
-      // Adapter le scale maximum selon mobile/desktop
+      // Scale réduit sur mobile
       const maxScale = isMobile ? 3 : endScale;
       const scale = 1 + easedProgress * (maxScale - 1);
       
@@ -282,7 +273,7 @@ const PortfolioSlider = () => {
       }
     });
     
-    // Mettre à jour le titre via STATE
+    // Mettre à jour le titre
     const currentProject = filteredProjects[centerSlideIndex];
     if (currentProject) {
       setCurrentTitle(currentProject.title);
@@ -355,12 +346,28 @@ const PortfolioSlider = () => {
     };
   }, [filteredProjects, isMobile]);
   
-  // Event listeners
+  // Event listeners avec mise à jour des largeurs
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1000);
-      slideWidth.current = window.innerWidth < 1000 ? window.innerWidth * 0.85 : window.innerWidth * 0.45;
+      const wasWobile = isMobile;
+      const isNowMobile = window.innerWidth < 1000;
+      setIsMobile(isNowMobile);
+      
+      // Recalculer les largeurs
+      if (window.innerWidth < 600) {
+        slideWidth.current = window.innerWidth * 0.80; // 80% au lieu de 90%
+      } else if (window.innerWidth < 1000) {
+        slideWidth.current = window.innerWidth * 0.75; // 75% au lieu de 85%
+      } else {
+        slideWidth.current = window.innerWidth * 0.45;
+      }
+      
       viewportCenter.current = window.innerWidth / 2;
+      
+      // Réinitialiser si changement mobile/desktop
+      if (wasWobile !== isNowMobile) {
+        createThumbnailItems();
+      }
       initializeSlider();
     };
     
@@ -372,15 +379,24 @@ const PortfolioSlider = () => {
       window.removeEventListener("resize", handleResize);
       clearTimeout(scrollTimeout.current);
     };
-  }, []);
+  }, [isMobile]);
   
   return (
     <div className="portfolio-slider-container">
       {/* Slider principal */}
       <div className="portfolio-slider" ref={sliderRef}></div>
       
-      {/* Titre centré - Utilise le STATE au lieu de ref */}
-      <p className="portfolio-slide-title">
+      {/* Titre centré avec lien cliquable */}
+      <p 
+        className="portfolio-slide-title"
+        onClick={() => {
+          if (currentTitle) {
+            const slug = findProjectSlug(currentTitle);
+            navigate(`/projects/${slug}`);
+          }
+        }}
+        style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+      >
         {currentTitle}
       </p>
       
