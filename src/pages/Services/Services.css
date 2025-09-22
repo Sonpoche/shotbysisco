@@ -1,4 +1,11 @@
-/* Services.css */
+/* Services.css - Pleine largeur avec layouts verticaux uniquement */
+
+/* Page Services - Supprimer tous les paddings */
+.page.services {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
 
 /* Hero Section */
 .services-hero {
@@ -16,8 +23,9 @@
 
 .services-hero-content {
   text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
+  width: 100%;
 }
 
 .services-hero h1 {
@@ -36,7 +44,7 @@
   font-size: 1.1rem;
   color: var(--fg);
   opacity: 0.7;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -86,16 +94,17 @@
   box-shadow: 0 4px 12px rgba(227, 227, 219, 0.15);
 }
 
-/* Service Content */
+/* Service Content - AUCUN padding */
 .service-content {
-  padding: 0 2em 4em 2em;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .service-header {
   text-align: center;
   margin-bottom: 4em;
+  padding: 0 2em;
 }
 
 .service-header h2 {
@@ -108,68 +117,316 @@
   font-size: 1.2rem;
   color: var(--fg200);
   opacity: 0.8;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
 /* =================================
-   BENTO GRID INTEGRATION
+   BOUTON PORTFOLIO
+   ================================= */
+.service-portfolio-link {
+  display: flex;
+  justify-content: center;
+  margin: 4em 0 2em 0;
+}
+
+.portfolio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em 2.5em;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--fg);
+  border-radius: 2em;
+  font-family: "Messina Sans Mono", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-btn:hover {
+  background: var(--fg);
+  color: var(--bg);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(227, 227, 219, 0.15);
+}
+
+.portfolio-btn:active {
+  transform: translateY(0px);
+}
+
+/* =================================
+   CAROUSEL VERTICAL INTEGRATION
    ================================= */
 .services {
   background: var(--bg);
+  padding: 0;
+  margin: 0;
 }
 
-.service-bento-content {
-  padding: 0 2em 4em 2em;
-  max-width: 1200px;
-  margin: 0 auto;
+.service-carousel-content {
+  padding: 0;
+  margin: 0;
+  width: 100%;
   opacity: 1;
   transition: opacity 0.3s ease;
 }
 
-.service-bento-wrapper {
-  margin: 4em 0;
+.service-carousel-wrapper {
+  margin: 4em 0 0 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* BentoGrid - Pleine largeur */
+.bento-grid {
+  display: grid;
+  width: 100vw;
+  margin: 0;
+  gap: 2rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+/* Styles pour les cartes avec images */
+.bento-item {
+  position: relative;
+  background: #111111;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+}
+
+.bento-item:hover {
+  transform: scale(1.02);
+}
+
+/* Image/Vidéo de fond pour chaque item */
+.bento-item-image,
+.bento-item-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Overlay sombre pour la lisibilité */
+.bento-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 1;
+}
+
+/* Contenu parfaitement centré */
+.bento-item-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.bento-title {
+  font-family: "BDMegalona", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  font-style: italic;
+  text-transform: lowercase;
+  color: white;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+.bento-item:hover .bento-title {
+  transform: scale(1.1);
+  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.8);
 }
 
 /* =================================
-   RESPONSIVE - TABLET
+   LAYOUTS VERTICAUX UNIQUEMENT
    ================================= */
+
+/* Layout 1 - Réseaux sociaux: Tout en vertical/carré */
+.bento-grid-events {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 400px);
+}
+
+.bento-grid-events .bento-item:nth-child(1) {
+  grid-column: span 1;
+  grid-row: span 2; /* Rectangle vertical */
+}
+
+.bento-grid-events .bento-item:nth-child(2) {
+  grid-column: span 1; 
+  grid-row: span 1; /* Carré */
+}
+
+.bento-grid-events .bento-item:nth-child(3) {
+  grid-column: span 1;
+  grid-row: span 1; /* Carré */
+}
+
+.bento-grid-events .bento-item:nth-child(4) {
+  grid-column: span 1;
+  grid-row: span 2; /* Rectangle vertical */
+}
+
+/* Layout 2 - Evenementiel: Format vertical dominant */
+.bento-grid-stories {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 450px);
+}
+
+.bento-grid-stories .bento-item:nth-child(1) {
+  grid-column: span 1;
+  grid-row: span 2; /* Grande colonne verticale */
+}
+
+.bento-grid-stories .bento-item:nth-child(2) {
+  grid-column: span 1;
+  grid-row: span 1; /* Carré */
+}
+
+.bento-grid-stories .bento-item:nth-child(3) {
+  grid-column: span 1;
+  grid-row: span 1; /* Carré */
+}
+
+.bento-grid-stories .bento-item:nth-child(4) {
+  grid-column: span 1;
+  grid-row: span 2; /* Rectangle vertical */
+}
+
+/* Layout 3 - Privé: Tout en portrait */
+.bento-grid-moments {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 400px);
+}
+
+.bento-grid-moments .bento-item:nth-child(1) {
+  grid-column: span 1;
+  grid-row: span 2; /* Rectangle vertical */
+}
+
+.bento-grid-moments .bento-item:nth-child(2) {
+  grid-column: span 1;
+  grid-row: span 2; /* Rectangle vertical */
+}
+
+.bento-grid-moments .bento-item:nth-child(3) {
+  grid-column: span 1;
+  grid-row: span 1; /* Carré */
+}
+
+.bento-grid-moments .bento-item:nth-child(4) {
+  grid-column: span 1;
+  grid-row: span 1; /* Carré */
+}
+
+/* =================================
+   RESPONSIVE
+   ================================= */
+@media (max-width: 1200px) {
+  .bento-grid {
+    padding: 0 1.5rem;
+    gap: 1.5rem;
+  }
+  
+  .bento-title {
+    font-size: 2.2rem;
+  }
+}
+
 @media (max-width: 1000px) {
   .services-hero {
     padding: 6em 1.5em 3em 1.5em;
   }
   
-  .service-content {
-    padding: 0 1.5em 3em 1.5em;
-  }
-  
-  .service-bento-content {
-    padding: 0 1.5em 3em 1.5em;
-  }
-  
-  .service-bento-wrapper {
-    margin: 3em 0;
+  .services-tabs-section {
+    padding: 2em 1.5em;
   }
   
   .service-header {
+    padding: 0 1.5em;
     margin-bottom: 3em;
+  }
+  
+  .service-bento-wrapper {
+    margin: 3em 0 0 0;
+  }
+  
+  .bento-grid {
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+  
+  /* Tablet layouts - 2 colonnes, tout vertical/carré */
+  .bento-grid-events,
+  .bento-grid-stories,
+  .bento-grid-moments {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 350px);
+  }
+  
+  .bento-grid-events .bento-item:nth-child(1),
+  .bento-grid-stories .bento-item:nth-child(1),
+  .bento-grid-moments .bento-item:nth-child(1) {
+    grid-column: span 1;
+    grid-row: span 2; /* Rectangle vertical */
+  }
+  
+  .bento-grid-events .bento-item:nth-child(2),
+  .bento-grid-events .bento-item:nth-child(3),
+  .bento-grid-events .bento-item:nth-child(4),
+  .bento-grid-stories .bento-item:nth-child(2),
+  .bento-grid-stories .bento-item:nth-child(3),
+  .bento-grid-stories .bento-item:nth-child(4),
+  .bento-grid-moments .bento-item:nth-child(2),
+  .bento-grid-moments .bento-item:nth-child(3),
+  .bento-grid-moments .bento-item:nth-child(4) {
+    grid-column: span 1;
+    grid-row: span 1; /* Carrés */
+  }
+  
+  .bento-title {
+    font-size: 1.8rem;
   }
 }
 
-/* =================================
-   RESPONSIVE - MOBILE
-   ================================= */
 @media (max-width: 600px) {
-  /* Page services generale */
   .page.services {
     overflow-x: hidden;
-    width: 100%;
-  }
-  
-  /* Reset des marges negatives */
-  .services * {
-    margin-left: 0;
-    margin-right: 0;
   }
   
   .services-hero {
@@ -203,45 +460,48 @@
     flex: 1;
   }
   
-  .service-content {
-    padding: 0 1em 2em 1em;
-  }
-  
-  /* Bento Grid Mobile Specific */
-  .service-bento-wrapper {
-    margin: 2em 0;
-    padding: 0 1em;
-    width: 100%;
-    overflow-x: hidden;
-  }
-  
-  .service-bento-content {
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden;
-  }
-  
   .service-header {
     margin-bottom: 2.5em;
-    padding: 0;
-    text-align: center;
+    padding: 0 1em;
   }
   
   .service-header h2 {
     font-size: 1.8rem;
-    padding: 0;
   }
   
   .service-description {
     font-size: 1rem;
-    padding: 0;
-    max-width: 100%;
   }
   
-  /* S'assurer que le grid est bien centre */
+  .service-bento-wrapper {
+    margin: 2em 0 0 0;
+  }
+  
   .bento-grid {
-    margin: 0 auto;
-    padding: 0;
-    max-width: 100%;
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+  
+  /* Mobile - Une seule colonne, tout vertical */
+  .bento-grid-events,
+  .bento-grid-stories,
+  .bento-grid-moments {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 350px);
+  }
+  
+  .bento-grid-events .bento-item,
+  .bento-grid-stories .bento-item,
+  .bento-grid-moments .bento-item {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
+  
+  .bento-item-content {
+    padding: 1.5rem;
+  }
+  
+  .bento-title {
+    font-size: 1.6rem;
   }
 }

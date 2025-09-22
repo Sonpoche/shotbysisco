@@ -47,7 +47,7 @@ const Home = () => {
         {/* Nouveau composant VideoCarousel remplace les sections sticky-titles et sticky-work-header */}
         <VideoCarousel />
 
-        {/* Section des services avec liens vers le portfolio - 3 SERVICES */}
+        {/* Section des services avec liens vers la page Services - 3 SERVICES */}
         <section className="hobbies">
           <div className="services-header">
             <h2>racontez votre histoire</h2>
@@ -56,8 +56,8 @@ const Home = () => {
           
           <div className="home-tools-container">
             <div className="home-tools-row three-cards">
-              {/* Lien vers Portfolio - onglet Events */}
-              <Link to="/portfolio?category=events" className="home-tool-card">
+              {/* Lien vers Services - onglet Réseaux Sociaux */}
+              <Link to="/services?service=reseaux-sociaux" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-1.jpg" alt="" />
                 </div>
@@ -65,8 +65,8 @@ const Home = () => {
                 <p className="primary sm">Contenus creatifs pour vos plateformes.</p>
               </Link>
               
-              {/* Lien vers Portfolio - onglet Stories */}
-              <Link to="/portfolio?category=stories" className="home-tool-card">
+              {/* Lien vers Services - onglet Evenementiel */}
+              <Link to="/services?service=evenementiel" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-2.jpg" alt="" />
                 </div>
@@ -74,8 +74,8 @@ const Home = () => {
                 <p className="primary sm">Entreprises, galas, lancements, soirees.</p>
               </Link>
               
-              {/* Lien vers Portfolio - onglet Moments */}
-              <Link to="/portfolio?category=moments" className="home-tool-card">
+              {/* Lien vers Services - onglet Privé */}
+              <Link to="/services?service=prive" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-3.jpg" alt="" />
                 </div>

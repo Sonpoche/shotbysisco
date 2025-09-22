@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="footer-contact">
           <h3>
             Creons ensemble <br />
-            yourstory<span>@</span>agencememento.com
+            yourstory<span>@</span>memento.ch
           </h3>
 
           <p className="secondary">

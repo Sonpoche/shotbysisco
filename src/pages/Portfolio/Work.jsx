@@ -15,9 +15,9 @@ const Work = () => {
   // Catégories disponibles - 3 CATÉGORIES SEULEMENT
   const categories = [
     { id: "all", label: "Tout" },
-    { id: "events", label: "Events" },
-    { id: "stories", label: "Stories" },
-    { id: "moments", label: "Moments" },
+    { id: "evenementiel", label: "événementiel" },
+    { id: "reseaux", label: "Réseaux" },
+    { id: "prive", label: "Privé" },
   ];
 
   // Récupérer la catégorie depuis l'URL ou utiliser "all" par défaut

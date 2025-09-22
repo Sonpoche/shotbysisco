@@ -1,111 +1,196 @@
 // src/pages/Services/Services.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 import "./Services.css";
 
 import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import Footer from "../../components/Footer/Footer";
-import { BentoGrid, BentoGridItem } from "../../components/BentoGrid/BentoGrid";
+import VerticalCarousel from "../../components/VerticalCarousel/VerticalCarousel";
 
 import ReactLenis from "lenis/react";
 import { gsap } from "gsap";
 
 import Transition from "../../components/Transition/Transition";
 
-// Import des icones
-import { 
-  IconCamera,
-  IconVideo,
-  IconPalette,
-  IconUsers
-} from "@tabler/icons-react";
-
 const Services = () => {
-  const [activeService, setActiveService] = useState("events");
+  const [searchParams] = useSearchParams();
+  const serviceParam = searchParams.get('service');
+  
+  // Mapping des services vers les catégories du portfolio
+  const getPortfolioCategory = (serviceKey) => {
+    const portfolioMapping = {
+      'events': 'reseaux',        // Réseaux sociaux → reseaux
+      'stories': 'evenementiel',  // Evenementiel → evenementiel  
+      'moments': 'prive'          // Privé → prive
+    };
+    return portfolioMapping[serviceKey] || 'all';
+  };
 
-  // Contenu pour chaque service - 4 blocs seulement
+  // Mapping des noms d'URL vers les clés internes
+  const serviceMapping = {
+    'reseaux-sociaux': 'events',
+    'evenementiel': 'stories', 
+    'prive': 'moments'
+  };
+
+  // Définir le service actif basé sur l'URL ou par défaut "events"  
+  const mappedService = serviceParam ? serviceMapping[serviceParam] || 'events' : 'events';
+  const [activeService, setActiveService] = useState(mappedService);
+
+  // Mettre à jour le service actif si l'URL change
+  useEffect(() => {
+    if (serviceParam) {
+      const mapped = serviceMapping[serviceParam] || 'events';
+      if (mapped !== activeService) {
+        setActiveService(mapped);
+      }
+    }
+  }, [serviceParam]);
+
+  // Contenu pour chaque service - 8 blocs avec images
   const servicesContent = {
     events: {
-      title: "Events",
+      title: "Réseaux sociaux",
       subtitle: "Capturer l'essence de vos evenements",
       description: "Des moments uniques immortalises avec creativite",
       layout: "events",
       bentoItems: [
         {
           title: "Couverture complete",
-          description: "De l'installation au demontage, nous capturons chaque moment cle de votre evenement avec une approche documentaire et artistique.",
-          icon: <IconCamera />
+          media: "/work/work-1.jpg",
+          mediaType: "image"
         },
         {
           title: "Montage express",
-          description: "Livraison rapide de teasers pour maximiser l'impact.",
-          icon: <IconVideo />
+          media: "https://videos.agencememento.com/test-web.mp4",
+          mediaType: "video"
         },
         {
           title: "Multi-formats",
-          description: "Contenus optimises pour chaque plateforme sociale.",
-          icon: <IconPalette />
+          media: "/work/work-2.jpg",
+          mediaType: "image"
         },
         {
-          title: "Equipe creative",
-          description: "Des professionnels passionnes dedies a la reussite de votre evenement, avec une expertise technique et artistique.",
-          icon: <IconUsers />
+          title: "Stories & Reels",
+          media: "https://videos.agencememento.com/test2-web.mp4",
+          mediaType: "video"
+        },
+        {
+          title: "Community management",
+          media: "/work/work-3.jpg",
+          mediaType: "image"
+        },
+        {
+          title: "Direction artistique",
+          media: "https://videos.agencememento.com/test3-web.mp4",
+          mediaType: "video"
+        },
+        {
+          title: "Strategie digitale",
+          media: "/work/work-4.jpg",
+          mediaType: "image"
+        },
+        {
+          title: "Campagnes publicitaires",
+          media: "https://videos.agencememento.com/test5-web.mp4",
+          mediaType: "video"
         }
       ]
     },
     stories: {
-      title: "Stories",
+      title: "Evenementiel",
       subtitle: "Raconter votre histoire avec authenticite",
       description: "Des recits visuels qui touchent et engagent",
       layout: "stories",
       bentoItems: [
         {
           title: "Narration visuelle",
-          description: "Construction d'un recit captivant qui revele l'essence de votre marque.",
-          icon: <IconVideo />
+          media: "/work/work-5.jpg",
+          mediaType: "image"
         },
         {
           title: "Brand films",
-          description: "Films de marque qui revelent l'ADN de votre entreprise avec emotion et authenticite pour creer une connexion durable.",
-          icon: <IconCamera />
+          media: "https://videos.agencememento.com/test-web.mp4",
+          mediaType: "video"
         },
         {
           title: "Interviews",
-          description: "Temoignages authentiques captures avec sensibilite.",
-          icon: <IconUsers />
+          media: "/work/work-1.jpg",
+          mediaType: "image"
         },
         {
-          title: "Scenarios sur mesure",
-          description: "Ecriture creative adaptee a votre message unique.",
-          icon: <IconPalette />
+          title: "Captation live",
+          media: "https://videos.agencememento.com/test2-web.mp4",
+          mediaType: "video"
+        },
+        {
+          title: "Teaser evenement",
+          media: "/work/work-2.jpg",
+          mediaType: "image"
+        },
+        {
+          title: "Reportage photo",
+          media: "https://videos.agencememento.com/test3-web.mp4",
+          mediaType: "video"
+        },
+        {
+          title: "Post-production",
+          media: "/work/work-3.jpg",
+          mediaType: "image"
+        },
+        {
+          title: "Diffusion multi-canal",
+          media: "https://videos.agencememento.com/test5-web.mp4",
+          mediaType: "video"
         }
       ]
     },
     moments: {
-      title: "Moments",
+      title: "Privé",
       subtitle: "Saisir l'instant present",
       description: "Des images qui capturent l'emotion pure",
       layout: "moments",
       bentoItems: [
         {
           title: "Photographie lifestyle",
-          description: "Sessions photo naturelles et spontanees qui revelent la personnalite authentique de vos sujets.",
-          icon: <IconCamera />
+          media: "https://videos.agencememento.com/test-web.mp4",
+          mediaType: "video"
         },
         {
           title: "Direction artistique",
-          description: "Conception visuelle complete pour une coherence parfaite.",
-          icon: <IconPalette />
+          media: "/work/work-4.jpg",
+          mediaType: "image"
         },
         {
           title: "Portraits",
-          description: "Reveler l'essence de chaque personnalite avec sensibilite.",
-          icon: <IconUsers />
+          media: "/work/work-5.jpg",
+          mediaType: "image"
         },
         {
-          title: "Contenu social",
-          description: "Creation de banques d'images et videos courtes pour alimenter vos reseaux sociaux avec du contenu premium.",
-          icon: <IconVideo />
+          title: "Mariages",
+          media: "https://videos.agencememento.com/test2-web.mp4",
+          mediaType: "video"
+        },
+        {
+          title: "Seances couple",
+          media: "/work/work-1.jpg",
+          mediaType: "image"
+        },
+        {
+          title: "Instants de vie",
+          media: "https://videos.agencememento.com/test3-web.mp4",
+          mediaType: "video"
+        },
+        {
+          title: "Album photo",
+          media: "/work/work-2.jpg",
+          mediaType: "image"
+        },
+        {
+          title: "Souvenirs precieux",
+          media: "https://videos.agencememento.com/test5-web.mp4",
+          mediaType: "video"
         }
       ]
     }
@@ -115,14 +200,14 @@ const Services = () => {
 
   const handleServiceChange = (service) => {
     if (service !== activeService) {
-      gsap.to(".service-bento-content", {
+      gsap.to(".service-carousel-content", {
         opacity: 0,
         y: 20,
         duration: 0.3,
         ease: "power2.in",
         onComplete: () => {
           setActiveService(service);
-          gsap.to(".service-bento-content", {
+          gsap.to(".service-carousel-content", {
             opacity: 1,
             y: 0,
             duration: 0.3,
@@ -143,7 +228,7 @@ const Services = () => {
               Nos Services
             </AnimatedCopy>
             <AnimatedCopy tag="p" animateOnScroll={true} className="hero-subtitle">
-              Trois approches creatives pour sublimer vos projets visuels
+              Trois approches pour créer des histoires mémorables.
             </AnimatedCopy>
           </div>
         </section>
@@ -163,26 +248,26 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Service Content avec Bento Grid */}
-        <section className="service-bento-content">
+        {/* Service Content avec Vertical Carousel */}
+        <section className="service-carousel-content">
           <div className="service-header">
             <h2>{currentContent.subtitle}</h2>
             <p className="service-description">{currentContent.description}</p>
           </div>
 
-          {/* Bento Grid avec layout specifique */}
-          <div className="service-bento-wrapper">
-            <BentoGrid variant={currentContent.layout}>
-              {currentContent.bentoItems.map((item, index) => (
-                <BentoGridItem
-                  key={`${activeService}-${index}`}
-                  title={item.title}
-                  description={item.description}
-                  icon={item.icon}
-                  index={index}
-                />
-              ))}
-            </BentoGrid>
+          {/* Vertical Carousel à la place du Bento Grid */}
+          <div className="service-carousel-wrapper">
+            <VerticalCarousel items={currentContent.bentoItems} />
+          </div>
+
+          {/* Bouton vers le portfolio correspondant */}
+          <div className="service-portfolio-link">
+            <Link 
+              to={`/portfolio?category=${getPortfolioCategory(activeService)}`}
+              className="portfolio-btn"
+            >
+              Voir nos réalisations
+            </Link>
           </div>
         </section>
 
