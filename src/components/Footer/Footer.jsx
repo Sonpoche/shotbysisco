@@ -10,15 +10,15 @@ const Footer = () => {
         <div className="footer-contact">
           <h3>
             Creons ensemble <br />
-            contact<span>@</span>memento.ch
+            yourstory<span>@</span>agencememento.com
           </h3>
 
           <p className="secondary">
-            De la création de contenu aux shootings photo de marque, je suis toujours ouvert aux collaborations créatives. N'hésite pas à me contacter.
+            De la communication digitale aux événements d’entreprise, jusqu’aux projets privés, nous donnons vie à vos histoires visuelles. Toujours ouverts aux collaborations créatives.
           </p>
 
           <Link to="/contact" className="btn">
-            Prêt à tourner ensemble ?
+            une histoire à raconter ?
           </Link>
         </div>
 

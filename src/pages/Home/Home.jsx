@@ -50,8 +50,8 @@ const Home = () => {
         {/* Section des services avec liens vers le portfolio - 3 SERVICES */}
         <section className="hobbies">
           <div className="services-header">
-            <h2>Chaque instant merite son histoire</h2>
-            <p className="services-subtitle">Trois approches pour sublimer vos projets visuels</p>
+            <h2>racontez votre histoire</h2>
+            <p className="services-subtitle">Trois approches pour creer des histoires memorables</p>
           </div>
           
           <div className="home-tools-container">
@@ -61,8 +61,8 @@ const Home = () => {
                 <div className="home-tool-bg">
                   <img src="/about/tool-1.jpg" alt="" />
                 </div>
-                <h4>Events</h4>
-                <p className="primary sm">Capturer l'instant</p>
+                <h4>Reseaux Sociaux</h4>
+                <p className="primary sm">Contenus creatifs pour vos plateformes.</p>
               </Link>
               
               {/* Lien vers Portfolio - onglet Stories */}
@@ -70,8 +70,8 @@ const Home = () => {
                 <div className="home-tool-bg">
                   <img src="/about/tool-2.jpg" alt="" />
                 </div>
-                <h4>Stories</h4>
-                <p className="primary sm">Raconter votre histoire</p>
+                <h4>Evenementiel</h4>
+                <p className="primary sm">Entreprises, galas, lancements, soirees.</p>
               </Link>
               
               {/* Lien vers Portfolio - onglet Moments */}
@@ -79,8 +79,8 @@ const Home = () => {
                 <div className="home-tool-bg">
                   <img src="/about/tool-3.jpg" alt="" />
                 </div>
-                <h4>Moments</h4>
-                <p className="primary sm">Figer l'émotion</p>
+                <h4>Prive</h4>
+                <p className="primary sm">Mariages, portraits et instants de vie.</p>
               </Link>
             </div>
           </div>

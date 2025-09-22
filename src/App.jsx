@@ -8,7 +8,6 @@ import FontPreloader from "./components/FontPreloader/FontPreloader";
 
 import Home from "./pages/Home/Home";
 import Work from "./pages/Portfolio/Work";
-import PortfolioSlider from "./pages/PortfolioSlider/PortfolioSlider";
 import Project from "./pages/Project/Project";
 import Services from "./pages/Services/Services";
 import FAQ from "./pages/FAQ/FAQ";
@@ -44,7 +43,6 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/portfolio" element={<Work />} />
-          <Route path="/portfolioslider" element={<PortfolioSlider />} />
           {/* Route dynamique pour les projets individuels */}
           <Route path="/projects/:slug" element={<Project />} />
           {/* Route legacy pour /projects sans slug - affiche le premier projet */}

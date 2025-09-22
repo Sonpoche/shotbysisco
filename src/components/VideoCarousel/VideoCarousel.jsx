@@ -352,7 +352,7 @@ const VideoCarousel = () => {
       <div className="carousel-header">
         <h1>agence memento</h1>
         <p className="carousel-subtitle">
-          Contenus vidéos/photos premium pour entreprises
+          Creation photo & video memorable pour entreprises et particuliers
         </p>
       </div>
 
@@ -394,7 +394,7 @@ const VideoCarousel = () => {
       </div>
       
       <div className="carousel-scroll-hint">
-        <p>← drag to explore →</p>
+        <p>← parcourir →</p>
       </div>
     </section>
   );

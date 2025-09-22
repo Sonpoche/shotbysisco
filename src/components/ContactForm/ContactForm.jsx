@@ -19,10 +19,10 @@ const ContactForm = () => {
       <div className="contact-form-row">
         <div className="contact-form-col">
           <div className="contact-form-header">
-            <h3>On cadre votre projet ?</h3>
+            <h3>Une histoire a raconter ? Rendons-la memorable.</h3>
 
             <p>
-              Une histoire en tête ? Donnons-lui vie ensemble. J’aimerais découvrir ton projet et voir comment nous pouvons collaborer.
+              Ton histoire mérite d’être partagée. Confie-moi ton projet et voyons comment la mettre en lumière.
             </p>
           </div>
 
@@ -34,11 +34,11 @@ const ContactForm = () => {
 
         <div className="contact-form-col">
           <div className="form-item">
-            <input type="text" placeholder="Name" />
+            <input type="text" placeholder="Nom & Prénom" />
           </div>
 
           <div className="form-item">
-            <input type="text" placeholder="Email" />
+            <input type="text" placeholder="E-mail" />
           </div>
 
           <div className="form-item">
