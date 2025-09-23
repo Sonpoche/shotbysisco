@@ -1,52 +1,52 @@
 export const faqItems = [
   {
-    question: "Quels types de projets réalisez-vous ?",
+    question: "Quels types de projets realisez-vous ?",
     answer:
-      "Je me spécialise dans les vidéos narratives courtes, les documentaires et le contenu de marque. Mon travail met l’accent sur la narration et l’esthétique visuelle.",
+      "Nous couvrons les événements (corporate, soirées, conférences, lancements), créons du contenu pour réseaux sociaux et accompagnons les particuliers pour leurs moments de vie (mariages, portraits, baptêmes, etc.).",
   },
   {
-    question: "Êtes-vous disponible pour des missions freelance ou sur commande ?",
+    question: "Etes-vous disponible pour des missions freelance ou sur commande ?",
     answer:
-      "Oui, j’accepte les projets freelance et sur commande. N’hésitez pas à me contacter via le formulaire pour discuter de votre vision.",
+      "Oui. Nous travaillons à la fois sur mandat ponctuel et sur collaborations régulières.",
   },
   {
-    question: "Gérez-vous à la fois le tournage et la post-production ?",
+    question: "Gerez-vous a la fois le tournage et la post-production ?",
     answer:
-      "Absolument. Je propose un service complet, incluant la prise de vue, le montage, l’étalonnage et le design sonore.",
+      "Oui. De la préparation au montage final, nous assurons un suivi complet.",
   },
   {
-    question: "Quel matériel utilisez-vous ?",
+    question: "Quel materiel utilisez-vous ?",
     answer:
-      "Je travaille avec du matériel professionnel : caméras 4K, équipements audio, et logiciels de montage haut de gamme.",
+      "Nous travaillons avec des caméras professionnelles, lumières, micros et tout le nécessaire pour garantir une qualité optimale. Vous n’avez rien à prévoir, nous gérons l’ensemble du matériel technique.",
   },
   {
-    question: "Pouvez-vous vous déplacer pour des tournages ?",
+    question: "Pouvez-vous vous deplacer pour des tournages ?",
     answer:
-      "Oui, je suis disponible pour des projets locaux et internationaux. Les aspects logistiques sont discutés lors de la planification du projet.",
+      "Oui. Basés à Genève, nous travaillons en Suisse et à l’international.",
   },
   {
-    question: "Travaillez-vous en collaboration avec d’autres créatifs ?",
+    question: "Travaillez-vous en collaboration avec d’autres creatifs ?",
     answer:
-      "Oui, je collabore souvent avec des scénaristes, acteurs, musiciens et autres créatifs pour donner vie aux projets.",
+      "Oui. Selon les besoins, nous intégrons d’autres talents (drone, maquillage, stylisme, motion design, etc.).",
   },
   {
     question: "Combien de temps prend un projet ?",
     answer:
-      "La durée varie selon l’ampleur, mais les vidéos courtes prennent généralement 3 à 6 semaines. Nous établirons un calendrier adapté à vos objectifs.",
+      "Cela dépend du type de projet. En général, la livraison se fait entre quelques jours et deux semaines.",
   },
   {
-    question: "Pouvez-vous aider à développer un concept ou un scénario ?",
+    question: "Pouvez-vous aider a developper un concept ou un scenario ?",
     answer:
-      "Oui, j’offre des services de développement créatif incluant la conception de concept, le script et le storyboard pour structurer votre projet dès le départ.",
+      "Oui. Nous proposons aussi un accompagnement créatif et stratégique pour donner plus d’impact à vos projets.",
   },
   {
-    question: "Où puis-je voir vos réalisations précédentes ?",
+    question: "Ou puis-je voir vos realisations precedentes ?",
     answer:
-      "Vous pouvez explorer mes projets sur la page portfolio. Chaque projet inclut une courte description, une bande-annonce ou la version complète si disponible.",
+      "Directement dans notre portfolio ou sur demande pour des références spécifiques.",
   },
   {
     question: "Comment vous contacter pour un projet ?",
     answer:
-      "Vous pouvez utiliser le formulaire de contact ou l’e-mail indiqué sur le site. Je réponds à toutes les demandes sous 48 heures.",
+      "Par email à yourstory@agencememento.com ou via notre formulaire de contact.",
   },
 ];

@@ -9,7 +9,6 @@ const Menu = () => {
     { path: "/portfolio", label: "Portfolio" },
     { path: "/services", label: "Services" },
     { path: "/contact", label: "Contact" },
-    { path: "/faq", label: "FAQ" },
   ];
 
   const socialLinks = [

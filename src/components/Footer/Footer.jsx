@@ -34,7 +34,7 @@ const Footer = () => {
           </Link>
 
           <Link to="/a-propos" className="footer-nav-item">
-            <span>A Propos</span>
+            <span>L'agence</span>
             <span>&#8594;</span>
           </Link>
 

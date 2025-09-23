@@ -16,32 +16,23 @@ const VerticalCarousel = ({ items = [] }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Limiter à 4 slides sur mobile
+  const displayedItems = isMobile ? items.slice(0, 4) : items;
+
   // Auto-rotation cyclique sur mobile/tablet
   useEffect(() => {
-    if (!isMobile || items.length === 0) {
-      console.log('Auto-rotation désactivée:', { isMobile, itemsLength: items.length });
-      return;
-    }
-
-    console.log('Auto-rotation activée pour', items.length, 'slides');
+    if (!isMobile || displayedItems.length === 0) return;
     
     const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % items.length;
-        console.log('Passage slide:', prevIndex, '→', nextIndex);
-        return nextIndex;
-      });
+      setActiveIndex((prevIndex) => (prevIndex + 1) % displayedItems.length);
     }, 3500); // Chaque slide reste ouverte 3.5 secondes
-
-    return () => {
-      console.log('Nettoyage interval auto-rotation');
-      clearInterval(interval);
-    };
-  }, [isMobile, items.length]);
+    
+    return () => clearInterval(interval);
+  }, [isMobile, displayedItems.length]);
 
   return (
     <div className="vertical-carousel">
-      {items.map((item, index) => (
+      {displayedItems.map((item, index) => (
         <div 
           key={index} 
           className={`carousel-item ${isMobile && activeIndex === index ? 'auto-expanded' : ''}`}
@@ -73,7 +64,7 @@ const VerticalCarousel = ({ items = [] }) => {
             <h3 className="carousel-title">{item.title}</h3>
           </div>
 
-          {/* Indicateur de progression pour la slide active */}
+          {/* Indicateur de progression pour la slide active sur mobile */}
           {isMobile && activeIndex === index && (
             <div className="progress-indicator">
               <div className="progress-bar"></div>

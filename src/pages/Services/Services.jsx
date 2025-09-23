@@ -52,8 +52,8 @@ const Services = () => {
   const servicesContent = {
     events: {
       title: "Réseaux sociaux",
-      subtitle: "Capturer l'essence de vos evenements",
-      description: "Des moments uniques immortalises avec creativite",
+      subtitle: "Contenus creatifs pour vos plateformes.",
+      description: "Nous créons des vidéos et photos originales, conçues pour maximiser votre visibilité sur les réseaux sociaux. Instagram, TikTok, LinkedIn ou Facebook : chaque format est pensé pour captiver votre audience et refléter fidèlement l’ADN de votre entreprise. Reels dynamiques, vidéos courtes, interviews percutantes ou campagnes digitales, nos contenus génèrent de l’engagement et renforcent votre présence en ligne. Avec une stratégie régulière et des visuels de qualité, nous aidons votre marque à se démarquer, à fédérer sa communauté et à rester mémorable.",
       layout: "events",
       bentoItems: [
         {
@@ -100,8 +100,8 @@ const Services = () => {
     },
     stories: {
       title: "Evenementiel",
-      subtitle: "Raconter votre histoire avec authenticite",
-      description: "Des recits visuels qui touchent et engagent",
+      subtitle: "Entreprises, galas, lancements, soirees.",
+      description: "Nous couvrons tous types d’événements corporatifs et institutionnels afin de mettre en avant votre entreprise lors de moments forts. Conférences, séminaires, soirées d’entreprise, galas, inaugurations, lancements de produit ou remises de prix : notre équipe de vidéastes et photographes capte l’essentiel, des discours officiels aux instants d’émotion partagée. Avec un matériel haut de gamme et une expertise reconnue, nous livrons des photos et vidéos prêtes à l’emploi pour vos réseaux sociaux, vos supports internes ou vos communications officielles. Chaque événement est unique : nous retranscrivons son énergie et son impact pour valoriser durablement votre image.",
       layout: "stories",
       bentoItems: [
         {
@@ -148,8 +148,8 @@ const Services = () => {
     },
     moments: {
       title: "Privé",
-      subtitle: "Saisir l'instant present",
-      description: "Des images qui capturent l'emotion pure",
+      subtitle: "Mariages, portraits et instants de vie.",
+      description: "Chaque moment important mérite d’être capturé avec émotion et professionnalisme. Nous réalisons des photos et vidéos pour vos instants précieux : mariages, naissances, baptêmes, anniversaires, portraits ou shootings grossesse. Notre approche est sensible et moderne, pour créer des souvenirs intemporels que vous garderez toute votre vie. Basés à Genève et disponibles en Suisse comme à l’international, nous transformons vos moments personnels en histoires visuelles mémorables, à travers des images élégantes et authentiques.",
       layout: "moments",
       bentoItems: [
         {
