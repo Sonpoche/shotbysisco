@@ -1,5 +1,5 @@
 import projects from "../../data/projects";
-import projectsData from "../../data/projectsData"; // Import des données complètes
+import projectsData from "../../data/projectsData";
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Work.css";
@@ -12,7 +12,7 @@ const Work = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Catégories disponibles - 3 CATÉGORIES SEULEMENT
+  // Catégories disponibles
   const categories = [
     { id: "all", label: "Tout" },
     { id: "evenementiel", label: "événementiel" },
@@ -35,7 +35,7 @@ const Work = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [hasScroll, setHasScroll] = useState(false);
   
-  const carouselInfoRef = useRef(null);
+  const portfolioInfoRef = useRef(null);
   const mediaRef = useRef(null);
   const thumbnailsWrapperRef = useRef(null);
   const containerRef = useRef(null);
@@ -69,7 +69,6 @@ const Work = () => {
     };
     
     checkScroll();
-    // Vérifier aussi quand les projets changent
     const timer = setTimeout(checkScroll, 100);
     
     return () => clearTimeout(timer);
@@ -113,7 +112,7 @@ const Work = () => {
 
     // Animation d'entrée
     gsap.fromTo(
-      carouselInfoRef.current,
+      portfolioInfoRef.current,
       {
         opacity: 0,
         y: 50,
@@ -145,7 +144,7 @@ const Work = () => {
   const handleWorkItemClick = (project) => {
     if (project.id !== activeProject.id && !isAnimating) {
       // Animation de sortie
-      gsap.to(carouselInfoRef.current, {
+      gsap.to(portfolioInfoRef.current, {
         opacity: 0,
         y: -30,
         duration: 0.4,
@@ -277,7 +276,7 @@ const Work = () => {
           )}
         </div>
 
-        {/* Tabs de catégories - AVEC NOUVELLES CATÉGORIES */}
+        {/* Tabs de catégories */}
         <div className="work-categories">
           {categories.map((category) => (
             <button
@@ -329,17 +328,18 @@ const Work = () => {
           </div>
         )}
 
-        <div className="carousel-info" ref={carouselInfoRef}>
-          <div className="carousel-description">
+        {/* STRUCTURE HTML COMPLÈTEMENT SÉPARÉE POUR LE PORTFOLIO */}
+        <div className="portfolio-info" ref={portfolioInfoRef}>
+          <div className="portfolio-description">
             <p className="primary sm">{activeProject.description}</p>
           </div>
-          <div className="carousel-title">
+          <div className="portfolio-title-section">
             <div 
               className="project-title-container"
               style={{ cursor: 'pointer' }}
               onClick={() => handleProjectClick(activeProject.title)}
             >
-              <h1>{activeProject.title}</h1>
+              <h1 className="portfolio-title">{activeProject.title}</h1>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-// src/pages/Services/Services.jsx
+// src/pages/Services/Services.jsx - VERSION FINALE AVEC TOUS VOS CONTENUS R2
 import React, { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import "./Services.css";
@@ -48,155 +48,95 @@ const Services = () => {
     }
   }, [serviceParam]);
 
-  // Contenu pour chaque service - 8 blocs avec images
+  // Contenu pour chaque service - TOUS VOS CONTENUS R2 AUTHENTIQUES
   const servicesContent = {
     events: {
       title: "Réseaux sociaux",
       subtitle: "Contenus creatifs pour vos plateformes.",
-      description: "Nous créons des vidéos et photos originales, conçues pour maximiser votre visibilité sur les réseaux sociaux. Instagram, TikTok, LinkedIn ou Facebook : chaque format est pensé pour captiver votre audience et refléter fidèlement l’ADN de votre entreprise. Reels dynamiques, vidéos courtes, interviews percutantes ou campagnes digitales, nos contenus génèrent de l’engagement et renforcent votre présence en ligne. Avec une stratégie régulière et des visuels de qualité, nous aidons votre marque à se démarquer, à fédérer sa communauté et à rester mémorable.",
+      description: "Nous créons des vidéos et photos originales, conçues pour maximiser votre visibilité sur les réseaux sociaux. Instagram, TikTok, LinkedIn ou Facebook : chaque format est pensé pour captiver votre audience et refléter fidèlement l'ADN de votre entreprise.",
       layout: "events",
       bentoItems: [
         {
-          title: "Couverture complete",
-          media: "/work/work-1.jpg",
+          title: "campagnes publicitaires",
+          media: "https://videos.agencememento.com/Reseaux/ANNONCE-UMD_ahq12-poster-web.webp",
           mediaType: "image"
         },
         {
-          title: "Montage express",
-          media: "https://videos.agencememento.com/test-web.mp4",
-          mediaType: "video"
-        },
-        {
-          title: "Multi-formats",
-          media: "/work/work-2.jpg",
+          title: "contenu viral",
+          media: "https://videos.agencememento.com/Reseaux/Captions_92967C-poster-web.webp",
           mediaType: "image"
         },
         {
-          title: "Stories & Reels",
-          media: "https://videos.agencememento.com/test2-web.mp4",
-          mediaType: "video"
-        },
-        {
-          title: "Community management",
-          media: "/work/work-3.jpg",
+          title: "brand storytelling",
+          media: "https://videos.agencememento.com/Reseaux/FINAL-SELTEN_ahq12-poster-web.webp",
           mediaType: "image"
         },
         {
-          title: "Direction artistique",
-          media: "https://videos.agencememento.com/test3-web.mp4",
-          mediaType: "video"
-        },
-        {
-          title: "Strategie digitale",
-          media: "/work/work-4.jpg",
+          title: "lifestyle réseaux",
+          media: "https://videos.agencememento.com/Reseaux/marion-ryan-5-web.webp",
           mediaType: "image"
-        },
-        {
-          title: "Campagnes publicitaires",
-          media: "https://videos.agencememento.com/test5-web.mp4",
-          mediaType: "video"
         }
       ]
     },
     stories: {
       title: "Evenementiel",
       subtitle: "Entreprises, galas, lancements, soirees.",
-      description: "Nous couvrons tous types d’événements corporatifs et institutionnels afin de mettre en avant votre entreprise lors de moments forts. Conférences, séminaires, soirées d’entreprise, galas, inaugurations, lancements de produit ou remises de prix : notre équipe de vidéastes et photographes capte l’essentiel, des discours officiels aux instants d’émotion partagée. Avec un matériel haut de gamme et une expertise reconnue, nous livrons des photos et vidéos prêtes à l’emploi pour vos réseaux sociaux, vos supports internes ou vos communications officielles. Chaque événement est unique : nous retranscrivons son énergie et son impact pour valoriser durablement votre image.",
+      description: "Nous couvrons tous types d'événements corporatifs et institutionnels afin de mettre en avant votre entreprise lors de moments forts. Conférences, séminaires, soirées d'entreprise, galas, inaugurations, lancements de produit ou remises de prix.",
       layout: "stories",
       bentoItems: [
         {
-          title: "Narration visuelle",
-          media: "/work/work-5.jpg",
+          title: "interviews corporate",
+          media: "https://videos.agencememento.com/evenementiel/ALVIN_FINAL_ITWmp4-poster-web.webp",
           mediaType: "image"
         },
         {
-          title: "Brand films",
-          media: "https://videos.agencememento.com/test-web.mp4",
-          mediaType: "video"
-        },
-        {
-          title: "Interviews",
-          media: "/work/work-1.jpg",
+          title: "célébrations",
+          media: "https://videos.agencememento.com/evenementiel/BIRTHDAY_FINAL-poster-web.webp",
           mediaType: "image"
         },
         {
-          title: "Captation live",
-          media: "https://videos.agencememento.com/test2-web.mp4",
-          mediaType: "video"
-        },
-        {
-          title: "Teaser evenement",
-          media: "/work/work-2.jpg",
+          title: "événements corporate",
+          media: "https://videos.agencememento.com/evenementiel/CSPHERE_FINALVIDEOHOG_SBS-poster-web.webp",
           mediaType: "image"
         },
         {
-          title: "Reportage photo",
-          media: "https://videos.agencememento.com/test3-web.mp4",
-          mediaType: "video"
-        },
-        {
-          title: "Post-production",
-          media: "/work/work-3.jpg",
+          title: "reportage entreprise",
+          media: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-45-web.webp",
           mediaType: "image"
-        },
-        {
-          title: "Diffusion multi-canal",
-          media: "https://videos.agencememento.com/test5-web.mp4",
-          mediaType: "video"
         }
       ]
     },
     moments: {
       title: "Privé",
       subtitle: "Mariages, portraits et instants de vie.",
-      description: "Chaque moment important mérite d’être capturé avec émotion et professionnalisme. Nous réalisons des photos et vidéos pour vos instants précieux : mariages, naissances, baptêmes, anniversaires, portraits ou shootings grossesse. Notre approche est sensible et moderne, pour créer des souvenirs intemporels que vous garderez toute votre vie. Basés à Genève et disponibles en Suisse comme à l’international, nous transformons vos moments personnels en histoires visuelles mémorables, à travers des images élégantes et authentiques.",
+      description: "Chaque moment important mérite d'être capturé avec émotion et professionnalisme. Nous réalisons des photos et vidéos pour vos instants précieux : mariages, naissances, baptêmes, anniversaires, portraits ou shootings grossesse.",
       layout: "moments",
       bentoItems: [
         {
-          title: "Photographie lifestyle",
-          media: "https://videos.agencememento.com/test-web.mp4",
-          mediaType: "video"
-        },
-        {
-          title: "Direction artistique",
-          media: "/work/work-4.jpg",
+          title: "mariages intimistes",
+          media: "https://videos.agencememento.com/Prive/marioVERT-mariage-poster-web.webp",
           mediaType: "image"
         },
         {
-          title: "Portraits",
-          media: "/work/work-5.jpg",
+          title: "couples",
+          media: "https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-poster-web.webp",
           mediaType: "image"
         },
         {
-          title: "Mariages",
-          media: "https://videos.agencememento.com/test2-web.mp4",
-          mediaType: "video"
-        },
-        {
-          title: "Seances couple",
-          media: "/work/work-1.jpg",
+          title: "portraits",
+          media: "https://videos.agencememento.com/Prive/jeans-tournesol_0002_Generative_Fill-web.webp",
           mediaType: "image"
         },
         {
-          title: "Instants de vie",
-          media: "https://videos.agencememento.com/test3-web.mp4",
-          mediaType: "video"
-        },
-        {
-          title: "Album photo",
-          media: "/work/work-2.jpg",
+          title: "lifestyle",
+          media: "https://videos.agencememento.com/Prive/jeans-tournesol_0000_Generative_Fill_4-web.webp",
           mediaType: "image"
-        },
-        {
-          title: "Souvenirs precieux",
-          media: "https://videos.agencememento.com/test5-web.mp4",
-          mediaType: "video"
         }
       ]
     }
   };
 
-  const currentContent = servicesContent[activeService];
+  const serviceContent = servicesContent[activeService];
 
   const handleServiceChange = (service) => {
     if (service !== activeService) {
@@ -251,13 +191,13 @@ const Services = () => {
         {/* Service Content avec Vertical Carousel */}
         <section className="service-carousel-content">
           <div className="service-header">
-            <h2>{currentContent.subtitle}</h2>
-            <p className="service-description">{currentContent.description}</p>
+            <h2>{serviceContent.subtitle}</h2>
+            <p className="service-description">{serviceContent.description}</p>
           </div>
 
-          {/* Vertical Carousel à la place du Bento Grid */}
+          {/* Vertical Carousel */}
           <div className="service-carousel-wrapper">
-            <VerticalCarousel items={currentContent.bentoItems} />
+            <VerticalCarousel items={serviceContent.bentoItems} />
           </div>
 
           {/* Bouton vers le portfolio correspondant */}

@@ -1,3 +1,5 @@
+/* Work.css - Version propre avec structure portfolio séparée */
+
 .work-carousel {
   position: fixed;
   width: 100%;
@@ -26,7 +28,7 @@
 /* Tabs de catégories */
 .work-categories {
   position: fixed;
-  bottom: calc(2em + 60px + 1.5em); /* Juste au-dessus des thumbnails */
+  bottom: calc(2em + 60px + 1.5em);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -78,7 +80,7 @@
   background: var(--fg);
 }
 
-/* Container principal des thumbnails - MODIFIÉ POUR CENTRER */
+/* Container principal des thumbnails */
 .work-items-preview-container {
   position: fixed;
   left: 50%;
@@ -87,27 +89,24 @@
   width: 75%;
   height: 60px;
   display: flex;
-  justify-content: center; /* Centrer les thumbnails */
+  justify-content: center;
   align-items: center;
   gap: 1em;
-  overflow-x: auto; /* Scroll horizontal si nécessaire */
+  overflow-x: auto;
   overflow-y: hidden;
-  scrollbar-width: none; /* Cacher scrollbar Firefox */
+  scrollbar-width: none;
 }
 
-/* Cacher scrollbar Webkit */
 .work-items-preview-container::-webkit-scrollbar {
   display: none;
 }
 
-/* Wrapper pour thumbnails - MODIFIÉ POUR CENTRER */
 .thumbnails-wrapper {
   display: flex;
   gap: 1em;
-  justify-content: center; /* Centrer les éléments */
+  justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  /* Important: ne pas définir min-width ici pour permettre le centrage */
 }
 
 .work-item {
@@ -132,7 +131,6 @@
   border: 1px solid var(--fg);
 }
 
-/* Indicateur pour les vidéos */
 .video-indicator {
   position: absolute;
   top: 50%;
@@ -155,7 +153,8 @@
   margin-left: 2px;
 }
 
-.carousel-info {
+/* STRUCTURE PORTFOLIO SÉPARÉE - AUCUNE RÉFÉRENCE AU CAROUSEL */
+.portfolio-info {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -168,31 +167,35 @@
   padding: 1.25em;
 }
 
-.carousel-description,
-.carousel-title {
+.portfolio-description,
+.portfolio-title-section {
   position: relative;
   width: 100%;
 }
 
-.carousel-title h1 {
-  line-height: 1;
-}
-
-.carousel-title h1,
-.carousel-description p {
+.portfolio-description p {
   position: relative;
   display: block;
-  will-change: transform;
   color: var(--fg200);
   text-align: center;
+  margin: 0;
 }
 
-.project-title-container:hover h1 {
+.portfolio-title {
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: var(--fg200);
+  text-align: center;
+  line-height: 1;
+  margin: 0;
+  position: relative;
+  width: auto;
+}
+
+.project-title-container:hover .portfolio-title {
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
 
-/* Navigation dots - cachés par défaut */
 .thumbnail-dots {
   display: none;
 }
@@ -202,21 +205,19 @@
    ================================= */
 @media (min-width: 1001px) {
   .work-items-preview-container {
-    justify-content: center; /* Forcer le centrage sur desktop */
+    justify-content: center;
   }
   
   .thumbnails-wrapper {
     justify-content: center;
-    width: auto; /* Largeur auto pour permettre le centrage */
-    min-width: 0; /* Reset du min-width */
+    width: auto;
+    min-width: 0;
   }
   
-  /* Si peu de projets, centrer sans scroll */
   .work-items-preview-container:not(.has-scroll) {
     overflow-x: hidden;
   }
   
-  /* Si beaucoup de projets, permettre le scroll */
   .work-items-preview-container.has-scroll .thumbnails-wrapper {
     justify-content: flex-start;
     min-width: fit-content;
@@ -268,12 +269,13 @@
    RESPONSIVE - MOBILE
    ================================= */
 @media (max-width: 600px) {
-  /* Tabs responsive avec scroll horizontal */
+  .portfolio-title {
+    font-size: 8vw;
+  }
+
   .work-categories {
     position: fixed;
-    bottom: auto;
-    top: auto;
-    bottom: calc(1em + 90px + 1.5em); /* Ajusté pour thumbnails plus hauts */
+    bottom: calc(1em + 90px + 1.5em);
     gap: 0.15em;
     padding: 0.3em;
     max-width: calc(100% - 1.5em);
@@ -297,7 +299,6 @@
     display: none;
   }
   
-  /* Container pour carousel de thumbnails */
   .work-items-preview-container {
     position: fixed !important;
     bottom: 1em !important;
@@ -305,32 +306,30 @@
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 2em);
-    height: 90px; /* Doublé de 45px */
+    height: 90px;
     gap: 0;
     padding: 0;
     overflow: hidden;
-    justify-content: flex-start; /* Reset pour mobile */
+    justify-content: flex-start;
   }
   
-  /* Wrapper avec transition pour le slide */
   .thumbnails-wrapper {
     display: flex;
     gap: 0.5em;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
     height: 100%;
-    justify-content: flex-start; /* Reset pour mobile */
-    min-width: 100%; /* Prendre toute la largeur */
+    justify-content: flex-start;
+    min-width: 100%;
   }
   
   .work-item {
     min-width: calc((100% - 3em) / 3);
     max-width: calc((100% - 3em) / 3);
-    height: 90px; /* Doublé de 45px */
+    height: 90px;
     flex: 0 0 auto;
   }
   
-  /* Indicateur vidéo plus visible */
   .video-indicator {
     width: 24px;
     height: 24px;
@@ -343,7 +342,6 @@
     margin-left: 1px;
   }
   
-  /* Dots de navigation */
   .thumbnail-dots {
     display: flex;
     position: fixed;
@@ -371,12 +369,7 @@
     border-radius: 2px;
   }
   
-  /* Texte plus petit */
-  .carousel-title h1 {
-    font-size: 8vw;
-  }
-  
-  .carousel-description p {
+  .portfolio-description p {
     font-size: 0.7rem;
   }
 }
@@ -385,9 +378,12 @@
    RESPONSIVE - TRÈS PETIT MOBILE
    ================================= */
 @media (max-width: 400px) {
+  .portfolio-title {
+    font-size: 7vw;
+  }
+
   .work-categories {
-    position: fixed;
-    bottom: calc(0.8em + 80px + 1.2em); /* Ajusté pour thumbnails plus hauts */
+    bottom: calc(0.8em + 80px + 1.2em);
     padding: 0.25em;
     gap: 0.1em;
   }
@@ -400,14 +396,14 @@
   
   .work-items-preview-container {
     width: calc(100% - 1.5em);
-    height: 80px; /* Doublé de 40px */
+    height: 80px;
     bottom: 0.8em !important;
   }
   
   .work-item {
     min-width: calc((100% - 2.5em) / 3);
     max-width: calc((100% - 2.5em) / 3);
-    height: 80px; /* Doublé de 40px */
+    height: 80px;
   }
   
   .video-indicator {
@@ -434,11 +430,7 @@
     width: 10px;
   }
   
-  .carousel-title h1 {
-    font-size: 7vw;
-  }
-  
-  .carousel-description p {
+  .portfolio-description p {
     font-size: 0.65rem;
   }
 }

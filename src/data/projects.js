@@ -1,112 +1,135 @@
-// projects.js
+// projects.js - VERSION FINALE AVEC TOUS VOS CONTENUS R2
 const projects = [
+  // PROJETS RÉSEAUX SOCIAUX (category: "reseaux")
   {
     id: 1,
-    title: "Fragments of Light",
-    description: "Short film on self-discovery",
-    thumbnail: "/work/work-1.jpg",
-    media: "https://videos.agencememento.com/test-web.mp4",
+    title: "Annonce UMD",
+    description: "Campagne publicitaire dynamique",
+    thumbnail: "https://videos.agencememento.com/Reseaux/ANNONCE-UMD_ahq12-poster-thumb.webp",
+    media: "https://videos.agencememento.com/Reseaux/ANNONCE-UMD_ahq12-web.mp4",
     mediaType: "video",
-    category: "events"
+    category: "reseaux"
   },
   {
     id: 2,
-    title: "Market Pulse",
-    description: "Street life, raw and real",
-    thumbnail: "/work/work-2.jpg",
-    media: "https://videos.agencememento.com/test2-web.mp4",
+    title: "Captions Creative",
+    description: "Contenu viral optimisé",
+    thumbnail: "https://videos.agencememento.com/Reseaux/Captions_92967C-poster-thumb.webp",
+    media: "https://videos.agencememento.com/Reseaux/Captions_92967C-web.mp4",
     mediaType: "video",
-    category: "events"
+    category: "reseaux"
   },
   {
     id: 3,
-    title: "The Stillness Project",
-    description: "Visual ode to silence",
-    thumbnail: "/work/work-3.jpg",
-    media: "/work/work-3.jpg",
-    mediaType: "image",
-    category: "events"
+    title: "Final Selten",
+    description: "Brand storytelling moderne",
+    thumbnail: "https://videos.agencememento.com/Reseaux/FINAL-SELTEN_ahq12-poster-thumb.webp",
+    media: "https://videos.agencememento.com/Reseaux/FINAL-SELTEN_ahq12-web.mp4",
+    mediaType: "video",
+    category: "reseaux"
   },
   {
     id: 4,
-    title: "Chroma/City",
-    description: "Urban color in motion",
-    thumbnail: "/work/work-4.jpg",
-    media: "https://videos.agencememento.com/test3-web.mp4",
-    mediaType: "video",
-    category: "stories"
+    title: "Marion & Ryan Portrait",
+    description: "Photographie lifestyle réseaux",
+    thumbnail: "https://videos.agencememento.com/Reseaux/marion-ryan-5-thumb.webp",
+    media: "https://videos.agencememento.com/Reseaux/marion-ryan-5-web.webp",
+    mediaType: "image",
+    category: "reseaux"
   },
   {
     id: 5,
-    title: "Echoes of Silence",
-    description: "Grief told through memory",
-    thumbnail: "/work/work-5.jpg",
-    media: "/work/work-5.jpg",
+    title: "Marion & Ryan Session",
+    description: "Série photo pour Instagram",
+    thumbnail: "https://videos.agencememento.com/Reseaux/marion-ryan-13-thumb.webp",
+    media: "https://videos.agencememento.com/Reseaux/marion-ryan-13-web.webp",
     mediaType: "image",
-    category: "stories"
+    category: "reseaux"
   },
+
+  // PROJETS PRIVÉ (category: "prive")
   {
     id: 6,
-    title: "Urban Poetry",
-    description: "Street photography series",
-    thumbnail: "/work/work-1.jpg",
-    media: "/work/work-1.jpg",
-    mediaType: "image",
-    category: "stories"
+    title: "Mario & Verde",
+    description: "Mariage intimiste en pleine nature",
+    thumbnail: "https://videos.agencememento.com/Prive/marioVERT-mariage-poster-thumb.webp",
+    media: "https://videos.agencememento.com/Prive/marioVERT-mariage-web.mp4",
+    mediaType: "video",
+    category: "prive"
   },
   {
     id: 7,
-    title: "Neon Dreams",
-    description: "Music video for indie artist",
-    thumbnail: "/work/work-2.jpg",
-    media: "https://videos.agencememento.com/test-web.mp4",
-    mediaType: "video",
-    category: "moments"
+    title: "Chris & Philo", 
+    description: "Portrait de couple authentique",
+    thumbnail: "https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-poster-thumb.webp",
+    media: "https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-web.mp4",
+    mediaType: "video", 
+    category: "prive"
   },
   {
     id: 8,
-    title: "Minimal Forms",
-    description: "Architectural design study",
-    thumbnail: "/work/work-3.jpg",
-    media: "/work/work-3.jpg",
+    title: "Séance Tournesol",
+    description: "Portrait lifestyle en golden hour",
+    thumbnail: "https://videos.agencememento.com/Prive/jeans-tournesol_0002_Generative_Fill-thumb.webp",
+    media: "https://videos.agencememento.com/Prive/jeans-tournesol_0002_Generative_Fill-web.webp",
     mediaType: "image",
-    category: "moments"
+    category: "prive"
   },
   {
     id: 9,
-    title: "Golden Hour",
-    description: "Portrait series in natural light",
-    thumbnail: "/work/work-4.jpg",
-    media: "/work/work-4.jpg",
+    title: "Portrait Artistique",
+    description: "Jeu d'ombres et de lumières",
+    thumbnail: "https://videos.agencememento.com/Prive/jeans-tournesol_0000_Generative_Fill_4-thumb.webp", 
+    media: "https://videos.agencememento.com/Prive/jeans-tournesol_0000_Generative_Fill_4-web.webp",
     mediaType: "image",
-    category: "moments"
+    category: "prive"
   },
+
+  // PROJETS ÉVÉNEMENTIEL (category: "evenementiel") - AVEC VOS CONTENUS R2
   {
     id: 10,
-    title: "Midnight Stories",
-    description: "Nocturnal documentary",
-    thumbnail: "/work/work-5.jpg",
-    media: "https://videos.agencememento.com/test2-web.mp4",
+    title: "Interview Alvin",
+    description: "Portrait corporate et interview",
+    thumbnail: "https://videos.agencememento.com/evenementiel/ALVIN_FINAL_ITWmp4-poster-thumb.webp",
+    media: "https://videos.agencememento.com/evenementiel/ALVIN_FINAL_ITWmp4-web.mp4",
     mediaType: "video",
-    category: "events"
+    category: "evenementiel"
   },
   {
     id: 11,
-    title: "Abstract Motion",
-    description: "Experimental video art",
-    thumbnail: "/work/work-1.jpg",
-    media: "https://videos.agencememento.com/test3-web.mp4",
+    title: "Birthday Final",
+    description: "Célébration événementielle",
+    thumbnail: "https://videos.agencememento.com/evenementiel/BIRTHDAY_FINAL-poster-thumb.webp",
+    media: "https://videos.agencememento.com/evenementiel/BIRTHDAY_FINAL-web.mp4",
     mediaType: "video",
-    category: "stories"
+    category: "evenementiel"
   },
   {
     id: 12,
-    title: "Brand Identity",
-    description: "Visual design system",
-    thumbnail: "/work/work-2.jpg",
-    media: "/work/work-2.jpg",
+    title: "C-Sphere Event",
+    description: "Couverture événement corporate",
+    thumbnail: "https://videos.agencememento.com/evenementiel/CSPHERE_FINALVIDEOHOG_SBS-poster-thumb.webp",
+    media: "https://videos.agencememento.com/evenementiel/CSPHERE_FINALVIDEOHOG_SBS-web.mp4",
+    mediaType: "video",
+    category: "evenementiel"
+  },
+  {
+    id: 13,
+    title: "P&G Corporate",
+    description: "Photographie événement entreprise",
+    thumbnail: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-45-thumb.webp",
+    media: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-45-web.webp",
     mediaType: "image",
-    category: "moments"
+    category: "evenementiel"
+  },
+  {
+    id: 14,
+    title: "P&G Session",
+    description: "Reportage photo corporate",
+    thumbnail: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-68-thumb.webp",
+    media: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-68-web.webp",
+    mediaType: "image",
+    category: "evenementiel"
   }
 ];
 
