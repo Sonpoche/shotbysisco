@@ -14,10 +14,10 @@ const Work = () => {
 
   // Catégories disponibles
   const categories = [
-    { id: "all", label: "Tout" },
-    { id: "evenementiel", label: "événementiel" },
-    { id: "reseaux", label: "Réseaux" },
-    { id: "prive", label: "Privé" },
+    { id: "all", label: "tout" },
+    { id: "evenementiel", label: "evenementiel" },
+    { id: "reseaux", label: "reseaux" },
+    { id: "prive", label: "prive" },
   ];
 
   // Récupérer la catégorie depuis l'URL ou utiliser "all" par défaut
@@ -160,18 +160,6 @@ const Work = () => {
           setIsAnimating(true);
         },
       });
-    }
-  };
-
-  // Fonction pour naviguer vers le projet individuel
-  const handleProjectClick = (projectTitle) => {
-    // Trouver le projet correspondant dans projectsData
-    const project = projectsData.find(p => p.title === projectTitle);
-    if (project) {
-      navigate(`/projects/${project.slug}`);
-    } else {
-      // Fallback vers le premier projet si non trouvé
-      navigate(`/projects/${projectsData[0].slug}`);
     }
   };
 
@@ -328,19 +316,13 @@ const Work = () => {
           </div>
         )}
 
-        {/* STRUCTURE HTML COMPLÈTEMENT SÉPARÉE POUR LE PORTFOLIO */}
+        {/* STRUCTURE HTML SANS LIEN - TITRE SIMPLE */}
         <div className="portfolio-info" ref={portfolioInfoRef}>
           <div className="portfolio-description">
             <p className="primary sm">{activeProject.description}</p>
           </div>
           <div className="portfolio-title-section">
-            <div 
-              className="project-title-container"
-              style={{ cursor: 'pointer' }}
-              onClick={() => handleProjectClick(activeProject.title)}
-            >
-              <h1 className="portfolio-title">{activeProject.title}</h1>
-            </div>
+            <h1 className="portfolio-title">{activeProject.title}</h1>
           </div>
         </div>
       </div>

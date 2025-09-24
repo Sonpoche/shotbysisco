@@ -11,35 +11,58 @@ const VideoCarousel = () => {
   const lastXRef = useRef(0);
   const intervalRef = useRef(null);
 
-  // Base videos - URLs R2 avec posters
+  // Vraies vidéos - 2 par service (6 vidéos au total) - URLS R2 avec posters
   const baseVideos = [
+    // RESEAUX SOCIAUX (2 vidéos)
     {
       id: 1,
-      src: "https://videos.agencememento.com/test-web.mp4",
-      poster: "https://videos.agencememento.com/test-poster.jpg",
-      title: "emotions",
-      subtitle: "Visual Poetry"
+      src: "https://videos.agencememento.com/Reseaux/ANNONCE-UMD_ahq12-web.mp4",
+      poster: "https://videos.agencememento.com/Reseaux/ANNONCE-UMD_ahq12-poster-web.webp",
+      title: "annonce umd",
+      subtitle: "reseaux sociaux",
+      category: "reseaux"
     },
     {
       id: 2,
-      src: "https://videos.agencememento.com/test2-web.mp4",
-      poster: "https://videos.agencememento.com/test2-poster.jpg",
-      title: "vision",
-      subtitle: "Creative Direction"
+      src: "https://videos.agencememento.com/Reseaux/Captions_92967C-web.mp4",
+      poster: "https://videos.agencememento.com/Reseaux/Captions_92967C-poster-web.webp",
+      title: "captions creative",
+      subtitle: "reseaux sociaux",
+      category: "reseaux"
     },
+    // EVENEMENTIEL (2 vidéos)
     {
       id: 3,
-      src: "https://videos.agencememento.com/test3-web.mp4",
-      poster: "https://videos.agencememento.com/test3-poster.jpg",
-      title: "qualite",
-      subtitle: "Premium Content"
+      src: "https://videos.agencememento.com/evenementiel/ALVIN_FINAL_ITWmp4-web.mp4",
+      poster: "https://videos.agencememento.com/evenementiel/ALVIN_FINAL_ITWmp4-poster-web.webp",
+      title: "interview alvin",
+      subtitle: "evenementiel",
+      category: "evenementiel"
     },
     {
       id: 4,
-      src: "https://videos.agencememento.com/test4-web.mp4",
-      poster: "https://videos.agencememento.com/test4-poster.jpg",
-      title: "stories",
-      subtitle: "Brand Narrative"
+      src: "https://videos.agencememento.com/evenementiel/BIRTHDAY_FINAL-web.mp4",
+      poster: "https://videos.agencememento.com/evenementiel/BIRTHDAY_FINAL-poster-web.webp",
+      title: "birthday final",
+      subtitle: "evenementiel",
+      category: "evenementiel"
+    },
+    // PRIVE (2 vidéos)
+    {
+      id: 5,
+      src: "https://videos.agencememento.com/Prive/marioVERT-mariage-web.mp4",
+      poster: "https://videos.agencememento.com/Prive/marioVERT-mariage-poster-web.webp",
+      title: "mario et verde",
+      subtitle: "prive",
+      category: "prive"
+    },
+    {
+      id: 6,
+      src: "https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-web.mp4",
+      poster: "https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-poster-web.webp",
+      title: "chris et philo",
+      subtitle: "prive",
+      category: "prive"
     }
   ];
 
@@ -58,7 +81,7 @@ const VideoCarousel = () => {
            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   };
 
-  // Optimisation : Observer pour lazy loading
+  // Optimisation : Observer pour lazy loading et preloading intelligent
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -66,6 +89,10 @@ const VideoCarousel = () => {
           const video = entry.target.querySelector('video');
           if (video) {
             if (entry.isIntersecting) {
+              // Charger et jouer la vidéo visible
+              if (video.readyState < 4) {
+                video.load(); // Force le chargement si pas encore fait
+              }
               video.play().catch(() => {});
             } else {
               video.pause();
@@ -75,16 +102,40 @@ const VideoCarousel = () => {
       },
       { 
         root: carouselRef.current,
-        rootMargin: '100px',
+        rootMargin: '200px', // Augmenté pour précharger plus tôt
         threshold: 0.1 
       }
     );
 
+    // Préchargement des vidéos proches
+    const preloadObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          const video = entry.target.querySelector('video');
+          if (video && entry.isIntersecting && video.readyState < 1) {
+            video.preload = 'auto'; // Force le préchargement
+            video.load();
+          }
+        });
+      },
+      { 
+        root: carouselRef.current,
+        rootMargin: '400px', // Précharge très tôt
+        threshold: 0 
+      }
+    );
+
     const cards = document.querySelectorAll('.video-card');
-    cards.forEach(card => observer.observe(card));
+    cards.forEach(card => {
+      observer.observe(card);
+      preloadObserver.observe(card);
+    });
 
     return () => {
-      cards.forEach(card => observer.unobserve(card));
+      cards.forEach(card => {
+        observer.unobserve(card);
+        preloadObserver.unobserve(card);
+      });
     };
   }, []);
 
@@ -198,6 +249,24 @@ const VideoCarousel = () => {
       }
     };
   }, [isDragging, momentum]);
+
+  // Préchargement intelligent des vidéos au montage du composant
+  useEffect(() => {
+    // Précharger les 3 premières vidéos immédiatement
+    const preloadFirstVideos = () => {
+      baseVideos.slice(0, 3).forEach(video => {
+        const videoElement = document.createElement('video');
+        videoElement.preload = 'auto';
+        videoElement.muted = true;
+        videoElement.src = video.src;
+        videoElement.load();
+      });
+    };
+
+    // Délai court pour éviter de bloquer le rendu initial
+    const timer = setTimeout(preloadFirstVideos, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Position initiale au 2e set
   useEffect(() => {
@@ -352,7 +421,7 @@ const VideoCarousel = () => {
       <div className="carousel-header">
         <h1>agence memento</h1>
         <p className="carousel-subtitle">
-          Creation photo & video memorable pour entreprises et particuliers
+          creation photo et video memorable pour entreprises et particuliers
         </p>
       </div>
 
@@ -373,12 +442,26 @@ const VideoCarousel = () => {
               <div key={`${video.id}-${index}`} className="video-card">
                 <div className="video-card-inner">
                   <video
-                    poster={video.poster}
                     autoPlay
                     loop
                     muted
                     playsInline
-                    preload="metadata"
+                    preload="auto"
+                    onLoadStart={(e) => {
+                      // Optimisation : Forcer le buffering au début
+                      if (e.target.readyState < 2) {
+                        e.target.load();
+                      }
+                    }}
+                    onCanPlay={(e) => {
+                      // Commencer la lecture dès que possible
+                      e.target.play().catch(() => {});
+                    }}
+                    style={{
+                      // Accélération matérielle pour de meilleures performances
+                      transform: 'translateZ(0)',
+                      willChange: 'transform'
+                    }}
                   >
                     <source src={video.src} type="video/mp4" />
                   </video>
@@ -394,7 +477,7 @@ const VideoCarousel = () => {
       </div>
       
       <div className="carousel-scroll-hint">
-        <p>← parcourir →</p>
+        <p>parcourir</p>
       </div>
     </section>
   );

@@ -88,11 +88,39 @@
 .contact-form-col:nth-child(2) {
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
+  gap: 1.5em; /* Espacement augmenté entre les champs */
+}
+
+/* Espacement spécifique pour les form-item */
+.form-item {
+  margin-bottom: 1em; /* Espacement supplémentaire entre chaque champ */
 }
 
 .form-item .btn {
   width: 100%;
+  margin-top: 0.5em; /* Petit espacement avant le bouton */
+}
+
+/* Style pour les messages de statut */
+.form-message {
+  margin-top: 1em;
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+.form-message.success {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.form-message.error {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.form-message p {
+  color: var(--bg);
+  margin: 0;
 }
 
 @media (max-width: 900px) {
@@ -132,5 +160,14 @@
     flex-direction: column;
     text-align: center;
     gap: 0.25em;
+  }
+  
+  /* Espacement mobile */
+  .contact-form-col:nth-child(2) {
+    gap: 1.25em;
+  }
+  
+  .form-item {
+    margin-bottom: 0.75em;
   }
 }

@@ -17,7 +17,7 @@ import Transition from "../../components/Transition/Transition";
 
 const Home = () => {
   useEffect(() => {
-    // Nettoyage des animations GSAP qui ne sont plus nécessaires
+    // Nettoyage des animations GSAP qui ne sont plus necessaires
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
@@ -39,7 +39,7 @@ const Home = () => {
                 objectFit: 'cover'
               }}
             >
-              <source src="https://videos.agencememento.com/test5-web.mp4" type="video/mp4" />
+              <source src="https://videos.agencememento.com/home/memento-showreelnew-web.mp4" type="video/mp4" />
             </video>
           </div>
         </section>
@@ -51,18 +51,18 @@ const Home = () => {
         <section className="hobbies">
           <div className="services-header">
             <h2>racontez votre histoire</h2>
-            <p className="services-subtitle">Trois approches pour creer des histoires memorables</p>
+            <p className="services-subtitle">trois approches pour creer des histoires memorables</p>
           </div>
           
           <div className="home-tools-container">
             <div className="home-tools-row three-cards">
-              {/* Lien vers Services - onglet Réseaux Sociaux */}
+              {/* Lien vers Services - onglet Reseaux Sociaux */}
               <Link to="/services?service=reseaux-sociaux" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-1.jpg" alt="" />
                 </div>
-                <h4>Reseaux Sociaux</h4>
-                <p className="primary sm">Contenus creatifs pour vos plateformes.</p>
+                <h4>reseaux sociaux</h4>
+                <p className="primary sm">contenus creatifs pour vos plateformes.</p>
               </Link>
               
               {/* Lien vers Services - onglet Evenementiel */}
@@ -70,17 +70,17 @@ const Home = () => {
                 <div className="home-tool-bg">
                   <img src="/about/tool-2.jpg" alt="" />
                 </div>
-                <h4>Evenementiel</h4>
-                <p className="primary sm">Entreprises, galas, lancements, soirees.</p>
+                <h4>evenementiel</h4>
+                <p className="primary sm">entreprises, galas, lancements, soirees.</p>
               </Link>
               
-              {/* Lien vers Services - onglet Privé */}
+              {/* Lien vers Services - onglet Prive */}
               <Link to="/services?service=prive" className="home-tool-card">
                 <div className="home-tool-bg">
                   <img src="/about/tool-3.jpg" alt="" />
                 </div>
-                <h4>Prive</h4>
-                <p className="primary sm">Mariages, portraits et instants de vie.</p>
+                <h4>prive</h4>
+                <p className="primary sm">mariages, portraits et instants de vie.</p>
               </Link>
             </div>
           </div>

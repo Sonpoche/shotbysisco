@@ -30,7 +30,7 @@ const projects = [
   },
   {
     id: 4,
-    title: "Marion & Ryan Portrait",
+    title: "Marion et Ryan Portrait",
     description: "Photographie lifestyle réseaux",
     thumbnail: "https://videos.agencememento.com/Reseaux/marion-ryan-5-thumb.webp",
     media: "https://videos.agencememento.com/Reseaux/marion-ryan-5-web.webp",
@@ -39,7 +39,7 @@ const projects = [
   },
   {
     id: 5,
-    title: "Marion & Ryan Session",
+    title: "Marion et Ryan Session",
     description: "Série photo pour Instagram",
     thumbnail: "https://videos.agencememento.com/Reseaux/marion-ryan-13-thumb.webp",
     media: "https://videos.agencememento.com/Reseaux/marion-ryan-13-web.webp",
@@ -50,7 +50,7 @@ const projects = [
   // PROJETS PRIVÉ (category: "prive")
   {
     id: 6,
-    title: "Mario & Verde",
+    title: "Mario et Verde",
     description: "Mariage intimiste en pleine nature",
     thumbnail: "https://videos.agencememento.com/Prive/marioVERT-mariage-poster-thumb.webp",
     media: "https://videos.agencememento.com/Prive/marioVERT-mariage-web.mp4",
@@ -59,7 +59,7 @@ const projects = [
   },
   {
     id: 7,
-    title: "Chris & Philo", 
+    title: "Chris et Philo", 
     description: "Portrait de couple authentique",
     thumbnail: "https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-poster-thumb.webp",
     media: "https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-web.mp4",
@@ -68,7 +68,7 @@ const projects = [
   },
   {
     id: 8,
-    title: "Séance Tournesol",
+    title: "Seance Tournesol",
     description: "Portrait lifestyle en golden hour",
     thumbnail: "https://videos.agencememento.com/Prive/jeans-tournesol_0002_Generative_Fill-thumb.webp",
     media: "https://videos.agencememento.com/Prive/jeans-tournesol_0002_Generative_Fill-web.webp",
@@ -115,7 +115,7 @@ const projects = [
   },
   {
     id: 13,
-    title: "P&G Corporate",
+    title: "P.G Corporate",
     description: "Photographie événement entreprise",
     thumbnail: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-45-thumb.webp",
     media: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-45-web.webp",
@@ -124,7 +124,7 @@ const projects = [
   },
   {
     id: 14,
-    title: "P&G Session",
+    title: "P.G Session",
     description: "Reportage photo corporate",
     thumbnail: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-68-thumb.webp",
     media: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-68-web.webp",
