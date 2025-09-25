@@ -7,7 +7,7 @@ import Footer from "../../components/Footer/Footer";
 
 import ReactLenis from "lenis/react";
 
-import Transition from "../../components/Transition/Transition";
+
 
 const FAQ = () => {
   return (
@@ -21,4 +21,4 @@ const FAQ = () => {
   );
 };
 
-export default Transition(FAQ);
+export default FAQ;

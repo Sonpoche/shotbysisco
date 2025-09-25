@@ -13,15 +13,13 @@ import Services from "./pages/Services/Services";
 import FAQ from "./pages/FAQ/FAQ";
 import Contact from "./pages/Contact/Contact";
 
-import { AnimatePresence } from "framer-motion";
+
 
 function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 1400);
+    window.scrollTo(0, 0);
   }, [pathname]);
 
   return null;
@@ -30,27 +28,22 @@ function ScrollToTop() {
 function App() {
   const location = useLocation();
 
-  return (
-    <>
-      {/* Ajouter le préchargeur de polices */}
-      <FontPreloader />
-      <ScrollToTop />
-      <Menu />
-      <AnimatePresence mode="wait" initial={false}>
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/portfolio" element={<Work />} />
-          {/* Route dynamique pour les projets individuels */}
-          <Route path="/projects/:slug" element={<Project />} />
-          {/* Route legacy pour /projects sans slug - affiche le premier projet */}
-          <Route path="/projects" element={<Project />} />
-        </Routes>
-      </AnimatePresence>
-    </>
-  );
+return (
+  <>
+    <FontPreloader />
+    <ScrollToTop />
+    <Menu />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/faq" element={<FAQ />} />
+      <Route path="/portfolio" element={<Work />} />
+      <Route path="/projects/:slug" element={<Project />} />
+      <Route path="/projects" element={<Project />} />
+    </Routes>
+  </>
+);
 }
 
 export default App;

@@ -11,7 +11,6 @@ import VerticalCarousel from "../../components/VerticalCarousel/VerticalCarousel
 import ReactLenis from "lenis/react";
 import { gsap } from "gsap";
 
-import Transition from "../../components/Transition/Transition";
 
 const Services = () => {
   const [searchParams] = useSearchParams();
@@ -221,4 +220,4 @@ const Services = () => {
   );
 };
 
-export default Transition(Services);
+export default Services;

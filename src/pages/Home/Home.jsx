@@ -13,15 +13,29 @@ import ReactLenis from "lenis/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-import Transition from "../../components/Transition/Transition";
+
 
 const Home = () => {
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
+
   useEffect(() => {
-    // Nettoyage des animations GSAP qui ne sont plus necessaires
+    // Détection du changement de taille d'écran
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+
+    // Nettoyage des animations GSAP
     return () => {
+      window.removeEventListener('resize', handleResize);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
+
+  // URLs des vidéos optimisées
+  const videoSrc = isMobile 
+    ? "https://videos.agencememento.com/home/optimized/memento-showreelnew-mobile.mp4"
+    : "https://videos.agencememento.com/home/optimized/memento-showreelnew-desktop.mp4";
 
   return (
     <ReactLenis root>
@@ -29,6 +43,7 @@ const Home = () => {
         <section className="hero">
           <div className="hero-img">
             <video
+              key={videoSrc} // Force le rechargement si l'URL change
               autoPlay
               loop
               muted
@@ -39,7 +54,7 @@ const Home = () => {
                 objectFit: 'cover'
               }}
             >
-              <source src="https://videos.agencememento.com/home/memento-showreelnew-web.mp4" type="video/mp4" />
+              <source src={videoSrc} type="video/mp4" />
             </video>
           </div>
         </section>
@@ -94,4 +109,4 @@ const Home = () => {
   );
 };
 
-export default Transition(Home);  
+export default Home;

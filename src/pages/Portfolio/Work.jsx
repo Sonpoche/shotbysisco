@@ -6,7 +6,6 @@ import "./Work.css";
 
 import { gsap } from "gsap";
 
-import Transition from "../../components/Transition/Transition";
 
 const Work = () => {
   const location = useLocation();
@@ -330,4 +329,4 @@ const Work = () => {
   );
 };
 
-export default Transition(Work);
+export default Work;
