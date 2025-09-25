@@ -59,7 +59,7 @@ const Home = () => {
               {/* Lien vers Services - onglet Reseaux Sociaux */}
               <Link to="/services?service=reseaux-sociaux" className="home-tool-card">
                 <div className="home-tool-bg">
-                  <img src="/about/tool-1.jpg" alt="" />
+                  <img src="https://videos.agencememento.com/Reseaux/marion-ryan-5-web.webp" alt="Réseaux sociaux" />
                 </div>
                 <h4>reseaux sociaux</h4>
                 <p className="primary sm">contenus creatifs pour vos plateformes.</p>
@@ -68,7 +68,7 @@ const Home = () => {
               {/* Lien vers Services - onglet Evenementiel */}
               <Link to="/services?service=evenementiel" className="home-tool-card">
                 <div className="home-tool-bg">
-                  <img src="/about/tool-2.jpg" alt="" />
+                  <img src="https://videos.agencememento.com/evenementiel/PandG-Final-Memento-45-web.webp" alt="Événementiel" />
                 </div>
                 <h4>evenementiel</h4>
                 <p className="primary sm">entreprises, galas, lancements, soirees.</p>
@@ -77,7 +77,7 @@ const Home = () => {
               {/* Lien vers Services - onglet Prive */}
               <Link to="/services?service=prive" className="home-tool-card">
                 <div className="home-tool-bg">
-                  <img src="/about/tool-3.jpg" alt="" />
+                  <img src="https://videos.agencememento.com/Prive/jeans-tournesol_0002_Generative_Fill-web.webp" alt="Privé" />
                 </div>
                 <h4>prive</h4>
                 <p className="primary sm">mariages, portraits et instants de vie.</p>
@@ -94,4 +94,4 @@ const Home = () => {
   );
 };
 
-export default Transition(Home);
+export default Transition(Home);  

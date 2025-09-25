@@ -9,79 +9,35 @@ const VideoCarousel = () => {
   const [momentum, setMomentum] = useState(0);
   const velocityTrackerRef = useRef([]);
   const lastXRef = useRef(0);
-  const intervalRef = useRef(null);
+  const animationRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  // Vraies vidéos - 2 par service (6 vidéos au total) - URLS R2 avec posters
-  const baseVideos = [
-    // RESEAUX SOCIAUX (2 vidéos)
-    {
-      id: 1,
-      src: "https://videos.agencememento.com/Reseaux/ANNONCE-UMD_ahq12-web.mp4",
-      poster: "https://videos.agencememento.com/Reseaux/ANNONCE-UMD_ahq12-poster-web.webp",
-      title: "annonce umd",
-      subtitle: "reseaux sociaux",
-      category: "reseaux"
-    },
-    {
-      id: 2,
-      src: "https://videos.agencememento.com/Reseaux/Captions_92967C-web.mp4",
-      poster: "https://videos.agencememento.com/Reseaux/Captions_92967C-poster-web.webp",
-      title: "captions creative",
-      subtitle: "reseaux sociaux",
-      category: "reseaux"
-    },
-    // EVENEMENTIEL (2 vidéos)
-    {
-      id: 3,
-      src: "https://videos.agencememento.com/evenementiel/ALVIN_FINAL_ITWmp4-web.mp4",
-      poster: "https://videos.agencememento.com/evenementiel/ALVIN_FINAL_ITWmp4-poster-web.webp",
-      title: "interview alvin",
-      subtitle: "evenementiel",
-      category: "evenementiel"
-    },
-    {
-      id: 4,
-      src: "https://videos.agencememento.com/evenementiel/BIRTHDAY_FINAL-web.mp4",
-      poster: "https://videos.agencememento.com/evenementiel/BIRTHDAY_FINAL-poster-web.webp",
-      title: "birthday final",
-      subtitle: "evenementiel",
-      category: "evenementiel"
-    },
-    // PRIVE (2 vidéos)
-    {
-      id: 5,
-      src: "https://videos.agencememento.com/Prive/marioVERT-mariage-web.mp4",
-      poster: "https://videos.agencememento.com/Prive/marioVERT-mariage-poster-web.webp",
-      title: "mario et verde",
-      subtitle: "prive",
-      category: "prive"
-    },
-    {
-      id: 6,
-      src: "https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-web.mp4",
-      poster: "https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-poster-web.webp",
-      title: "chris et philo",
-      subtitle: "prive",
-      category: "prive"
-    }
-  ];
+  // Détection du changement de taille d'écran
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  // Créer 5 sets pour une meilleure boucle (pas de trou)
-  const videos = [
-    ...baseVideos,
-    ...baseVideos,
-    ...baseVideos,
-    ...baseVideos,
-    ...baseVideos
-  ];
+  // Générer les 22 vidéos avec les bonnes URLs selon desktop/mobile
+  const baseVideos = Array.from({ length: 22 }, (_, i) => {
+    const num = i + 1;
+    const baseUrl = isMobile 
+      ? `https://videos.agencememento.com/mobile/videocarousel${num}.mp4`
+      : `https://videos.agencememento.com/desktop/videocarousel${num}.mp4`;
+    
+    return {
+      id: num,
+      src: baseUrl,
+    };
+  });
 
-  // Détecter iOS
-  const isIOS = () => {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  };
+  // Dupliquer pour créer une boucle infinie transparente (2 sets)
+  const videos = [...baseVideos, ...baseVideos];
 
-  // Optimisation : Observer pour lazy loading et preloading intelligent
+  // Observer pour play/pause des vidéos selon visibilité
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -89,10 +45,6 @@ const VideoCarousel = () => {
           const video = entry.target.querySelector('video');
           if (video) {
             if (entry.isIntersecting) {
-              // Charger et jouer la vidéo visible
-              if (video.readyState < 4) {
-                video.load(); // Force le chargement si pas encore fait
-              }
               video.play().catch(() => {});
             } else {
               video.pause();
@@ -102,215 +54,75 @@ const VideoCarousel = () => {
       },
       { 
         root: carouselRef.current,
-        rootMargin: '200px', // Augmenté pour précharger plus tôt
-        threshold: 0.1 
-      }
-    );
-
-    // Préchargement des vidéos proches
-    const preloadObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          const video = entry.target.querySelector('video');
-          if (video && entry.isIntersecting && video.readyState < 1) {
-            video.preload = 'auto'; // Force le préchargement
-            video.load();
-          }
-        });
-      },
-      { 
-        root: carouselRef.current,
-        rootMargin: '400px', // Précharge très tôt
-        threshold: 0 
+        rootMargin: '0px',
+        threshold: 0.5 
       }
     );
 
     const cards = document.querySelectorAll('.video-card');
-    cards.forEach(card => {
-      observer.observe(card);
-      preloadObserver.observe(card);
-    });
+    cards.forEach(card => observer.observe(card));
 
     return () => {
-      cards.forEach(card => {
-        observer.unobserve(card);
-        preloadObserver.unobserve(card);
-      });
+      cards.forEach(card => observer.unobserve(card));
     };
-  }, []);
+  }, [videos]);
 
-  // Auto-scroll avec solution hybride pour iOS
+  // Auto-scroll continu avec boucle infinie
   useEffect(() => {
-    let animationId;
-    // Vitesse adaptative selon l'écran
-    const isMobile = window.innerWidth <= 768;
-    const velocity = isMobile ? 1 : 0.5; // Plus rapide sur mobile
+    const baseVelocity = isMobile ? 0.8 : 0.5;
     
-    // Solution 1: Utiliser setInterval pour iOS comme fallback
-    if (isIOS()) {
-      // Clear any existing interval
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+    const animate = () => {
+      if (!isDragging && carouselRef.current) {
+        carouselRef.current.scrollLeft += baseVelocity;
+        
+        // Boucle infinie transparente
+        const scrollWidth = carouselRef.current.scrollWidth;
+        const oneSetWidth = scrollWidth / 2; // 2 sets de vidéos
+        
+        // Si on dépasse 1.5 sets, on revient à 0.5 set
+        if (carouselRef.current.scrollLeft >= oneSetWidth * 1.5) {
+          carouselRef.current.scrollLeft -= oneSetWidth;
+        }
+        // Si on va trop à gauche, on va à la fin du 1er set
+        else if (carouselRef.current.scrollLeft <= 0) {
+          carouselRef.current.scrollLeft = oneSetWidth * 0.5;
+        }
       }
       
-      intervalRef.current = setInterval(() => {
-        if (!isDragging && carouselRef.current) {
-          carouselRef.current.scrollLeft += velocity;
-          
-          // Boucle infinie transparente
-          const scrollWidth = carouselRef.current.scrollWidth;
-          const currentScroll = carouselRef.current.scrollLeft;
-          const oneSetWidth = scrollWidth / 5;
-          
-          if (currentScroll >= oneSetWidth * 3.5) {
-            carouselRef.current.scrollLeft = currentScroll - oneSetWidth;
-          } else if (currentScroll <= oneSetWidth * 0.5) {
-            carouselRef.current.scrollLeft = currentScroll + oneSetWidth;
-          }
-        }
-        
-        // Gérer le momentum
-        if (momentum !== 0 && !isDragging && carouselRef.current) {
-          carouselRef.current.scrollLeft += momentum;
-          setMomentum(prev => {
-            const newMomentum = prev * 0.95;
-            return Math.abs(newMomentum) < 0.1 ? 0 : newMomentum;
-          });
-        }
-      }, 16); // ~60fps
+      // Gestion du momentum
+      if (momentum !== 0 && !isDragging && carouselRef.current) {
+        carouselRef.current.scrollLeft += momentum;
+        setMomentum(prev => {
+          const newMomentum = prev * 0.95;
+          return Math.abs(newMomentum) < 0.1 ? 0 : newMomentum;
+        });
+      }
       
-    } else {
-      // Solution 2: requestAnimationFrame pour autres navigateurs
-      const animate = () => {
-        if (!isDragging && carouselRef.current) {
-          carouselRef.current.scrollLeft += velocity;
-          
-          const scrollWidth = carouselRef.current.scrollWidth;
-          const currentScroll = carouselRef.current.scrollLeft;
-          const oneSetWidth = scrollWidth / 5;
-          
-          if (currentScroll >= oneSetWidth * 3.5) {
-            carouselRef.current.scrollLeft = currentScroll - oneSetWidth;
-          } else if (currentScroll <= oneSetWidth * 0.5) {
-            carouselRef.current.scrollLeft = currentScroll + oneSetWidth;
-          }
-        }
-        
-        if (momentum !== 0 && !isDragging) {
-          if (carouselRef.current) {
-            carouselRef.current.scrollLeft += momentum;
-            setMomentum(momentum * 0.95);
-            if (Math.abs(momentum) < 0.1) {
-              setMomentum(0);
-            }
-          }
-        }
-        
-        animationId = requestAnimationFrame(animate);
-      };
-      
-      animationId = requestAnimationFrame(animate);
-    }
+      animationRef.current = requestAnimationFrame(animate);
+    };
     
-    // Solution 3: Forcer le réveil sur iOS avec un touch event passif
-    if (isIOS()) {
-      const wakeAnimation = () => {
-        if (carouselRef.current) {
-          // Forcer un petit changement pour maintenir l'animation active
-          carouselRef.current.style.willChange = 'scroll-position';
-          setTimeout(() => {
-            if (carouselRef.current) {
-              carouselRef.current.style.willChange = 'auto';
-            }
-          }, 100);
-        }
-      };
-      
-      // Réveiller l'animation toutes les 5 secondes sur iOS
-      const wakeInterval = setInterval(wakeAnimation, 5000);
-      
-      return () => {
-        clearInterval(wakeInterval);
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-        }
-        if (animationId) {
-          cancelAnimationFrame(animationId);
-        }
-      };
-    }
+    animationRef.current = requestAnimationFrame(animate);
     
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-      if (animationId) {
-        cancelAnimationFrame(animationId);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isDragging, momentum]);
+  }, [isDragging, momentum, isMobile]);
 
-  // Préchargement intelligent des vidéos au montage du composant
-  useEffect(() => {
-    // Précharger les 3 premières vidéos immédiatement
-    const preloadFirstVideos = () => {
-      baseVideos.slice(0, 3).forEach(video => {
-        const videoElement = document.createElement('video');
-        videoElement.preload = 'auto';
-        videoElement.muted = true;
-        videoElement.src = video.src;
-        videoElement.load();
-      });
-    };
-
-    // Délai court pour éviter de bloquer le rendu initial
-    const timer = setTimeout(preloadFirstVideos, 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Position initiale au 2e set
+  // Position initiale au milieu pour permettre le scroll dans les deux sens
   useEffect(() => {
     if (carouselRef.current) {
       const timer = setTimeout(() => {
-        const oneSetWidth = carouselRef.current.scrollWidth / 5;
-        carouselRef.current.scrollLeft = oneSetWidth * 2;
+        const scrollWidth = carouselRef.current.scrollWidth;
+        const oneSetWidth = scrollWidth / 2;
+        carouselRef.current.scrollLeft = oneSetWidth * 0.5; // Commence au milieu
       }, 100);
       return () => clearTimeout(timer);
     }
   }, []);
 
-  // Solution 4: Utiliser CSS pour iOS (fallback)
-  useEffect(() => {
-    if (isIOS() && carouselRef.current) {
-      // Ajouter une classe CSS pour animation sur iOS
-      carouselRef.current.classList.add('ios-auto-scroll');
-      
-      // Listener pour reprendre l'animation après interaction
-      const handleInteraction = () => {
-        if (carouselRef.current) {
-          carouselRef.current.classList.remove('ios-auto-scroll');
-          setTimeout(() => {
-            if (carouselRef.current && !isDragging) {
-              carouselRef.current.classList.add('ios-auto-scroll');
-            }
-          }, 100);
-        }
-      };
-      
-      document.addEventListener('touchend', handleInteraction);
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) {
-          handleInteraction();
-        }
-      });
-      
-      return () => {
-        document.removeEventListener('touchend', handleInteraction);
-      };
-    }
-  }, [isDragging]);
-
-  // Mouse handlers avec momentum amélioré
+  // Mouse handlers
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setMomentum(0);
@@ -319,11 +131,6 @@ const VideoCarousel = () => {
     setStartX(e.pageX - carouselRef.current.offsetLeft);
     setScrollLeft(carouselRef.current.scrollLeft);
     carouselRef.current.style.cursor = 'grabbing';
-    
-    // Désactiver l'animation CSS sur iOS pendant le drag
-    if (isIOS() && carouselRef.current) {
-      carouselRef.current.classList.remove('ios-auto-scroll');
-    }
   };
 
   const handleMouseUp = () => {
@@ -332,16 +139,7 @@ const VideoCarousel = () => {
     
     if (velocityTrackerRef.current.length > 0) {
       const avgVelocity = velocityTrackerRef.current.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTrackerRef.current.length, 5);
-      setMomentum(-avgVelocity * 0.4);
-    }
-    
-    // Réactiver l'animation CSS sur iOS après le drag
-    if (isIOS() && carouselRef.current) {
-      setTimeout(() => {
-        if (carouselRef.current && !isDragging) {
-          carouselRef.current.classList.add('ios-auto-scroll');
-        }
-      }, 1000);
+      setMomentum(-avgVelocity * 0.3);
     }
   };
 
@@ -349,9 +147,7 @@ const VideoCarousel = () => {
     if (!isDragging) return;
     e.preventDefault();
     
-    // Sensibilité adaptée selon l'écran
-    const isMobile = window.innerWidth <= 768;
-    const sensitivity = isMobile ? 1.8 : 1.2; // Plus réactif sur mobile
+    const sensitivity = isMobile ? 1.5 : 1;
     
     const x = e.pageX - carouselRef.current.offsetLeft;
     const walk = (x - startX) * sensitivity;
@@ -369,7 +165,7 @@ const VideoCarousel = () => {
     }
   };
 
-  // Touch handlers optimisés pour iOS
+  // Touch handlers
   const handleTouchStart = (e) => {
     setIsDragging(true);
     setMomentum(0);
@@ -377,10 +173,6 @@ const VideoCarousel = () => {
     velocityTrackerRef.current = [];
     setStartX(e.touches[0].pageX);
     setScrollLeft(carouselRef.current.scrollLeft);
-    
-    if (isIOS() && carouselRef.current) {
-      carouselRef.current.classList.remove('ios-auto-scroll');
-    }
   };
 
   const handleTouchEnd = () => {
@@ -388,24 +180,14 @@ const VideoCarousel = () => {
     
     if (velocityTrackerRef.current.length > 0) {
       const avgVelocity = velocityTrackerRef.current.slice(-5).reduce((a, b) => a + b, 0) / Math.min(velocityTrackerRef.current.length, 5);
-      setMomentum(-avgVelocity * 0.4);
-    }
-    
-    if (isIOS() && carouselRef.current) {
-      setTimeout(() => {
-        if (carouselRef.current && !isDragging) {
-          carouselRef.current.classList.add('ios-auto-scroll');
-        }
-      }, 1000);
+      setMomentum(-avgVelocity * 0.3);
     }
   };
 
   const handleTouchMove = (e) => {
     if (!isDragging) return;
     
-    // Sensibilité plus élevée pour mobile
-    const sensitivity = 1.8;
-    
+    const sensitivity = 1.5;
     const x = e.touches[0].pageX;
     const walk = (x - startX) * sensitivity;
     carouselRef.current.scrollLeft = scrollLeft - walk;
@@ -414,6 +196,24 @@ const VideoCarousel = () => {
     velocityTrackerRef.current.push(velocity);
     if (velocityTrackerRef.current.length > 10) velocityTrackerRef.current.shift();
     lastXRef.current = x;
+  };
+
+  // Gestion des erreurs avec retry
+  const handleVideoError = (e) => {
+    const videoElement = e.target;
+    const retryCount = parseInt(videoElement.dataset.retryCount || '0');
+    
+    if (retryCount < 3) {
+      console.log(`Retry ${retryCount + 1}/3 pour une vidéo`);
+      videoElement.dataset.retryCount = (retryCount + 1).toString();
+      
+      setTimeout(() => {
+        videoElement.load();
+      }, Math.pow(2, retryCount) * 1000);
+    } else {
+      console.error(`Impossible de charger une vidéo après 3 essais`);
+      videoElement.style.backgroundColor = '#111';
+    }
   };
 
   return (
@@ -439,36 +239,29 @@ const VideoCarousel = () => {
         >
           <div className="video-carousel-track">
             {videos.map((video, index) => (
-              <div key={`${video.id}-${index}`} className="video-card">
+              <div 
+                key={`video-${index}`} 
+                className="video-card"
+              >
                 <div className="video-card-inner">
                   <video
+                    src={video.src}
                     autoPlay
                     loop
                     muted
                     playsInline
-                    preload="auto"
-                    onLoadStart={(e) => {
-                      // Optimisation : Forcer le buffering au début
-                      if (e.target.readyState < 2) {
-                        e.target.load();
-                      }
-                    }}
-                    onCanPlay={(e) => {
-                      // Commencer la lecture dès que possible
-                      e.target.play().catch(() => {});
-                    }}
+                    preload="metadata"
+                    onError={handleVideoError}
                     style={{
-                      // Accélération matérielle pour de meilleures performances
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                      backgroundColor: '#000',
                       transform: 'translateZ(0)',
                       willChange: 'transform'
                     }}
-                  >
-                    <source src={video.src} type="video/mp4" />
-                  </video>
-                  <div className="video-card-overlay">
-                    <h3>{video.title}</h3>
-                    <p>{video.subtitle}</p>
-                  </div>
+                  />
                 </div>
               </div>
             ))}
@@ -477,7 +270,11 @@ const VideoCarousel = () => {
       </div>
       
       <div className="carousel-scroll-hint">
-        <p>parcourir</p>
+        <p>
+          <span className="scroll-arrow">←</span>
+          <span className="scroll-text">parcourir</span>
+          <span className="scroll-arrow">→</span>
+        </p>
       </div>
     </section>
   );
