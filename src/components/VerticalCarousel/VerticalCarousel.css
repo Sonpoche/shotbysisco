@@ -42,6 +42,7 @@
 .carousel-item.auto-expanded {
   width: 350px;
   transform: scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* Sur mobile/tablet, on désactive le hover et utilise auto-expanded */
@@ -49,11 +50,13 @@
   .carousel-item:hover {
     width: 70px; /* Reset hover sur mobile */
     transform: none;
+    box-shadow: none;
   }
   
   .carousel-item.auto-expanded {
     width: 280px;
     transform: scale(1.01);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   }
   
   .carousel-item {
@@ -70,16 +73,18 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  transition: opacity 0.6s ease;
-  opacity: 0.4;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 0.7;
+  transform: scale(1.1);
 }
 
 .carousel-item:hover .carousel-media,
 .carousel-item.auto-expanded .carousel-media {
   opacity: 1;
+  transform: scale(1);
 }
 
-/* Overlay sombre */
+/* Overlay sombre plus subtil */
 .carousel-overlay {
   position: absolute;
   top: 0;
@@ -87,8 +92,8 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.7) 0%,
+    180deg,
+    rgba(0, 0, 0, 0.2) 0%,
     rgba(0, 0, 0, 0.4) 100%
   );
   z-index: 1;
@@ -97,51 +102,15 @@
 
 .carousel-item:hover .carousel-overlay,
 .carousel-item.auto-expanded .carousel-overlay {
-  opacity: 0.8;
+  opacity: 0.3;
 }
 
-/* Contenu - titre centré */
+/* Contenu - maintenant vide mais gardé pour la structure */
 .carousel-content {
   position: relative;
   z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100%;
   width: 100%;
-  padding: 2rem 1rem; /* Padding adapté */
-  text-align: center;
-}
-
-.carousel-title {
-  font-family: "BDMegalona", sans-serif;
-  font-size: 1.8rem;
-  font-weight: 600;
-  font-style: italic;
-  text-transform: lowercase;
-  color: white;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin: 0;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Texte vertical par défaut */
-  transform: rotate(-90deg);
-  white-space: nowrap;
-  transform-origin: center;
-  position: absolute;
-  width: max-content;
-}
-
-.carousel-item:hover .carousel-title,
-.carousel-item.auto-expanded .carousel-title {
-  /* Texte horizontal au hover sur desktop et auto-expanded sur mobile */
-  transform: rotate(0deg) scale(1.1);
-  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.9);
-  font-size: 2rem;
-  position: relative;
-  width: auto;
 }
 
 /* Indicateur de progression pour mobile/tablet */
@@ -167,7 +136,23 @@
   to { width: 100%; }
 }
 
-/* Animation séquentielle pour les items (adaptée pour 8 sur desktop, 4 sur mobile) */
+/* Animation séquentielle pour les items */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.carousel-item {
+  animation: slideIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
 .carousel-item:nth-child(1) { animation-delay: 0s; }
 .carousel-item:nth-child(2) { animation-delay: 0.05s; }
 .carousel-item:nth-child(3) { animation-delay: 0.1s; }
@@ -194,10 +179,6 @@
   .carousel-item:hover {
     width: 300px;
   }
-  
-  .carousel-title {
-    font-size: 1.6rem;
-  }
 }
 
 @media (max-width: 1200px) {
@@ -214,10 +195,6 @@
   
   .carousel-item:hover {
     width: 250px;
-  }
-  
-  .carousel-title {
-    font-size: 1.4rem;
   }
 }
 
@@ -237,16 +214,12 @@
     flex-shrink: 0;
   }
   
-  .carousel-title {
-    font-size: 1.3rem;
-  }
-  
-  .carousel-item.auto-expanded .carousel-title {
-    font-size: 1.6rem;
+  .carousel-item.auto-expanded {
+    width: 240px; /* Un peu plus petit sur mobile */
   }
   
   .carousel-content {
-    padding: 1rem 0.5rem;
+    padding: 0;
   }
 }
 
@@ -262,11 +235,7 @@
     min-width: 65px;
   }
   
-  .carousel-title {
-    font-size: 1.2rem;
-  }
-  
-  .carousel-item.auto-expanded .carousel-title {
-    font-size: 1.4rem;
+  .carousel-item.auto-expanded {
+    width: 200px;
   }
 }

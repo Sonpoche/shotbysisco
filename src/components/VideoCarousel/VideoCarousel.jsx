@@ -21,21 +21,84 @@ const VideoCarousel = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Générer les 22 vidéos avec les bonnes URLs selon desktop/mobile
-  const baseVideos = Array.from({ length: 22 }, (_, i) => {
-    const num = i + 1;
-    const baseUrl = isMobile 
-      ? `https://videos.agencememento.com/mobile/videocarousel${num}.mp4`
-      : `https://videos.agencememento.com/desktop/videocarousel${num}.mp4`;
-    
-    return {
-      id: num,
-      src: baseUrl,
-    };
-  });
+  // 12 medias : alternance vidéo/photo
+  const baseMedias = [
+    // 1. VIDEO
+    {
+      id: 1,
+      type: 'video',
+      src: 'https://videos.agencememento.com/Reseaux/ANNONCE-UMD_ahq12-web.mp4',
+    },
+    // 2. PHOTO
+    {
+      id: 2,
+      type: 'image',
+      src: 'https://videos.agencememento.com/Reseaux/marion-ryan-5-web.webp',
+    },
+    // 3. VIDEO
+    {
+      id: 3,
+      type: 'video',
+      src: 'https://videos.agencememento.com/Reseaux/Captions_92967C-web.mp4',
+    },
+    // 4. PHOTO
+    {
+      id: 4,
+      type: 'image',
+      src: 'https://videos.agencememento.com/Reseaux/marion-ryan-13-web.webp',
+    },
+    // 5. VIDEO
+    {
+      id: 5,
+      type: 'video',
+      src: 'https://videos.agencememento.com/Prive/marioVERT-mariage-web.mp4',
+    },
+    // 6. PHOTO
+    {
+      id: 6,
+      type: 'image',
+      src: 'https://videos.agencememento.com/Prive/jeans-tournesol_0002_Generative_Fill-web.webp',
+    },
+    // 7. VIDEO
+    {
+      id: 7,
+      type: 'video',
+      src: 'https://videos.agencememento.com/evenementiel/ALVIN_FINAL_ITWmp4-web.mp4',
+    },
+    // 8. PHOTO
+    {
+      id: 8,
+      type: 'image',
+      src: 'https://videos.agencememento.com/Prive/jeans-tournesol_0000_Generative_Fill_4-web.webp',
+    },
+    // 9. VIDEO
+    {
+      id: 9,
+      type: 'video',
+      src: 'https://videos.agencememento.com/evenementiel/BIRTHDAY_FINAL-web.mp4',
+    },
+    // 10. PHOTO
+    {
+      id: 10,
+      type: 'image',
+      src: 'https://videos.agencememento.com/evenementiel/PandG-Final-Memento-45-web.webp',
+    },
+    // 11. VIDEO
+    {
+      id: 11,
+      type: 'video',
+      src: 'https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-web.mp4',
+    },
+    // 12. PHOTO
+    {
+      id: 12,
+      type: 'image',
+      src: 'https://videos.agencememento.com/evenementiel/PandG-Final-Memento-68-web.webp',
+    }
+  ];
 
   // Dupliquer pour créer une boucle infinie transparente (2 sets)
-  const videos = [...baseVideos, ...baseVideos];
+  const medias = [...baseMedias, ...baseMedias];
 
   // Observer pour play/pause des vidéos selon visibilité
   useEffect(() => {
@@ -65,7 +128,7 @@ const VideoCarousel = () => {
     return () => {
       cards.forEach(card => observer.unobserve(card));
     };
-  }, [videos]);
+  }, [medias]);
 
   // Auto-scroll continu avec boucle infinie
   useEffect(() => {
@@ -77,7 +140,7 @@ const VideoCarousel = () => {
         
         // Boucle infinie transparente
         const scrollWidth = carouselRef.current.scrollWidth;
-        const oneSetWidth = scrollWidth / 2; // 2 sets de vidéos
+        const oneSetWidth = scrollWidth / 2; // 2 sets de médias
         
         // Si on dépasse 1.5 sets, on revient à 0.5 set
         if (carouselRef.current.scrollLeft >= oneSetWidth * 1.5) {
@@ -124,6 +187,7 @@ const VideoCarousel = () => {
 
   // Mouse handlers
   const handleMouseDown = (e) => {
+    e.preventDefault(); // Empêche le drag natif des images
     setIsDragging(true);
     setMomentum(0);
     lastXRef.current = e.pageX;
@@ -238,30 +302,51 @@ const VideoCarousel = () => {
           onTouchMove={handleTouchMove}
         >
           <div className="video-carousel-track">
-            {videos.map((video, index) => (
+            {medias.map((media, index) => (
               <div 
-                key={`video-${index}`} 
+                key={`media-${index}`} 
                 className="video-card"
               >
                 <div className="video-card-inner">
-                  <video
-                    src={video.src}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                    onError={handleVideoError}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                      backgroundColor: '#000',
-                      transform: 'translateZ(0)',
-                      willChange: 'transform'
-                    }}
-                  />
+                  {media.type === 'video' ? (
+                    <video
+                      src={media.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                      onError={handleVideoError}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                        backgroundColor: '#000',
+                        transform: 'translateZ(0)',
+                        willChange: 'transform'
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={media.src}
+                      alt=""
+                      draggable="false"
+                      onDragStart={(e) => e.preventDefault()}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                        userSelect: 'none',
+                        WebkitUserSelect: 'none',
+                        MozUserSelect: 'none',
+                        msUserSelect: 'none',
+                        WebkitUserDrag: 'none',
+                        pointerEvents: 'auto'
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             ))}

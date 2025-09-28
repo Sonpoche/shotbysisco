@@ -52,16 +52,16 @@ const VerticalCarousel = ({ items = [] }) => {
             <img
               className="carousel-media"
               src={item.media}
-              alt={item.title}
+              alt=""
             />
           )}
           
           {/* Overlay sombre */}
           <div className="carousel-overlay"></div>
           
-          {/* Contenu - titre toujours visible */}
+          {/* Contenu vide - pas de titre */}
           <div className="carousel-content">
-            <h3 className="carousel-title">{item.title}</h3>
+            {/* Les titres ont été retirés pour un design plus épuré */}
           </div>
 
           {/* Indicateur de progression pour la slide active sur mobile */}

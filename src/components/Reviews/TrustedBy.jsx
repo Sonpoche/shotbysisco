@@ -7,21 +7,29 @@ const TrustedBy = () => {
   const row1Ref = useRef(null);
   const row2Ref = useRef(null);
 
-  // Liste des logos/partenaires
+  // Liste des vrais logos/partenaires avec indication si le logo est sombre
   const partners = [
-    { id: 1, name: "Nike", logo: "/logos/nike.svg" },
-    { id: 2, name: "Adidas", logo: "/logos/adidas.svg" },
-    { id: 3, name: "Puma", logo: "/logos/puma.svg" },
-    { id: 4, name: "Reebok", logo: "/logos/reebok.svg" },
-    { id: 5, name: "Under Armour", logo: "/logos/under-armour.svg" },
-    { id: 6, name: "New Balance", logo: "/logos/new-balance.svg" },
-    { id: 7, name: "Asics", logo: "/logos/asics.svg" },
-    { id: 8, name: "Converse", logo: "/logos/converse.svg" },
+    { id: 1, name: "The Zone", logo: "/logos/the-zone.png", isDark: false },
+    { id: 2, name: "Dr. Sneakers Shoes", logo: "/logos/drsneakers.png", isDark: true },
+    { id: 3, name: "A.S. Charmilles", logo: "/logos/as-charmilles.png", isDark: true },
+    { id: 4, name: "Expure", logo: "/logos/Expure.png", isDark: true },
+    { id: 5, name: "Pearl", logo: "/logos/Pearl.png", isDark: false },
+    { id: 6, name: "Pomodoro", logo: "/logos/pomodoro.png", isDark: true },
+    { id: 8, name: "Egg", logo: "/logos/original.png", isDark: false },
+    { id: 9, name: "UMD", logo: "/logos/umd.png", isDark: true },
+    { id: 10, name: "Urbak", logo: "/logos/urbak.svg", isDark: true },
+    { id: 11, name: "Collectorsphere", logo: "/logos/Collectorsphere.png", isDark: true },
+    { id: 12, name: "Addict Natation", logo: "/logos/addict.png", isDark: true },
+    { id: 13, name: "La Materiotech", logo: "/logos/materiotech.png", isDark: true },
+    { id: 14, name: "Harold Genève", logo: "/logos/harold.png", isDark: true },
+    { id: 15, name: "MamuSkincare", logo: "/logos/mamu.png", isDark: true }
   ];
 
   useEffect(() => {
     // Animation pour la première ligne (gauche à droite)
     const row1 = row1Ref.current;
+    if (!row1) return;
+    
     const row1Width = row1.scrollWidth / 2;
 
     gsap.set(row1, { x: 0 });
@@ -35,6 +43,8 @@ const TrustedBy = () => {
 
     // Animation pour la deuxième ligne (droite à gauche)
     const row2 = row2Ref.current;
+    if (!row2) return;
+    
     const row2Width = row2.scrollWidth / 2;
 
     gsap.set(row2, { x: -row2Width });
@@ -84,9 +94,19 @@ const TrustedBy = () => {
             {[...partners, ...partners].map((partner, index) => (
               <div key={`row1-${index}`} className="partner-item">
                 <div className="partner-logo">
-                  {/* Utiliser un placeholder si pas d'image */}
                   <div className="logo-placeholder">
-                    <h4>{partner.name}</h4>
+                    <img 
+                      src={partner.logo}
+                      alt={partner.name}
+                      className={partner.isDark ? "logo-inverted" : "logo-normal"}
+                      onError={(e) => {
+                        // Si l'image ne charge pas, afficher le nom
+                        e.target.style.display = 'none';
+                        const textFallback = document.createElement('h4');
+                        textFallback.textContent = partner.name;
+                        e.target.parentElement.appendChild(textFallback);
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -97,11 +117,22 @@ const TrustedBy = () => {
         {/* Deuxième ligne - défilement de droite à gauche */}
         <div className="slider-row">
           <div className="slider-track reverse" ref={row2Ref}>
-            {[...partners, ...partners].map((partner, index) => (
+            {[...partners.slice().reverse(), ...partners.slice().reverse()].map((partner, index) => (
               <div key={`row2-${index}`} className="partner-item">
                 <div className="partner-logo">
                   <div className="logo-placeholder">
-                    <h4>{partner.name}</h4>
+                    <img 
+                      src={partner.logo}
+                      alt={partner.name}
+                      className={partner.isDark ? "logo-inverted" : "logo-normal"}
+                      onError={(e) => {
+                        // Si l'image ne charge pas, afficher le nom
+                        e.target.style.display = 'none';
+                        const textFallback = document.createElement('h4');
+                        textFallback.textContent = partner.name;
+                        e.target.parentElement.appendChild(textFallback);
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -112,7 +143,7 @@ const TrustedBy = () => {
 
       <div className="trusted-by-footer">
         <p className="secondary">
-          Plus de 50 marques et créateurs nous ont fait confiance pour donner vie à leurs projets visuels.
+          De nombreux créateurs et entreprises nous font confiance. Voici quelques-uns de nos partenaires.
         </p>
       </div>
     </section>

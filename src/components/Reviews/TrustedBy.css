@@ -79,8 +79,7 @@
 
 .partner-logo:hover {
   transform: scale(1.05);
-  background: var(--bg200);
-  border-color: var(--bg);
+  /* Suppression du changement de background et border-color au hover */
 }
 
 .logo-placeholder {
@@ -99,14 +98,35 @@
   height: auto;
   max-height: 60px;
   object-fit: contain;
-  filter: grayscale(100%);
-  opacity: 0.7;
   transition: all 0.3s ease;
 }
 
-.partner-logo:hover .logo-placeholder img {
+/* Classe pour inverser les logos sombres qui seraient invisibles sur fond noir */
+.logo-inverted {
+  filter: invert(1) grayscale(100%);
+  opacity: 0.8;
+}
+
+.partner-logo:hover .logo-inverted {
+  filter: invert(1) grayscale(100%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Classe pour les logos clairs - gardent le style original */
+.logo-normal {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.partner-logo:hover .logo-normal {
   filter: grayscale(0%);
   opacity: 1;
+}
+
+/* Style spécifique pour le logo Egg (original.png) */
+.logo-placeholder img[src="/logos/original.png"] {
+  transform: scale(0.6);
 }
 
 .trusted-by-footer {
