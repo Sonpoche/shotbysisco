@@ -50,7 +50,7 @@ const Services = () => {
   // CONTENUS CORRIGES AVEC VOS VRAIES URLS ET VIDEOS
   const servicesContent = {
     events: {
-      title: "Reseaux sociaux",
+      title: "Réseaux sociaux",
       subtitle: "Contenus creatifs pour vos plateformes.",
       description: "Nous creons des videos et photos originales, concues pour maximiser votre visibilite sur les reseaux sociaux. Instagram, TikTok, LinkedIn ou Facebook : chaque format est pense pour captiver votre audience et refleter fidelement l'ADN de votre entreprise.",
       layout: "events",
@@ -78,7 +78,7 @@ const Services = () => {
       ]
     },
     stories: {
-      title: "evenementiel",
+      title: "évènementiel",
       subtitle: "entreprises, galas, lancements, soirees.",
       description: "Nous couvrons tous types d'evenements corporatifs et institutionnels afin de mettre en avant votre entreprise lors de moments forts. Conferences, seminaires, soirees d'entreprise, galas, inaugurations, lancements de produit ou remises de prix.",
       layout: "stories",
@@ -106,7 +106,7 @@ const Services = () => {
       ]
     },
     moments: {
-      title: "prive",
+      title: "privé",
       subtitle: "mariages, portraits et instants de vie.",
       description: "Chaque moment important merite d'etre capture avec emotion et professionnalisme. Nous realisons des photos et videos pour vos instants precieux : mariages, naissances, baptemes, anniversaires, portraits ou shootings grossesse.",
       layout: "moments",

@@ -354,7 +354,7 @@
   }
 
   .sticky-work-header {
-    height: 30vh; /* Encore plus petit sur mobile */
+    height: 30vh;
     padding: 1.25em;
   }
   
@@ -399,7 +399,7 @@
     gap: 1.25em;
   }
   
-  /* Layout 3 cartes sur mobile */
+  /* Layout 3 cartes sur mobile - FORMAT VERTICAL */
   .hobbies .home-tools-row.three-cards {
     display: flex;
     flex-direction: column;
@@ -407,7 +407,9 @@
   }
   
   .hobbies .home-tools-row.three-cards .home-tool-card {
-    aspect-ratio: 5/3; /* Plus horizontal sur mobile */
+    aspect-ratio: 3/4; /* Format vertical plus compact */
+    padding: 1.5em 1em;
+    max-height: 320px; /* Hauteur maximale réduite */
   }
 
   .hobbies .home-tool-card h4 {
@@ -443,5 +445,19 @@
   .services-subtitle {
     font-size: 0.85rem;
     line-height: 1.4;
+  }
+  
+  /* Ajustements supplémentaires pour très petits écrans */
+  .hobbies .home-tools-row.three-cards .home-tool-card {
+    aspect-ratio: 2/3; /* Maintenir le format vertical réduit */
+    max-height: 350px; /* Hauteur maximale encore plus petite */
+  }
+  
+  .hobbies .home-tool-card h4 {
+    font-size: 1.8rem;
+  }
+  
+  .hobbies .home-tool-card p {
+    font-size: 0.75rem;
   }
 }

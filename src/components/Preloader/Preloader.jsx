@@ -40,7 +40,6 @@ const Preloader = ({ onComplete }) => {
     const preloadAssets = async () => {
       const criticalAssets = [
         '/fonts/BDMegalona-Italic.woff2',
-        '/fonts/Rader.woff2',
       ];
 
       try {
@@ -103,6 +102,11 @@ const Preloader = ({ onComplete }) => {
             style={{
               marginBottom: '60px',
               position: 'relative',
+              textAlign: 'center',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
           >
             <motion.h1
@@ -116,6 +120,7 @@ const Preloader = ({ onComplete }) => {
                 WebkitBackgroundClip: 'text',
                 letterSpacing: '-0.04em',
                 margin: 0,
+                padding: '0 0.2em',
                 textTransform: 'lowercase',
               }}
               animate={{

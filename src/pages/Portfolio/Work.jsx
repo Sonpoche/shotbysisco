@@ -111,21 +111,6 @@ const Work = () => {
 
     // Animation d'entrée
     gsap.fromTo(
-      portfolioInfoRef.current,
-      {
-        opacity: 0,
-        y: 50,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        onComplete: () => setIsAnimating(false),
-      }
-    );
-
-    gsap.fromTo(
       mediaRef.current,
       {
         opacity: 0,
@@ -136,6 +121,7 @@ const Work = () => {
         scale: 1,
         duration: 1,
         ease: "power2.out",
+        onComplete: () => setIsAnimating(false),
       }
     );
   }, [activeProject, isAnimating]);
@@ -143,13 +129,6 @@ const Work = () => {
   const handleWorkItemClick = (project) => {
     if (project.id !== activeProject.id && !isAnimating) {
       // Animation de sortie
-      gsap.to(portfolioInfoRef.current, {
-        opacity: 0,
-        y: -30,
-        duration: 0.4,
-        ease: "power2.in",
-      });
-
       gsap.to(mediaRef.current, {
         opacity: 0,
         duration: 0.4,
@@ -314,16 +293,6 @@ const Work = () => {
             ))}
           </div>
         )}
-
-        {/* STRUCTURE HTML SANS LIEN - TITRE SIMPLE */}
-        <div className="portfolio-info" ref={portfolioInfoRef}>
-          <div className="portfolio-description">
-            <p className="primary sm">{activeProject.description}</p>
-          </div>
-          <div className="portfolio-title-section">
-            <h1 className="portfolio-title">{activeProject.title}</h1>
-          </div>
-        </div>
       </div>
     </div>
   );

@@ -25,6 +25,20 @@ const TrustedBy = () => {
     { id: 15, name: "MamuSkincare", logo: "/logos/mamu.png", isDark: true }
   ];
 
+  // Fonction pour mélanger un tableau (shuffle)
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Créer deux ordres différents pour éviter les alignements
+  const row1Partners = partners;
+  const row2Partners = shuffleArray(partners);
+
   useEffect(() => {
     // Animation pour la première ligne (gauche à droite)
     const row1 = row1Ref.current;
@@ -90,8 +104,8 @@ const TrustedBy = () => {
         {/* Première ligne - défilement de gauche à droite */}
         <div className="slider-row">
           <div className="slider-track" ref={row1Ref}>
-            {/* Dupliquer les logos pour créer un défilement infini */}
-            {[...partners, ...partners].map((partner, index) => (
+            {/* Dupliquer les logos de la première moitié */}
+            {[...row1Partners, ...row1Partners].map((partner, index) => (
               <div key={`row1-${index}`} className="partner-item">
                 <div className="partner-logo">
                   <div className="logo-placeholder">
@@ -100,7 +114,6 @@ const TrustedBy = () => {
                       alt={partner.name}
                       className={partner.isDark ? "logo-inverted" : "logo-normal"}
                       onError={(e) => {
-                        // Si l'image ne charge pas, afficher le nom
                         e.target.style.display = 'none';
                         const textFallback = document.createElement('h4');
                         textFallback.textContent = partner.name;
@@ -117,7 +130,8 @@ const TrustedBy = () => {
         {/* Deuxième ligne - défilement de droite à gauche */}
         <div className="slider-row">
           <div className="slider-track reverse" ref={row2Ref}>
-            {[...partners.slice().reverse(), ...partners.slice().reverse()].map((partner, index) => (
+            {/* Dupliquer les logos de la deuxième moitié */}
+            {[...row2Partners, ...row2Partners].map((partner, index) => (
               <div key={`row2-${index}`} className="partner-item">
                 <div className="partner-logo">
                   <div className="logo-placeholder">
@@ -126,7 +140,6 @@ const TrustedBy = () => {
                       alt={partner.name}
                       className={partner.isDark ? "logo-inverted" : "logo-normal"}
                       onError={(e) => {
-                        // Si l'image ne charge pas, afficher le nom
                         e.target.style.display = 'none';
                         const textFallback = document.createElement('h4');
                         textFallback.textContent = partner.name;

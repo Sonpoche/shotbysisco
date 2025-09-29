@@ -14,15 +14,14 @@ const Menu = () => {
   const socialLinks = [
     {
       name: "Instagram",
-      shortName: "IG", // Version courte alternative
+      shortName: "IG",
       url: "https://www.instagram.com/memento.ch?igsh=eG9hYXJ6bDJucmJ6",
       external: true
     },
-    
     {
       name: "linkedin", 
-      shortName: "TT", // Version courte alternative
-      url: "https://www.linkedin.com/@votrecompte", // À remplacer par votre vrai lien
+      shortName: "TT",
+      url: "https://www.linkedin.com/@votrecompte",
       external: true
     }
   ];
@@ -84,7 +83,6 @@ const Menu = () => {
     window.open(social.url, '_blank', 'noopener,noreferrer');
   };
 
-  // Reste du code des useEffect identique...
   useEffect(() => {
     if (location.pathname !== previousPathRef.current && shouldDelayClose) {
       const timer = setTimeout(() => {
@@ -167,6 +165,17 @@ const Menu = () => {
 
       const currentScrollY = window.scrollY;
 
+      // FIX: Ne pas cacher la navbar si on est en haut de la page
+      if (currentScrollY < 50) {
+        gsap.to(".menu-bar", {
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
       if (currentScrollY > lastScrollY.current) {
         gsap.to(".menu-bar", {
           y: -200,
@@ -210,7 +219,6 @@ const Menu = () => {
               </Link>
             </div>
             
-            {/* Liens textuels avec séparateur */}
             <div className="social-links">
               {socialLinks.map((social, index) => (
                 <React.Fragment key={index}>
@@ -228,8 +236,6 @@ const Menu = () => {
                 </React.Fragment>
               ))}
             </div>
-
-            
           </div>
           
           <div className="menu-actions">

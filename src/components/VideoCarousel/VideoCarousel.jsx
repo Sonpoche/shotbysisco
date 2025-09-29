@@ -10,7 +10,20 @@ const VideoCarousel = () => {
   const [prevTranslate, setPrevTranslate] = useState(0);
   const animationRef = useRef(null);
   const currentIndexRef = useRef(0);
-  const autoScrollSpeed = 0.5; // Vitesse de défilement automatique
+  const autoScrollSpeed = 0.5;
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Détection mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Les 12 médias originaux - SANS DUPLICATION
   const medias = [
@@ -27,13 +40,6 @@ const VideoCarousel = () => {
     { id: 11, type: 'video', src: 'https://videos.agencememento.com/Prive/ChrisetPhilo-longueversion-web.mp4' },
     { id: 12, type: 'image', src: 'https://videos.agencememento.com/evenementiel/PandG-Final-Memento-68-web.webp' }
   ];
-
-  // Clone virtuel pour les bords (juste 3 de chaque côté pour la transition)
-  const getVirtualIndex = (index) => {
-    const totalItems = medias.length;
-    if (index < 0) return totalItems + (index % totalItems);
-    return index % totalItems;
-  };
 
   // Rendu des slides avec clones virtuels aux extrémités
   const renderSlides = () => {
@@ -102,15 +108,15 @@ const VideoCarousel = () => {
 
   // Calcul de la position pour le repositionnement instantané
   const getPositionByIndex = (index) => {
-    const slideWidth = 350;
-    const gap = 32;
-    return -((index + 3) * (slideWidth + gap)); // +3 pour les clones du début
+    const slideWidth = isMobile ? 240 : 350;
+    const gap = isMobile ? 16 : 32;
+    return -((index + 3) * (slideWidth + gap));
   };
 
   // Repositionnement instantané sans animation visible
   const checkInfiniteLoop = useCallback(() => {
-    const slideWidth = 350;
-    const gap = 32;
+    const slideWidth = isMobile ? 240 : 350;
+    const gap = isMobile ? 16 : 32;
     const totalWidth = (slideWidth + gap) * medias.length;
     
     if (trackRef.current) {
@@ -146,14 +152,14 @@ const VideoCarousel = () => {
         }, 10);
       }
     }
-  }, [currentTranslate, medias.length]);
+  }, [currentTranslate, medias.length, isMobile]);
 
   // Animation auto-scroll (inversé - vers la droite maintenant)
   useEffect(() => {
     const animate = () => {
       if (!isDragging) {
         setCurrentTranslate(prev => {
-          const newTranslate = prev + autoScrollSpeed; // + au lieu de - pour aller vers la droite
+          const newTranslate = prev + autoScrollSpeed;
           if (trackRef.current) {
             trackRef.current.style.transform = `translateX(${newTranslate}px)`;
           }
@@ -173,21 +179,28 @@ const VideoCarousel = () => {
     };
   }, [isDragging, checkInfiniteLoop]);
 
-  // Position initiale
+  // Position initiale - FIX POUR MOBILE
   useEffect(() => {
     if (trackRef.current) {
-      const initialPosition = getPositionByIndex(0);
-      setCurrentTranslate(initialPosition);
-      setPrevTranslate(initialPosition);
-      trackRef.current.style.transform = `translateX(${initialPosition}px)`;
+      // Attendre que le DOM soit complètement chargé
+      const timer = setTimeout(() => {
+        const initialPosition = getPositionByIndex(0);
+        setCurrentTranslate(initialPosition);
+        setPrevTranslate(initialPosition);
+        if (trackRef.current) {
+          trackRef.current.style.transform = `translateX(${initialPosition}px)`;
+        }
+      }, 0);
+      
+      return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isMobile]);
 
   // Handlers pour le drag
   const handlePointerDown = (e) => {
     setIsDragging(true);
     setStartX(e.type.includes('mouse') ? e.pageX : e.touches[0].clientX);
-    setPrevTranslate(currentTranslate); // Capturer la position actuelle
+    setPrevTranslate(currentTranslate);
     if (carouselRef.current) {
       carouselRef.current.style.cursor = 'grabbing';
     }
@@ -202,7 +215,7 @@ const VideoCarousel = () => {
     
     setCurrentTranslate(newTranslate);
     if (trackRef.current) {
-      trackRef.current.style.transition = 'none'; // Désactiver transition pendant le drag
+      trackRef.current.style.transition = 'none';
       trackRef.current.style.transform = `translateX(${newTranslate}px)`;
     }
   };
@@ -212,12 +225,10 @@ const VideoCarousel = () => {
     setIsDragging(false);
     setPrevTranslate(currentTranslate);
     
-    // Réactiver la transition après le drag
     if (trackRef.current) {
       trackRef.current.style.transition = 'transform 0.1s linear';
     }
     
-    // Vérifier la boucle infinie seulement après un petit délai
     setTimeout(() => {
       checkInfiniteLoop();
     }, 100);
@@ -253,7 +264,7 @@ const VideoCarousel = () => {
             ref={trackRef}
             style={{
               display: 'flex',
-              gap: '2em',
+              gap: isMobile ? '1em' : '2em',
               willChange: 'transform'
             }}
           >
