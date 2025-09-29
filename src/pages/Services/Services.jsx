@@ -1,6 +1,7 @@
-// src/pages/Services/Services.jsx - VERSION CORRIGÉE AVEC VRAIS CONTENUS ET VIDÉOS
+// src/pages/Services/Services.jsx - VERSION SEO OPTIMISÉE
 import React, { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./Services.css";
 
 import AnimatedCopy from "../../components/AnimatedCopy/AnimatedCopy";
@@ -19,9 +20,9 @@ const Services = () => {
   // Mapping des services vers les catégories du portfolio
   const getPortfolioCategory = (serviceKey) => {
     const portfolioMapping = {
-      'events': 'reseaux',        // Réseaux sociaux → reseaux
-      'stories': 'evenementiel',  // Evenementiel → evenementiel  
-      'moments': 'prive'          // Privé → prive
+      'events': 'reseaux',
+      'stories': 'evenementiel',
+      'moments': 'prive'
     };
     return portfolioMapping[serviceKey] || 'all';
   };
@@ -47,12 +48,17 @@ const Services = () => {
     }
   }, [serviceParam]);
 
-  // CONTENUS CORRIGES AVEC VOS VRAIES URLS ET VIDEOS
+  // CONTENUS AVEC MÉTADONNÉES SEO
   const servicesContent = {
     events: {
-      title: "Réseaux sociaux",
-      subtitle: "Contenus creatifs pour vos plateformes.",
-      description: "Nous creons des videos et photos originales, concues pour maximiser votre visibilite sur les reseaux sociaux. Instagram, TikTok, LinkedIn ou Facebook : chaque format est pense pour captiver votre audience et refleter fidelement l'ADN de votre entreprise.",
+      title: "réseaux sociaux",
+      subtitle: "contenus creatifs pour vos plateformes.",
+      description: "nous creons des videos et photos originales, concues pour maximiser votre visibilite sur les reseaux sociaux. instagram, tiktok, linkedin ou facebook : chaque format est pense pour captiver votre audience et refleter fidelement l'adn de votre entreprise.",
+      // Métadonnées SEO
+      seoTitle: "Création Contenu Réseaux Sociaux Genève | Instagram TikTok LinkedIn",
+      seoDescription: "Production vidéo et photo pour réseaux sociaux à Genève. Contenus créatifs optimisés pour Instagram, TikTok, LinkedIn et Facebook. Agence spécialisée en content creation digital.",
+      seoKeywords: "contenu réseaux sociaux genève, création contenu instagram, vidéo tiktok suisse, content creator genève, production contenu digital, social media content",
+      canonicalUrl: "https://agencememento.com/services?service=reseaux-sociaux",
       layout: "events",
       bentoItems: [
         {
@@ -78,9 +84,14 @@ const Services = () => {
       ]
     },
     stories: {
-      title: "évènementiel",
+      title: "événementiel",
       subtitle: "entreprises, galas, lancements, soirees.",
-      description: "Nous couvrons tous types d'evenements corporatifs et institutionnels afin de mettre en avant votre entreprise lors de moments forts. Conferences, seminaires, soirees d'entreprise, galas, inaugurations, lancements de produit ou remises de prix.",
+      description: "nous couvrons tous types d'evenements corporatifs et institutionnels afin de mettre en avant votre entreprise lors de moments forts. conferences, seminaires, soirees d'entreprise, galas, inaugurations, lancements de produit ou remises de prix.",
+      // Métadonnées SEO
+      seoTitle: "Photographe Événementiel Genève | Vidéo Corporate Entreprise Suisse",
+      seoDescription: "Photographe et vidéaste événementiel à Genève. Couverture professionnelle de galas, conférences, séminaires et événements d'entreprise en Suisse. Reportage photo et vidéo corporate.",
+      seoKeywords: "photographe événementiel genève, vidéo corporate suisse, photographe entreprise genève, reportage événement, gala genève, conférence photo vidéo",
+      canonicalUrl: "https://agencememento.com/services?service=evenementiel",
       layout: "stories",
       bentoItems: [
         {
@@ -108,7 +119,12 @@ const Services = () => {
     moments: {
       title: "privé",
       subtitle: "mariages, portraits et instants de vie.",
-      description: "Chaque moment important merite d'etre capture avec emotion et professionnalisme. Nous realisons des photos et videos pour vos instants precieux : mariages, naissances, baptemes, anniversaires, portraits ou shootings grossesse.",
+      description: "chaque moment important merite d'etre capture avec emotion et professionnalisme. nous realisons des photos et videos pour vos instants precieux : mariages, naissances, baptemes, anniversaires, portraits ou shootings grossesse.",
+      // Métadonnées SEO
+      seoTitle: "Photographe Mariage Genève | Vidéaste Mariage Suisse | Portraits",
+      seoDescription: "Photographe et vidéaste mariage à Genève. Reportage photo et vidéo pour mariages, portraits, naissances et événements privés en Suisse romande. Shooting photo professionnel et émotionnel.",
+      seoKeywords: "photographe mariage genève, vidéaste mariage suisse, photographe portrait genève, shooting photo couple, reportage mariage suisse, photographe baptême",
+      canonicalUrl: "https://agencememento.com/services?service=prive",
       layout: "moments",
       bentoItems: [
         {
@@ -158,65 +174,142 @@ const Services = () => {
   };
 
   return (
-    <ReactLenis root>
-      <div className="page services">
-        {/* Hero Section */}
-        <section className="services-hero">
-          <div className="services-hero-content">
-            <AnimatedCopy tag="h1" animateOnScroll={true}>
-              Nos Services
-            </AnimatedCopy>
-            <AnimatedCopy tag="p" animateOnScroll={true} className="hero-subtitle">
-              trois approches pour creer des histoires memorables.
-            </AnimatedCopy>
-          </div>
-        </section>
+    <>
+      <Helmet>
+        {/* Métadonnées dynamiques selon le service actif */}
+        <title>{serviceContent.seoTitle}</title>
+        <meta name="description" content={serviceContent.seoDescription} />
+        <meta name="keywords" content={serviceContent.seoKeywords} />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content={serviceContent.seoTitle} />
+        <meta property="og:description" content={serviceContent.seoDescription} />
+        <meta property="og:image" content={serviceContent.bentoItems[0].media} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={serviceContent.canonicalUrl} />
+        <meta property="og:locale" content="fr_CH" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={serviceContent.seoTitle} />
+        <meta name="twitter:description" content={serviceContent.seoDescription} />
+        <meta name="twitter:image" content={serviceContent.bentoItems[0].media} />
+        
+        {/* Géolocalisation */}
+        <meta name="geo.region" content="CH-GE" />
+        <meta name="geo.placename" content="Genève" />
+        
+        {/* Canonical URL dynamique */}
+        <link rel="canonical" href={serviceContent.canonicalUrl} />
+        
+        {/* Hreflang */}
+        <link rel="alternate" hrefLang="fr-CH" href={serviceContent.canonicalUrl} />
+        
+        {/* Schema.org Service spécifique */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": serviceContent.title,
+            "provider": {
+              "@type": "ProfessionalService",
+              "name": "Agence Memento",
+              "telephone": "+41799465325",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Genève",
+                "addressRegion": "GE",
+                "addressCountry": "CH"
+              }
+            },
+            "areaServed": ["Genève", "Vaud", "Suisse"],
+            "description": serviceContent.seoDescription,
+            "url": serviceContent.canonicalUrl
+          })}
+        </script>
+      </Helmet>
 
-        {/* Service Tabs */}
-        <section className="services-tabs-section">
-          <div className="services-tabs">
-            {Object.keys(servicesContent).map((service) => (
-              <button
-                key={service}
-                className={`service-tab ${activeService === service ? "active" : ""}`}
-                onClick={() => handleServiceChange(service)}
+      <ReactLenis root>
+        <div className="page services">
+          {/* Hero Section */}
+          <section className="services-hero" aria-label="Services Agence Memento">
+            <div className="services-hero-content">
+              {/* H1 caché pour SEO avec mots-clés */}
+              <h1 style={{ 
+                position: 'absolute', 
+                left: '-9999px',
+                width: '1px',
+                height: '1px',
+                overflow: 'hidden'
+              }}>
+                {serviceContent.seoTitle}
+              </h1>
+              
+              {/* Titre visible stylisé */}
+              <AnimatedCopy tag="h2" animateOnScroll={true}>
+                nos services
+              </AnimatedCopy>
+              <AnimatedCopy tag="p" animateOnScroll={true} className="hero-subtitle">
+                trois approches pour creer des histoires memorables.
+              </AnimatedCopy>
+            </div>
+          </section>
+
+          {/* Service Tabs */}
+          <nav className="services-tabs-section" aria-label="Navigation services">
+            <div className="services-tabs" role="tablist">
+              {Object.keys(servicesContent).map((service) => (
+                <button
+                  key={service}
+                  role="tab"
+                  aria-selected={activeService === service}
+                  aria-controls={`service-panel-${service}`}
+                  className={`service-tab ${activeService === service ? "active" : ""}`}
+                  onClick={() => handleServiceChange(service)}
+                >
+                  {servicesContent[service].title}
+                </button>
+              ))}
+            </div>
+          </nav>
+
+          {/* Service Content avec Vertical Carousel */}
+          <section 
+            className="service-carousel-content"
+            role="tabpanel"
+            id={`service-panel-${activeService}`}
+            aria-labelledby={`tab-${activeService}`}
+          >
+            <header className="service-header">
+              <h3>{serviceContent.subtitle}</h3>
+              <p className="service-description">{serviceContent.description}</p>
+            </header>
+
+            {/* Vertical Carousel avec key pour forcer la re-création */}
+            <div className="service-carousel-wrapper">
+              <VerticalCarousel 
+                key={activeService} 
+                items={serviceContent.bentoItems} 
+              />
+            </div>
+
+            {/* Bouton vers le portfolio correspondant */}
+            <div className="service-portfolio-link">
+              <Link 
+                to={`/portfolio?category=${getPortfolioCategory(activeService)}`}
+                className="portfolio-btn"
+                aria-label={`Voir nos réalisations ${serviceContent.title}`}
               >
-                {servicesContent[service].title}
-              </button>
-            ))}
-          </div>
-        </section>
+                voir nos realisations
+              </Link>
+            </div>
+          </section>
 
-        {/* Service Content avec Vertical Carousel */}
-        <section className="service-carousel-content">
-          <div className="service-header">
-            <h2>{serviceContent.subtitle}</h2>
-            <p className="service-description">{serviceContent.description}</p>
-          </div>
-
-          {/* Vertical Carousel avec key pour forcer la re-création */}
-          <div className="service-carousel-wrapper">
-            <VerticalCarousel 
-              key={activeService} 
-              items={serviceContent.bentoItems} 
-            />
-          </div>
-
-          {/* Bouton vers le portfolio correspondant */}
-          <div className="service-portfolio-link">
-            <Link 
-              to={`/portfolio?category=${getPortfolioCategory(activeService)}`}
-              className="portfolio-btn"
-            >
-              voir nos realisations
-            </Link>
-          </div>
-        </section>
-
-        <ContactForm />
-        <Footer />
-      </div>
-    </ReactLenis>
+          <ContactForm />
+          <Footer />
+        </div>
+      </ReactLenis>
+    </>
   );
 };
 

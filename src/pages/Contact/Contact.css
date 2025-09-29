@@ -1,3 +1,145 @@
 .page.contact {
   padding-top: 8em;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section hero contact */
+.contact-hero {
+  width: 100%;
+  padding: 4em 2em 6em 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4em;
+}
+
+.contact-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-title {
+  font-family: "BDMegalona", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  font-style: italic;
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--fg);
+  margin-bottom: 1em;
+}
+
+.contact-subtitle {
+  font-family: "Messina Sans Mono", sans-serif;
+  font-size: 1.1rem;
+  color: var(--fg);
+  opacity: 0.7;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Informations de contact */
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3em;
+  max-width: 1000px;
+  width: 100%;
+  padding: 0 2em;
+}
+
+.contact-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.contact-info-item h3 {
+  font-family: "Messina Sans Mono", sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--fg);
+  opacity: 0.5;
+  margin-bottom: 0.5em;
+}
+
+.contact-info-item p {
+  font-family: "Messina Sans Mono", sans-serif;
+  font-size: 1rem;
+  color: var(--fg);
+  margin: 0;
+}
+
+.contact-link {
+  font-family: "Messina Sans Mono", sans-serif;
+  font-size: 1rem;
+  color: var(--fg);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  display: inline-block;
+}
+
+.contact-link:hover {
+  opacity: 0.6;
+}
+
+.contact-note {
+  font-size: 0.85rem !important;
+  opacity: 0.6;
+  margin-top: 0.5em !important;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .contact-hero {
+    padding: 3em 1.5em 5em 1.5em;
+    gap: 3em;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+    gap: 2.5em;
+    text-align: center;
+  }
+
+  .contact-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .contact-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .page.contact {
+    padding-top: 6em;
+  }
+
+  .contact-hero {
+    padding: 2em 1em 4em 1em;
+    gap: 2.5em;
+  }
+
+  .contact-title {
+    font-size: 1.8rem;
+  }
+
+  .contact-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .contact-info {
+    gap: 2em;
+  }
+
+  .contact-link {
+    font-size: 0.95rem;
+  }
 }

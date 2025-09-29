@@ -15,7 +15,7 @@ const Menu = () => {
     {
       name: "Instagram",
       shortName: "IG",
-      url: "https://www.instagram.com/memento.ch?igsh=eG9hYXJ6bDJucmJ6",
+      url: "https://www.instagram.com/agencememento?igsh=MzA4bTluNXR6azE3",
       external: true
     },
     {

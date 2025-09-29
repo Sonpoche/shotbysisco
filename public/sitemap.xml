@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Page d'accueil - Priorité maximale -->
+  <url>
+    <loc>https://agencememento.com/</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Services - Haute priorité -->
+  <url>
+    <loc>https://agencememento.com/services</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Services - Réseaux sociaux -->
+  <url>
+    <loc>https://agencememento.com/services?service=reseaux-sociaux</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Services - Événementiel -->
+  <url>
+    <loc>https://agencememento.com/services?service=evenementiel</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Services - Privé -->
+  <url>
+    <loc>https://agencememento.com/services?service=prive</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Portfolio - Toutes catégories -->
+  <url>
+    <loc>https://agencememento.com/portfolio</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Portfolio - Événementiel -->
+  <url>
+    <loc>https://agencememento.com/portfolio?category=evenementiel</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Portfolio - Réseaux -->
+  <url>
+    <loc>https://agencememento.com/portfolio?category=reseaux</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Portfolio - Privé -->
+  <url>
+    <loc>https://agencememento.com/portfolio?category=prive</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Contact - Important pour conversions -->
+  <url>
+    <loc>https://agencememento.com/contact</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- FAQ -->
+  <url>
+    <loc>https://agencememento.com/faq</loc>
+    <lastmod>2025-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>

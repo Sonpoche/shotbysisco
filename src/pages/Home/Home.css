@@ -138,7 +138,7 @@
 .sticky-work-header {
   position: relative;
   width: 100%;
-  height: 40vh; /* Réduit de 100vh à 40vh */
+  height: 40vh;
   padding: 2em;
   display: flex;
   justify-content: center;
@@ -201,6 +201,22 @@
   padding: 0 2em;
 }
 
+/* Style du H2 qui remplace visuellement le H1 */
+.services-h2-styled {
+  font-family: "BDMegalona", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  font-style: italic;
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--fg);
+  margin-bottom: 0.75em;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Ancien style h2 - conservé pour compatibilité */
 .services-header h2 {
   font-family: "BDMegalona", sans-serif;
   font-size: clamp(2.5rem, 5vw, 4rem);
@@ -313,7 +329,7 @@
   z-index: 1;
 }
 
-.hobbies .home-tool-card h4,
+.hobbies .home-tool-card h3,
 .hobbies .home-tool-card p {
   position: relative;
   color: var(--fg);
@@ -321,7 +337,19 @@
   margin: 0;
 }
 
+.hobbies .home-tool-card h3 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+}
+
+/* Ancien style h4 - conservé pour compatibilité */
 .hobbies .home-tool-card h4 {
+  position: relative;
+  color: var(--fg);
+  z-index: 2;
+  margin: 0;
   font-size: 2.5rem;
   font-weight: 600;
   text-transform: lowercase;
@@ -381,7 +409,8 @@
     padding: 0 1em;
   }
 
-  .services-header h2 {
+  .services-header h2,
+  .services-h2-styled {
     font-size: clamp(2rem, 6vw, 3rem);
     margin-bottom: 0.5em;
   }
@@ -407,11 +436,12 @@
   }
   
   .hobbies .home-tools-row.three-cards .home-tool-card {
-    aspect-ratio: 3/4; /* Format vertical plus compact */
+    aspect-ratio: 3/4;
     padding: 1.5em 1em;
-    max-height: 320px; /* Hauteur maximale réduite */
+    max-height: 320px;
   }
 
+  .hobbies .home-tool-card h3,
   .hobbies .home-tool-card h4 {
     font-size: 2rem;
   }
@@ -438,7 +468,8 @@
 }
 
 @media (max-width: 600px) {
-  .services-header h2 {
+  .services-header h2,
+  .services-h2-styled {
     font-size: 1.8rem;
   }
   
@@ -449,10 +480,11 @@
   
   /* Ajustements supplémentaires pour très petits écrans */
   .hobbies .home-tools-row.three-cards .home-tool-card {
-    aspect-ratio: 2/3; /* Maintenir le format vertical réduit */
-    max-height: 350px; /* Hauteur maximale encore plus petite */
+    aspect-ratio: 2/3;
+    max-height: 350px;
   }
   
+  .hobbies .home-tool-card h3,
   .hobbies .home-tool-card h4 {
     font-size: 1.8rem;
   }

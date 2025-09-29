@@ -22,7 +22,9 @@ const TrustedBy = () => {
     { id: 12, name: "Addict Natation", logo: "/logos/addict.png", isDark: true },
     { id: 13, name: "La Materiotech", logo: "/logos/materiotech.png", isDark: true },
     { id: 14, name: "Harold Genève", logo: "/logos/harold.png", isDark: true },
-    { id: 15, name: "MamuSkincare", logo: "/logos/mamu.png", isDark: true }
+    { id: 15, name: "MamuSkincare", logo: "/logos/mamu.png", isDark: true },
+    { id: 16, name: "Selten", logo: "/logos/selten.png", isDark: true },
+    { id: 17, name: "Swissroc", logo: "/logos/swissroc.png", isDark: false }
   ];
 
   // Fonction pour mélanger un tableau (shuffle)
