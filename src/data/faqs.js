@@ -47,6 +47,6 @@ export const faqItems = [
   {
     question: "Comment vous contacter pour un projet ?",
     answer:
-      "Par email à yourstory@agencememento.com ou via notre formulaire de contact.",
+      "Par email à info@agencememento.com ou via notre formulaire de contact.",
   },
 ];

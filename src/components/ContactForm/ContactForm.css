@@ -170,4 +170,12 @@
   .form-item {
     margin-bottom: 0.75em;
   }
+  .contact-form h3 {
+  font-size: 7vw;
+  }
+  .contact-form-header p { 
+    font-size: 4vw;
+  }
+
 }
+
