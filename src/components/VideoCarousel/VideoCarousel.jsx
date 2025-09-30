@@ -10,7 +10,7 @@ const VideoCarousel = () => {
   const [prevTranslate, setPrevTranslate] = useState(0);
   const animationRef = useRef(null);
   const currentIndexRef = useRef(0);
-  const autoScrollSpeed = 0.5;
+  const autoScrollSpeed = -0.5;
   const [isMobile, setIsMobile] = useState(false);
 
   // Détection mobile
@@ -113,7 +113,7 @@ const VideoCarousel = () => {
     return -((index + 3) * (slideWidth + gap));
   };
 
-  // Repositionnement instantané sans animation visible
+  // Repositionnement instantané sans animation visible - OPTIMISÉ
   const checkInfiniteLoop = useCallback(() => {
     const slideWidth = isMobile ? 240 : 350;
     const gap = isMobile ? 16 : 32;
@@ -124,37 +124,25 @@ const VideoCarousel = () => {
       
       // Si on dépasse le début (trop à droite)
       if (currentPosition >= 0) {
-        trackRef.current.style.transition = 'none';
         const newTranslate = currentPosition - totalWidth;
         setCurrentTranslate(newTranslate);
         setPrevTranslate(newTranslate);
+        // PAS de transition = pas de ralentissement visible
         trackRef.current.style.transform = `translateX(${newTranslate}px)`;
-        
-        setTimeout(() => {
-          if (trackRef.current) {
-            trackRef.current.style.transition = '';
-          }
-        }, 10);
       }
       
       // Si on dépasse la fin (trop à gauche)
       if (currentPosition <= -(totalWidth + (slideWidth + gap) * 3)) {
-        trackRef.current.style.transition = 'none';
         const newTranslate = currentPosition + totalWidth;
         setCurrentTranslate(newTranslate);
         setPrevTranslate(newTranslate);
+        // PAS de transition = pas de ralentissement visible
         trackRef.current.style.transform = `translateX(${newTranslate}px)`;
-        
-        setTimeout(() => {
-          if (trackRef.current) {
-            trackRef.current.style.transition = '';
-          }
-        }, 10);
       }
     }
   }, [currentTranslate, medias.length, isMobile]);
 
-  // Animation auto-scroll (inversé - vers la droite maintenant)
+  // Animation auto-scroll (vers la droite)
   useEffect(() => {
     const animate = () => {
       if (!isDragging) {
@@ -179,12 +167,15 @@ const VideoCarousel = () => {
     };
   }, [isDragging, checkInfiniteLoop]);
 
-  // Position initiale - FIX POUR MOBILE
+  // Position initiale - COMMENCE SUR LA PREMIÈRE VIDÉO (index 0)
   useEffect(() => {
     if (trackRef.current) {
-      // Attendre que le DOM soit complètement chargé
       const timer = setTimeout(() => {
-        const initialPosition = getPositionByIndex(0);
+        const slideWidth = isMobile ? 240 : 350;
+        const gap = isMobile ? 16 : 32;
+        // Position initiale sur la première slide (index 0 des originaux = index 3 avec les clones)
+        const initialPosition = -(3 * (slideWidth + gap));
+        
         setCurrentTranslate(initialPosition);
         setPrevTranslate(initialPosition);
         if (trackRef.current) {
@@ -215,7 +206,6 @@ const VideoCarousel = () => {
     
     setCurrentTranslate(newTranslate);
     if (trackRef.current) {
-      trackRef.current.style.transition = 'none';
       trackRef.current.style.transform = `translateX(${newTranslate}px)`;
     }
   };
@@ -225,13 +215,7 @@ const VideoCarousel = () => {
     setIsDragging(false);
     setPrevTranslate(currentTranslate);
     
-    if (trackRef.current) {
-      trackRef.current.style.transition = 'transform 0.1s linear';
-    }
-    
-    setTimeout(() => {
-      checkInfiniteLoop();
-    }, 100);
+    checkInfiniteLoop();
     
     if (carouselRef.current) {
       carouselRef.current.style.cursor = 'grab';

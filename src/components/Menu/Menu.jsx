@@ -21,7 +21,7 @@ const Menu = () => {
     {
       name: "linkedin", 
       shortName: "TT",
-      url: "https://www.linkedin.com/@votrecompte",
+      url: "https://www.linkedin.com/company/agencememento/?viewAsMember=true",
       external: true
     }
   ];

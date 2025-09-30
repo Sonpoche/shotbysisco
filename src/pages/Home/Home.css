@@ -428,17 +428,22 @@
     gap: 1.25em;
   }
   
-  /* Layout 3 cartes sur mobile - FORMAT VERTICAL */
+  /* Layout 3 cartes sur mobile - FORMAT VERTICAL - CORRIGÉ */
   .hobbies .home-tools-row.three-cards {
     display: flex;
     flex-direction: column;
     gap: 1.25em;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
   }
   
   .hobbies .home-tools-row.three-cards .home-tool-card {
     aspect-ratio: 3/4;
     padding: 1.5em 1em;
     max-height: 320px;
+    width: 100%;
+    max-width: 350px;
   }
 
   .hobbies .home-tool-card h3,

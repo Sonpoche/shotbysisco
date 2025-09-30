@@ -86,6 +86,48 @@ const Home = () => {
           type="video/mp4"
         />
         
+        {/* NOUVELLES OPTIMISATIONS */}
+        {/* Préconnexion aux domaines externes */}
+        <link rel="preconnect" href="https://videos.agencememento.com" />
+        <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
+        
+        {/* Préchargement de TOUTES les fonts critiques en parallèle */}
+        <link 
+          rel="preload" 
+          href="/fonts/BDMegalona-Italic.woff2" 
+          as="font" 
+          type="font/woff2" 
+          crossOrigin="anonymous"
+        />
+        <link 
+          rel="preload" 
+          href="/fonts/messina-sans/MessinaSans-SemiBold.otf" 
+          as="font" 
+          type="font/otf" 
+          crossOrigin="anonymous"
+        />
+        <link 
+          rel="preload" 
+          href="/fonts/messina-sans-mono/MessinaSansMono-Regular.otf" 
+          as="font" 
+          type="font/otf" 
+          crossOrigin="anonymous"
+        />
+        <link 
+          rel="preload" 
+          href="/fonts/messina-sans-mono/MessinaSansMono-SemiBold.otf" 
+          as="font" 
+          type="font/otf" 
+          crossOrigin="anonymous"
+        />
+        
+        {/* Préchargement de la première image critique */}
+        <link 
+          rel="preload" 
+          href="https://videos.agencememento.com/Reseaux/marion-ryan-5-web.webp" 
+          as="image"
+        />
+        
         {/* Schema.org JSON-LD pour Google */}
         <script type="application/ld+json">
           {JSON.stringify({

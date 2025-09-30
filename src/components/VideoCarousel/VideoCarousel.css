@@ -1,4 +1,4 @@
-/* VideoCarousel.css - Version Optimisée avec iOS Fix */
+/* VideoCarousel.css - Version OptimisÃ©e avec iOS Fix - SANS BORDURES ET HOVER */
 
 .video-carousel-section {
   position: relative;
@@ -101,7 +101,7 @@
   }
 }
 
-/* Track - Desktop optimisé pour 4 cartes visibles */
+/* Track - Desktop optimisÃ© pour 4 cartes visibles */
 .video-carousel-track {
   display: flex;
   gap: 2em;
@@ -110,7 +110,7 @@
   will-change: transform;
 }
 
-/* Video Cards - Taille augmentée pour desktop */
+/* Video Cards - Taille augmentÃ©e pour desktop - SANS BORDURES */
 .video-card {
   flex: 0 0 auto;
   width: 350px;
@@ -125,13 +125,9 @@
   border-radius: 1.2rem;
   overflow: hidden;
   position: relative;
-  border: 0.5px solid var(--fg);
   background-color: #000;
-  transition: transform 0.3s ease;
-}
-
-.video-card-inner:hover {
-  transform: translateY(-5px);
+  /* BORDURE SUPPRIMÉE */
+  /* HOVER SUPPRIMÉ */
 }
 
 .video-card video {
@@ -159,9 +155,7 @@
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.video-card-inner:hover .video-card-overlay {
-  transform: translateY(0);
-}
+/* HOVER OVERLAY SUPPRIMÉ */
 
 .video-card-overlay h3 {
   font-family: "BDMegalona", sans-serif;
@@ -250,7 +244,7 @@
   }
 }
 
-/* Mobile landscape - 1 slide centré + 2 demi-slides visibles */
+/* Mobile landscape - 1 slide centrÃ© + 2 demi-slides visibles */
 @media (max-width: 768px) {
   .video-carousel-track {
     gap: 1em;
@@ -274,10 +268,7 @@
     font-size: 0.85rem;
   }
 
-  /* Désactiver hover sur mobile */
-  .video-card-inner:hover {
-    transform: none;
-  }
+  /* HOVER SUPPRIMÉ SUR MOBILE */
 
   /* Overlay toujours visible sur mobile */
   .video-card-overlay {
@@ -291,7 +282,7 @@
     padding: 1.25em 1em;
   }
   
-  /* Animation mobile iOS optimisée */
+  /* Animation mobile iOS optimisÃ©e */
   @supports (-webkit-touch-callout: none) {
     .video-carousel-wrapper.ios-auto-scroll .video-carousel-track {
       animation-duration: 30s; /* Plus rapide pour mobile */
@@ -299,7 +290,7 @@
   }
 }
 
-/* Mobile portrait - 1 slide centré + 2 demi-slides visibles */
+/* Mobile portrait - 1 slide centrÃ© + 2 demi-slides visibles */
 @media (max-width: 480px) {
   .video-carousel-section {
     padding: 2em 0 1.5em 0;
@@ -361,7 +352,7 @@
   }
 }
 
-/* Très petit mobile - 1 slide centré + demi-slides */
+/* TrÃ¨s petit mobile - 1 slide centrÃ© + demi-slides */
 @media (max-width: 380px) {
   .video-carousel-track {
     gap: 0.5em;

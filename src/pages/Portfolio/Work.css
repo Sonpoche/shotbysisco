@@ -324,8 +324,8 @@
   }
   
   .work-item {
-    min-width: calc((100% - 3em) / 3);
-    max-width: calc((100% - 3em) / 3);
+    min-width: calc((100% - 1em) / 3);
+    max-width: calc((100% - 1em) / 3);
     height: 90px;
     flex: 0 0 auto;
   }
@@ -401,8 +401,8 @@
   }
   
   .work-item {
-    min-width: calc((100% - 2.5em) / 3);
-    max-width: calc((100% - 2.5em) / 3);
+    min-width: calc((100% - 1em) / 3);
+    max-width: calc((100% - 1em) / 3);
     height: 80px;
   }
   

@@ -86,7 +86,7 @@ const Contact = () => {
               </h2>
               
               <p className="contact-subtitle">
-                ton histoire mérite d'être partagée. confie-moi ton projet et voyons comment la mettre en lumière.
+                Votre histoire mérite d’être partagée. Confiez-nous votre projet et voyons ensemble comment la mettre en lumière.
               </p>
             </div>
 
@@ -94,8 +94,8 @@ const Contact = () => {
             <div className="contact-info">
               <div className="contact-info-item">
                 <h3>telephone</h3>
-                <a href="tel:+41799465325" className="contact-link">
-                  +41 79 946 53 25
+                <a href="tel:+41" className="contact-link">
+                  à venir
                 </a>
               </div>
 
@@ -109,7 +109,7 @@ const Contact = () => {
               <div className="contact-info-item">
                 <h3>localisation</h3>
                 <p>genève, suisse</p>
-                <p className="contact-note">interventions en suisse et à l'international</p>
+                <p className="contact-note">projets/déplacements en suisse et à l'international</p>
               </div>
             </div>
           </section>

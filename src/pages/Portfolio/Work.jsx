@@ -128,7 +128,6 @@ const Work = () => {
 
   useEffect(() => {
     if (isMobile && thumbnailsWrapperRef.current) {
-      const slideWidth = 100 / thumbnailsPerSlide;
       const offset = -currentSlide * 100;
       thumbnailsWrapperRef.current.style.transform = `translateX(${offset}%)`;
     }
@@ -155,6 +154,16 @@ const Work = () => {
 
   const handleWorkItemClick = (project) => {
     if (project.id !== activeProject.id && !isAnimating) {
+      // Sur mobile, centrer le carousel sur la thumbnail cliquée
+      if (isMobile) {
+        const projectIndex = filteredProjects.findIndex(p => p.id === project.id);
+        const newSlide = Math.floor(projectIndex / thumbnailsPerSlide);
+        
+        if (newSlide !== currentSlide) {
+          setCurrentSlide(newSlide);
+        }
+      }
+      
       gsap.to(mediaRef.current, {
         opacity: 0,
         duration: 0.4,
@@ -195,22 +204,40 @@ const Work = () => {
     if (!isMobile || !thumbnailsWrapperRef.current) return;
 
     let startX = 0;
+    let startY = 0;
     let currentX = 0;
     let isDragging = false;
+    let hasMoved = false;
 
     const handleTouchStart = (e) => {
       startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      currentX = startX;
       isDragging = true;
+      hasMoved = false;
     };
 
     const handleTouchMove = (e) => {
       if (!isDragging) return;
       currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      
+      // Détecter si l'utilisateur a vraiment bougé son doigt
+      const diffX = Math.abs(startX - currentX);
+      const diffY = Math.abs(startY - currentY);
+      
+      // Si mouvement horizontal significatif, c'est un swipe
+      if (diffX > 10 || diffY > 10) {
+        hasMoved = true;
+      }
     };
 
     const handleTouchEnd = () => {
       if (!isDragging) return;
       isDragging = false;
+      
+      // Ne faire défiler QUE si l'utilisateur a vraiment swipé
+      if (!hasMoved) return;
       
       const diff = startX - currentX;
       const threshold = 50;
