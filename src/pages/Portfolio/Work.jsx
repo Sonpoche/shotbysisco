@@ -38,6 +38,7 @@ const Work = () => {
   const mediaRef = useRef(null);
   const thumbnailsWrapperRef = useRef(null);
   const containerRef = useRef(null);
+  const mediaContainerRef = useRef(null);
 
   // Métadonnées SEO selon la catégorie active
   const getSEOData = () => {
@@ -127,9 +128,15 @@ const Work = () => {
   const totalSlides = Math.ceil(filteredProjects.length / thumbnailsPerSlide);
 
   useEffect(() => {
-    if (isMobile && thumbnailsWrapperRef.current) {
-      const offset = -currentSlide * 100;
-      thumbnailsWrapperRef.current.style.transform = `translateX(${offset}%)`;
+    if (isMobile && thumbnailsWrapperRef.current && containerRef.current) {
+      const container = containerRef.current;
+      const wrapper = thumbnailsWrapperRef.current;
+      
+      // Calculer la largeur exacte d'une "page" de thumbnails
+      const containerWidth = container.clientWidth;
+      const offset = -currentSlide * containerWidth;
+      
+      wrapper.style.transform = `translateX(${offset}px)`;
     }
   }, [currentSlide, isMobile]);
 
@@ -265,6 +272,60 @@ const Work = () => {
     };
   }, [isMobile, currentSlide, totalSlides]);
 
+  // Swipe sur l'image principale pour changer de projet (mobile uniquement)
+  useEffect(() => {
+    if (!isMobile || !mediaContainerRef.current) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+
+    const handleTouchStart = (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isDragging = true;
+    };
+
+    const handleTouchEnd = (e) => {
+      if (!isDragging) return;
+      
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const diffX = startX - endX;
+      const diffY = Math.abs(startY - endY);
+      
+      // Vérifier que c'est un swipe horizontal (pas vertical)
+      if (Math.abs(diffX) > 50 && diffY < 30) {
+        const currentIndex = filteredProjects.findIndex(p => p.id === activeProject.id);
+        
+        if (diffX > 0) {
+          // Swipe vers la gauche = projet suivant
+          if (currentIndex < filteredProjects.length - 1) {
+            handleWorkItemClick(filteredProjects[currentIndex + 1]);
+          }
+        } else {
+          // Swipe vers la droite = projet précédent
+          if (currentIndex > 0) {
+            handleWorkItemClick(filteredProjects[currentIndex - 1]);
+          }
+        }
+      }
+      
+      isDragging = false;
+    };
+
+    const container = mediaContainerRef.current;
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      if (container) {
+        container.removeEventListener('touchstart', handleTouchStart);
+        container.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
+  }, [isMobile, filteredProjects, activeProject]);
+
   return (
     <>
       <Helmet>
@@ -331,27 +392,29 @@ const Work = () => {
 
         <div className="work-carousel">
           <div className="work-slider-media" ref={mediaRef}>
-            {activeProject.mediaType === "video" ? (
-              <video 
-                key={`video-${activeProject.id}`}
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                preload="auto"
-                onLoadedData={(e) => e.target.play()}
-                aria-label={`Vidéo projet ${activeProject.title}`}
-              >
-                <source src={activeProject.media} type="video/mp4" />
-                Votre navigateur ne supporte pas les vidéos HTML5.
-              </video>
-            ) : (
-              <img 
-                key={`img-${activeProject.id}`}
-                src={activeProject.media} 
-                alt={`Projet ${activeProject.title} - ${activeCategory}`}
-              />
-            )}
+            <div ref={mediaContainerRef} style={{ width: '100%', height: '100%' }}>
+              {activeProject.mediaType === "video" ? (
+                <video 
+                  key={`video-${activeProject.id}`}
+                  autoPlay 
+                  loop 
+                  muted 
+                  playsInline
+                  preload="auto"
+                  onLoadedData={(e) => e.target.play()}
+                  aria-label={`Vidéo projet ${activeProject.title}`}
+                >
+                  <source src={activeProject.media} type="video/mp4" />
+                  Votre navigateur ne supporte pas les vidéos HTML5.
+                </video>
+              ) : (
+                <img 
+                  key={`img-${activeProject.id}`}
+                  src={activeProject.media} 
+                  alt={`Projet ${activeProject.title} - ${activeCategory}`}
+                />
+              )}
+            </div>
           </div>
 
           {/* Tabs de catégories */}
