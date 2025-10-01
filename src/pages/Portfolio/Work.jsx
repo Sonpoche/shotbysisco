@@ -11,7 +11,6 @@ const Work = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Catégories disponibles
   const categories = [
     { id: "all", label: "tout" },
     { id: "evenementiel", label: "evenementiel" },
@@ -19,7 +18,6 @@ const Work = () => {
     { id: "prive", label: "prive" },
   ];
 
-  // Récupérer la catégorie depuis l'URL ou utiliser "all" par défaut
   const getCategoryFromLocation = () => {
     const params = new URLSearchParams(location.search);
     const category = params.get('category');
@@ -33,7 +31,8 @@ const Work = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [hasScroll, setHasScroll] = useState(false);
-  const [isVerticalSwipe, setIsVerticalSwipe] = useState(false);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(false);
   
   const portfolioInfoRef = useRef(null);
   const mediaRef = useRef(null);
@@ -42,7 +41,6 @@ const Work = () => {
   const mediaContainerRef = useRef(null);
   const workCarouselRef = useRef(null);
 
-  // Métadonnées SEO selon la catégorie active
   const getSEOData = () => {
     const seoData = {
       all: {
@@ -75,7 +73,6 @@ const Work = () => {
 
   const currentSEO = getSEOData();
 
-  // Détecter si on est sur mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 600);
@@ -85,7 +82,6 @@ const Work = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Mettre à jour la catégorie quand l'URL change
   useEffect(() => {
     const newCategory = getCategoryFromLocation();
     if (newCategory !== activeCategory) {
@@ -93,23 +89,39 @@ const Work = () => {
     }
   }, [location.search]);
 
-  // Vérifier si on a besoin du scroll (desktop uniquement)
   useEffect(() => {
     const checkScroll = () => {
-      if (!isMobile && containerRef.current && thumbnailsWrapperRef.current) {
+      if (containerRef.current && thumbnailsWrapperRef.current) {
         const containerWidth = containerRef.current.clientWidth;
         const wrapperWidth = thumbnailsWrapperRef.current.scrollWidth;
+        const scrollLeft = containerRef.current.scrollLeft;
+        
         setHasScroll(wrapperWidth > containerWidth);
+        
+        // Desktop uniquement
+        if (!isMobile) {
+          setShowLeftArrow(scrollLeft > 0);
+          setShowRightArrow(scrollLeft < wrapperWidth - containerWidth - 10);
+        }
       }
     };
     
     checkScroll();
     const timer = setTimeout(checkScroll, 100);
     
-    return () => clearTimeout(timer);
+    const container = containerRef.current;
+    if (container && !isMobile) {
+      container.addEventListener('scroll', checkScroll);
+    }
+    
+    return () => {
+      clearTimeout(timer);
+      if (container) {
+        container.removeEventListener('scroll', checkScroll);
+      }
+    };
   }, [filteredProjects, isMobile]);
 
-  // Filtrer les projets selon la catégorie
   useEffect(() => {
     if (activeCategory === "all") {
       setFilteredProjects(projects);
@@ -124,20 +136,38 @@ const Work = () => {
       }
     }
     setCurrentSlide(0);
+    
+    // Reset scroll position desktop
+    if (containerRef.current && !isMobile) {
+      containerRef.current.scrollLeft = 0;
+    }
   }, [activeCategory]);
 
   const thumbnailsPerSlide = 3;
   const totalSlides = Math.ceil(filteredProjects.length / thumbnailsPerSlide);
 
+  // Fonction de scroll pour les flèches desktop
+  const scrollThumbnails = (direction) => {
+    if (!containerRef.current) return;
+    
+    const scrollAmount = 300; // Pixels à scroller
+    const newScrollLeft = direction === 'left' 
+      ? containerRef.current.scrollLeft - scrollAmount
+      : containerRef.current.scrollLeft + scrollAmount;
+    
+    containerRef.current.scrollTo({
+      left: newScrollLeft,
+      behavior: 'smooth'
+    });
+  };
+
+  // Gestion du carousel mobile
   useEffect(() => {
     if (isMobile && thumbnailsWrapperRef.current && containerRef.current) {
       const container = containerRef.current;
       const wrapper = thumbnailsWrapperRef.current;
-      
-      // Calculer la largeur exacte d'une "page" de thumbnails
       const containerWidth = container.clientWidth;
       const offset = -currentSlide * containerWidth;
-      
       wrapper.style.transform = `translateX(${offset}px)`;
     }
   }, [currentSlide, isMobile]);
@@ -163,7 +193,6 @@ const Work = () => {
 
   const handleWorkItemClick = (project) => {
     if (project.id !== activeProject.id && !isAnimating) {
-      // Sur mobile, centrer le carousel sur la thumbnail cliquée
       if (isMobile) {
         const projectIndex = filteredProjects.findIndex(p => p.id === project.id);
         const newSlide = Math.floor(projectIndex / thumbnailsPerSlide);
@@ -209,6 +238,7 @@ const Work = () => {
     setCurrentSlide(index);
   };
 
+  // Touch swipe pour mobile - thumbnails horizontaux
   useEffect(() => {
     if (!isMobile || !thumbnailsWrapperRef.current) return;
 
@@ -231,11 +261,9 @@ const Work = () => {
       currentX = e.touches[0].clientX;
       const currentY = e.touches[0].clientY;
       
-      // Détecter si l'utilisateur a vraiment bougé son doigt
       const diffX = Math.abs(startX - currentX);
       const diffY = Math.abs(startY - currentY);
       
-      // Si mouvement horizontal significatif, c'est un swipe
       if (diffX > 10 || diffY > 10) {
         hasMoved = true;
       }
@@ -245,7 +273,6 @@ const Work = () => {
       if (!isDragging) return;
       isDragging = false;
       
-      // Ne faire défiler QUE si l'utilisateur a vraiment swipé
       if (!hasMoved) return;
       
       const diff = startX - currentX;
@@ -274,7 +301,7 @@ const Work = () => {
     };
   }, [isMobile, currentSlide, totalSlides]);
 
-  // Swipe vertical type TikTok pour changer de projet (mobile uniquement)
+  // Swipe vertical pour changer de projet
   useEffect(() => {
     if (!isMobile || !workCarouselRef.current) return;
 
@@ -297,18 +324,15 @@ const Work = () => {
       const diffY = startY - endY;
       const diffX = Math.abs(startX - endX);
       
-      // Vérifier que c'est un swipe vertical (pas horizontal)
       if (Math.abs(diffY) > 20 && diffX < 60 && !isAnimating) {
         setIsVerticalSwipe(true);
         const currentIndex = filteredProjects.findIndex(p => p.id === activeProject.id);
         
         if (diffY > 0) {
-          // Swipe vers le haut = projet suivant
           if (currentIndex < filteredProjects.length - 1) {
             handleWorkItemClick(filteredProjects[currentIndex + 1]);
           }
         } else {
-          // Swipe vers le bas = projet précédent
           if (currentIndex > 0) {
             handleWorkItemClick(filteredProjects[currentIndex - 1]);
           }
@@ -328,17 +352,15 @@ const Work = () => {
         carousel.removeEventListener('touchend', handleTouchEnd);
       }
     };
-  }, [isMobile, filteredProjects, activeProject, isAnimating, handleWorkItemClick]);
+  }, [isMobile, filteredProjects, activeProject, isAnimating]);
 
   return (
     <>
       <Helmet>
-        {/* Métadonnées SEO dynamiques selon la catégorie */}
         <title>{currentSEO.title}</title>
         <meta name="description" content={currentSEO.description} />
         <meta name="keywords" content={currentSEO.keywords} />
         
-        {/* Open Graph */}
         <meta property="og:title" content={currentSEO.title} />
         <meta property="og:description" content={currentSEO.description} />
         <meta property="og:image" content={activeProject.thumbnail} />
@@ -346,20 +368,16 @@ const Work = () => {
         <meta property="og:url" content={currentSEO.canonical} />
         <meta property="og:locale" content="fr_CH" />
         
-        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={currentSEO.title} />
         <meta name="twitter:description" content={currentSEO.description} />
         <meta name="twitter:image" content={activeProject.thumbnail} />
         
-        {/* Géolocalisation */}
         <meta name="geo.region" content="CH-GE" />
         <meta name="geo.placename" content="Genève" />
         
-        {/* Canonical */}
         <link rel="canonical" href={currentSEO.canonical} />
         
-        {/* Schema.org ImageGallery */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -383,7 +401,6 @@ const Work = () => {
       </Helmet>
 
       <div className="page work">
-        {/* H1 caché pour SEO */}
         <h1 style={{ 
           position: 'absolute', 
           left: '-9999px',
@@ -421,7 +438,6 @@ const Work = () => {
             </div>
           </div>
 
-          {/* Tabs de catégories */}
           <nav className="work-categories" aria-label="Filtres catégories portfolio">
             {categories.map((category) => (
               <button
@@ -437,7 +453,20 @@ const Work = () => {
             ))}
           </nav>
 
-          <div className={`work-items-preview-container ${hasScroll && !isMobile ? 'has-scroll' : ''}`} ref={containerRef}>
+          <div className={`work-items-preview-container ${hasScroll ? 'has-scroll' : ''}`} ref={containerRef}>
+            {/* Flèche gauche - Desktop uniquement */}
+            {!isMobile && showLeftArrow && (
+              <button 
+                className="scroll-arrow scroll-arrow-left"
+                onClick={() => scrollThumbnails('left')}
+                aria-label="Défiler vers la gauche"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M15 18l-6-6 6-6"/>
+                </svg>
+              </button>
+            )}
+
             <div className="thumbnails-wrapper" ref={thumbnailsWrapperRef}>
               {filteredProjects.map((project) => (
                 <div
@@ -464,9 +493,21 @@ const Work = () => {
                 </div>
               ))}
             </div>
+
+            {/* Flèche droite - Desktop uniquement */}
+            {!isMobile && showRightArrow && (
+              <button 
+                className="scroll-arrow scroll-arrow-right"
+                onClick={() => scrollThumbnails('right')}
+                aria-label="Défiler vers la droite"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </button>
+            )}
           </div>
 
-          {/* Navigation dots pour mobile */}
           {isMobile && totalSlides > 1 && (
             <div className="thumbnail-dots" role="navigation" aria-label="Navigation miniatures">
               {[...Array(totalSlides)].map((_, index) => (

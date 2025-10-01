@@ -1,5 +1,5 @@
 // src/components/VerticalCarousel/VerticalCarousel.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./VerticalCarousel.css";
 
 const VerticalCarousel = ({ items = [] }) => {
@@ -18,8 +18,25 @@ const VerticalCarousel = ({ items = [] }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Limiter à 4 slides sur mobile
-  const displayedItems = isMobile ? items.slice(0, 4) : items;
+  // Fonction pour mélanger un tableau (Fisher-Yates shuffle)
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Sélectionner 4 slides aléatoires sur mobile à chaque render
+  // useMemo avec une clé aléatoire pour forcer la re-randomisation à chaque mount du composant
+  const displayedItems = useMemo(() => {
+    if (isMobile && items.length > 4) {
+      const shuffled = shuffleArray(items);
+      return shuffled.slice(0, 4);
+    }
+    return items;
+  }, [items, isMobile]); // Se recalcule quand items ou isMobile change
 
   // Auto-rotation cyclique sur mobile/tablet
   useEffect(() => {
@@ -49,7 +66,7 @@ const VerticalCarousel = ({ items = [] }) => {
     <div className="vertical-carousel">
       {displayedItems.map((item, index) => (
         <div 
-          key={index} 
+          key={`${item.title}-${index}`} 
           className={`carousel-item ${
             isMobile && activeIndex === index ? 'auto-expanded' : ''
           } ${

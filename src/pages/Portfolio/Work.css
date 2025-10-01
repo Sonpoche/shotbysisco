@@ -1,4 +1,4 @@
-/* Work.css - Version propre avec structure portfolio séparée */
+/* Work.css - Version avec scroll horizontal desktop */
 
 .work-carousel {
   position: fixed;
@@ -82,7 +82,7 @@
   background: var(--fg);
 }
 
-/* Container principal des thumbnails */
+/* Container principal des thumbnails - SCROLL HORIZONTAL DESKTOP */
 .work-items-preview-container {
   position: fixed;
   left: 50%;
@@ -96,11 +96,32 @@
   gap: 1em;
   overflow-x: auto;
   overflow-y: hidden;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(227, 227, 219, 0.3) transparent;
+  scroll-behavior: smooth;
 }
 
+/* Quand il y a du scroll, passer en flex-start */
+.work-items-preview-container.has-scroll {
+  justify-content: flex-start;
+}
+
+/* Scrollbar visible sur desktop */
 .work-items-preview-container::-webkit-scrollbar {
-  display: none;
+  height: 4px;
+}
+
+.work-items-preview-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.work-items-preview-container::-webkit-scrollbar-thumb {
+  background: rgba(227, 227, 219, 0.3);
+  border-radius: 2px;
+}
+
+.work-items-preview-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(227, 227, 219, 0.5);
 }
 
 .thumbnails-wrapper {
@@ -109,6 +130,7 @@
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
+  min-width: fit-content;
 }
 
 .work-item {
@@ -155,7 +177,7 @@
   margin-left: 2px;
 }
 
-/* STRUCTURE PORTFOLIO SÉPARÉE - AUCUNE RÉFÉRENCE AU CAROUSEL */
+/* STRUCTURE PORTFOLIO SÉPARÉE */
 .portfolio-info {
   position: absolute;
   top: 50%;
@@ -210,18 +232,13 @@
     justify-content: center;
   }
   
+  .work-items-preview-container.has-scroll {
+    justify-content: flex-start;
+  }
+  
   .thumbnails-wrapper {
     justify-content: center;
     width: auto;
-    min-width: 0;
-  }
-  
-  .work-items-preview-container:not(.has-scroll) {
-    overflow-x: hidden;
-  }
-  
-  .work-items-preview-container.has-scroll .thumbnails-wrapper {
-    justify-content: flex-start;
     min-width: fit-content;
   }
 }
@@ -301,6 +318,7 @@
     display: none;
   }
   
+  /* Mobile carousel avec pagination */
   .work-items-preview-container {
     position: fixed !important;
     bottom: 1em !important;
@@ -313,6 +331,11 @@
     padding: 0;
     overflow: hidden;
     justify-content: flex-start;
+    scrollbar-width: none;
+  }
+  
+  .work-items-preview-container::-webkit-scrollbar {
+    display: none;
   }
   
   .thumbnails-wrapper {

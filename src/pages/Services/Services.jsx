@@ -1,5 +1,5 @@
-// src/pages/Services/Services.jsx - VERSION SEO OPTIMISÉE
-import React, { useState, useEffect } from "react";
+// src/pages/Services/Services.jsx - VERSION COMPLÈTE AVEC TOUS LES NOUVEAUX MÉDIAS
+import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import "./Services.css";
@@ -48,13 +48,12 @@ const Services = () => {
     }
   }, [serviceParam]);
 
-  // CONTENUS AVEC MÉTADONNÉES SEO
+  // CONTENUS AVEC MÉTADONNÉES SEO ET NOUVEAUX MÉDIAS
   const servicesContent = {
     events: {
       title: "réseaux sociaux",
       subtitle: "contenus creatifs pour vos plateformes.",
       description: "nous creons des videos et photos originales, concues pour maximiser votre visibilite sur les reseaux sociaux. instagram, tiktok, linkedin ou facebook : chaque format est pense pour captiver votre audience et refleter fidelement l'adn de votre entreprise.",
-      // Métadonnées SEO
       seoTitle: "Création Contenu Réseaux Sociaux Genève | Instagram TikTok LinkedIn",
       seoDescription: "Production vidéo et photo pour réseaux sociaux à Genève. Contenus créatifs optimisés pour Instagram, TikTok, LinkedIn et Facebook. Agence spécialisée en content creation digital.",
       seoKeywords: "contenu réseaux sociaux genève, création contenu instagram, vidéo tiktok suisse, content creator genève, production contenu digital, social media content",
@@ -80,6 +79,26 @@ const Services = () => {
           title: "marion ryan",
           media: "https://videos.agencememento.com/Reseaux/marion-ryan-13-web.webp",
           mediaType: "image"
+        },
+        {
+          title: "contenu social 1",
+          media: "https://videos.agencememento.com/Reseaux/reseaux_img1.webp",
+          mediaType: "image"
+        },
+        {
+          title: "contenu social 2",
+          media: "https://videos.agencememento.com/Reseaux/reseaux_img2.webp",
+          mediaType: "image"
+        },
+        {
+          title: "contenu social 3",
+          media: "https://videos.agencememento.com/Reseaux/reseaux_img3.webp",
+          mediaType: "image"
+        },
+        {
+          title: "contenu social 4",
+          media: "https://videos.agencememento.com/Reseaux/reseaux_img4.webp",
+          mediaType: "image"
         }
       ]
     },
@@ -87,7 +106,6 @@ const Services = () => {
       title: "événementiel",
       subtitle: "entreprises, galas, lancements, soirees.",
       description: "nous couvrons tous types d'evenements corporatifs et institutionnels afin de mettre en avant votre entreprise lors de moments forts. conferences, seminaires, soirees d'entreprise, galas, inaugurations, lancements de produit ou remises de prix.",
-      // Métadonnées SEO
       seoTitle: "Photographe Événementiel Genève | Vidéo Corporate Entreprise Suisse",
       seoDescription: "Photographe et vidéaste événementiel à Genève. Couverture professionnelle de galas, conférences, séminaires et événements d'entreprise en Suisse. Reportage photo et vidéo corporate.",
       seoKeywords: "photographe événementiel genève, vidéo corporate suisse, photographe entreprise genève, reportage événement, gala genève, conférence photo vidéo",
@@ -113,6 +131,21 @@ const Services = () => {
           title: "P.G corporate",
           media: "https://videos.agencememento.com/evenementiel/PandG-Final-Memento-45-web.webp",
           mediaType: "image"
+        },
+        {
+          title: "événement corporate 1",
+          media: "https://videos.agencememento.com/evenementiel/event_img1.webp",
+          mediaType: "image"
+        },
+        {
+          title: "événement corporate 2",
+          media: "https://videos.agencememento.com/evenementiel/event_img2.webp",
+          mediaType: "image"
+        },
+        {
+          title: "événement corporate 3",
+          media: "https://videos.agencememento.com/evenementiel/event_img3.webp",
+          mediaType: "image"
         }
       ]
     },
@@ -120,7 +153,6 @@ const Services = () => {
       title: "privé",
       subtitle: "mariages, portraits et instants de vie.",
       description: "chaque moment important merite d'etre capture avec emotion et professionnalisme. nous realisons des photos et videos pour vos instants precieux : mariages, naissances, baptemes, anniversaires, portraits ou shootings grossesse.",
-      // Métadonnées SEO
       seoTitle: "Photographe Mariage Genève | Vidéaste Mariage Suisse | Portraits",
       seoDescription: "Photographe et vidéaste mariage à Genève. Reportage photo et vidéo pour mariages, portraits, naissances et événements privés en Suisse romande. Shooting photo professionnel et émotionnel.",
       seoKeywords: "photographe mariage genève, vidéaste mariage suisse, photographe portrait genève, shooting photo couple, reportage mariage suisse, photographe baptême",
@@ -145,6 +177,26 @@ const Services = () => {
         {
           title: "portrait artistique",
           media: "https://videos.agencememento.com/Prive/jeans-tournesol_0000_Generative_Fill_4-web.webp",
+          mediaType: "image"
+        },
+        {
+          title: "moments privés 1",
+          media: "https://videos.agencememento.com/Prive/prive1.mp4",
+          mediaType: "video"
+        },
+        {
+          title: "moments privés 2",
+          media: "https://videos.agencememento.com/Prive/prive2.mp4",
+          mediaType: "video"
+        },
+        {
+          title: "moments privés 3",
+          media: "https://videos.agencememento.com/Prive/prive3.mp4",
+          mediaType: "video"
+        },
+        {
+          title: "portrait intime 1",
+          media: "https://videos.agencememento.com/Prive/prive_img1.webp",
           mediaType: "image"
         }
       ]
@@ -176,12 +228,10 @@ const Services = () => {
   return (
     <>
       <Helmet>
-        {/* Métadonnées dynamiques selon le service actif */}
         <title>{serviceContent.seoTitle}</title>
         <meta name="description" content={serviceContent.seoDescription} />
         <meta name="keywords" content={serviceContent.seoKeywords} />
         
-        {/* Open Graph */}
         <meta property="og:title" content={serviceContent.seoTitle} />
         <meta property="og:description" content={serviceContent.seoDescription} />
         <meta property="og:image" content={serviceContent.bentoItems[0].media} />
@@ -189,23 +239,17 @@ const Services = () => {
         <meta property="og:url" content={serviceContent.canonicalUrl} />
         <meta property="og:locale" content="fr_CH" />
         
-        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={serviceContent.seoTitle} />
         <meta name="twitter:description" content={serviceContent.seoDescription} />
         <meta name="twitter:image" content={serviceContent.bentoItems[0].media} />
         
-        {/* Géolocalisation */}
         <meta name="geo.region" content="CH-GE" />
         <meta name="geo.placename" content="Genève" />
         
-        {/* Canonical URL dynamique */}
         <link rel="canonical" href={serviceContent.canonicalUrl} />
-        
-        {/* Hreflang */}
         <link rel="alternate" hrefLang="fr-CH" href={serviceContent.canonicalUrl} />
         
-        {/* Schema.org Service spécifique */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -231,10 +275,8 @@ const Services = () => {
 
       <ReactLenis root>
         <div className="page services">
-          {/* Hero Section */}
           <section className="services-hero" aria-label="Services Agence Memento">
             <div className="services-hero-content">
-              {/* H1 caché pour SEO avec mots-clés */}
               <h1 style={{ 
                 position: 'absolute', 
                 left: '-9999px',
@@ -245,7 +287,6 @@ const Services = () => {
                 {serviceContent.seoTitle}
               </h1>
               
-              {/* Titre visible stylisé */}
               <AnimatedCopy tag="h2" animateOnScroll={true}>
                 nos services
               </AnimatedCopy>
@@ -255,7 +296,6 @@ const Services = () => {
             </div>
           </section>
 
-          {/* Service Tabs */}
           <nav className="services-tabs-section" aria-label="Navigation services">
             <div className="services-tabs" role="tablist">
               {Object.keys(servicesContent).map((service) => (
@@ -273,7 +313,6 @@ const Services = () => {
             </div>
           </nav>
 
-          {/* Service Content avec Vertical Carousel */}
           <section 
             className="service-carousel-content"
             role="tabpanel"
@@ -285,7 +324,6 @@ const Services = () => {
               <p className="service-description">{serviceContent.description}</p>
             </header>
 
-            {/* Vertical Carousel avec key pour forcer la re-création */}
             <div className="service-carousel-wrapper">
               <VerticalCarousel 
                 key={activeService} 
@@ -293,7 +331,6 @@ const Services = () => {
               />
             </div>
 
-            {/* Bouton vers le portfolio correspondant */}
             <div className="service-portfolio-link">
               <Link 
                 to={`/portfolio?category=${getPortfolioCategory(activeService)}`}
