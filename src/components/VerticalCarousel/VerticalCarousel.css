@@ -37,18 +37,64 @@
   flex-shrink: 0; /* Empêche le rétrécissement */
 }
 
-/* Expansion au hover (desktop) et auto-expanded (mobile) */
-.carousel-item:hover,
+/* Premier slide ouvert par défaut (desktop uniquement, avant interaction) */
+.carousel-item.default-expanded {
+  width: 350px;
+  transform: scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-item.default-expanded .carousel-media {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel-item.default-expanded .carousel-overlay {
+  opacity: 0.3;
+}
+
+/* Expansion au hover (desktop) */
+.carousel-item.hover-expanded {
+  width: 350px;
+  transform: scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-item.hover-expanded .carousel-media {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel-item.hover-expanded .carousel-overlay {
+  opacity: 0.3;
+}
+
+/* Auto-expanded pour mobile */
 .carousel-item.auto-expanded {
   width: 350px;
   transform: scale(1.01);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Sur mobile/tablet, on désactive le hover et utilise auto-expanded */
+.carousel-item.auto-expanded .carousel-media {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel-item.auto-expanded .carousel-overlay {
+  opacity: 0.3;
+}
+
+/* Sur mobile/tablet, on désactive le hover */
 @media (max-width: 1024px) {
-  .carousel-item:hover {
-    width: 70px; /* Reset hover sur mobile */
+  .carousel-item.default-expanded {
+    width: 70px; /* Reset sur mobile */
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .carousel-item.hover-expanded {
+    width: 70px; /* Reset sur mobile */
     transform: none;
     box-shadow: none;
   }
@@ -78,12 +124,6 @@
   transform: scale(1.1);
 }
 
-.carousel-item:hover .carousel-media,
-.carousel-item.auto-expanded .carousel-media {
-  opacity: 1;
-  transform: scale(1);
-}
-
 /* Overlay sombre plus subtil */
 .carousel-overlay {
   position: absolute;
@@ -98,11 +138,6 @@
   );
   z-index: 1;
   transition: opacity 0.6s ease;
-}
-
-.carousel-item:hover .carousel-overlay,
-.carousel-item.auto-expanded .carousel-overlay {
-  opacity: 0.3;
 }
 
 /* Contenu - maintenant vide mais gardé pour la structure */
@@ -176,7 +211,8 @@
     width: 55px;
   }
   
-  .carousel-item:hover {
+  .carousel-item.default-expanded,
+  .carousel-item.hover-expanded {
     width: 300px;
   }
 }
@@ -193,7 +229,8 @@
     width: 50px;
   }
   
-  .carousel-item:hover {
+  .carousel-item.default-expanded,
+  .carousel-item.hover-expanded {
     width: 250px;
   }
 }

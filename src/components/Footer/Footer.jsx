@@ -14,7 +14,7 @@ const Footer = () => {
           </h3>
 
           <p className="secondary">
-            De la communication digitale aux événements d’entreprise, jusqu’aux projets privés, nous donnons vie à vos histoires visuelles. Toujours ouverts aux collaborations créatives.
+            De la communication digitale aux événements d'entreprise, jusqu'aux projets privés, nous donnons vie à vos histoires.
           </p>
 
           <Link to="/contact" className="btn">
@@ -53,7 +53,7 @@ const Footer = () => {
         <div className="footer-header">
           <div className="footer-header-content">
             <h1>memento</h1>
-            <p className="tagline">creating memorable stories</p>
+            <h2 className="tagline">creating memorable stories</h2>
           </div>
         </div>
 

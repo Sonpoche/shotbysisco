@@ -33,12 +33,14 @@ const Work = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [hasScroll, setHasScroll] = useState(false);
+  const [isVerticalSwipe, setIsVerticalSwipe] = useState(false);
   
   const portfolioInfoRef = useRef(null);
   const mediaRef = useRef(null);
   const thumbnailsWrapperRef = useRef(null);
   const containerRef = useRef(null);
   const mediaContainerRef = useRef(null);
+  const workCarouselRef = useRef(null);
 
   // Métadonnées SEO selon la catégorie active
   const getSEOData = () => {
@@ -272,59 +274,61 @@ const Work = () => {
     };
   }, [isMobile, currentSlide, totalSlides]);
 
-  // Swipe sur l'image principale pour changer de projet (mobile uniquement)
+  // Swipe vertical type TikTok pour changer de projet (mobile uniquement)
   useEffect(() => {
-    if (!isMobile || !mediaContainerRef.current) return;
+    if (!isMobile || !workCarouselRef.current) return;
 
-    let startX = 0;
     let startY = 0;
+    let startX = 0;
     let isDragging = false;
 
     const handleTouchStart = (e) => {
-      startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
+      startX = e.touches[0].clientX;
       isDragging = true;
     };
 
     const handleTouchEnd = (e) => {
       if (!isDragging) return;
+      isDragging = false;
       
-      const endX = e.changedTouches[0].clientX;
       const endY = e.changedTouches[0].clientY;
-      const diffX = startX - endX;
-      const diffY = Math.abs(startY - endY);
+      const endX = e.changedTouches[0].clientX;
+      const diffY = startY - endY;
+      const diffX = Math.abs(startX - endX);
       
-      // Vérifier que c'est un swipe horizontal (pas vertical)
-      if (Math.abs(diffX) > 50 && diffY < 30) {
+      // Vérifier que c'est un swipe vertical (pas horizontal)
+      if (Math.abs(diffY) > 20 && diffX < 60 && !isAnimating) {
+        setIsVerticalSwipe(true);
         const currentIndex = filteredProjects.findIndex(p => p.id === activeProject.id);
         
-        if (diffX > 0) {
-          // Swipe vers la gauche = projet suivant
+        if (diffY > 0) {
+          // Swipe vers le haut = projet suivant
           if (currentIndex < filteredProjects.length - 1) {
             handleWorkItemClick(filteredProjects[currentIndex + 1]);
           }
         } else {
-          // Swipe vers la droite = projet précédent
+          // Swipe vers le bas = projet précédent
           if (currentIndex > 0) {
             handleWorkItemClick(filteredProjects[currentIndex - 1]);
           }
         }
+        
+        setTimeout(() => setIsVerticalSwipe(false), 600);
       }
-      
-      isDragging = false;
     };
 
-    const container = mediaContainerRef.current;
-    container.addEventListener('touchstart', handleTouchStart, { passive: true });
-    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+    const carousel = workCarouselRef.current;
+    carousel.addEventListener('touchstart', handleTouchStart, { passive: true });
+    carousel.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
-      if (container) {
-        container.removeEventListener('touchstart', handleTouchStart);
-        container.removeEventListener('touchend', handleTouchEnd);
+      if (carousel) {
+        carousel.removeEventListener('touchstart', handleTouchStart);
+        carousel.removeEventListener('touchend', handleTouchEnd);
       }
     };
-  }, [isMobile, filteredProjects, activeProject]);
+  }, [isMobile, filteredProjects, activeProject, isAnimating, handleWorkItemClick]);
 
   return (
     <>
@@ -390,7 +394,7 @@ const Work = () => {
           {currentSEO.title}
         </h1>
 
-        <div className="work-carousel">
+        <div className="work-carousel" ref={workCarouselRef}>
           <div className="work-slider-media" ref={mediaRef}>
             <div ref={mediaContainerRef} style={{ width: '100%', height: '100%' }}>
               {activeProject.mediaType === "video" ? (

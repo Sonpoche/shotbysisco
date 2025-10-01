@@ -5,6 +5,8 @@ import "./VerticalCarousel.css";
 const VerticalCarousel = ({ items = [] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   // Détecter si on est sur mobile/tablet
   useEffect(() => {
@@ -30,12 +32,33 @@ const VerticalCarousel = ({ items = [] }) => {
     return () => clearInterval(interval);
   }, [isMobile, displayedItems.length]);
 
+  const handleMouseEnter = (index) => {
+    if (!isMobile) {
+      setHoveredIndex(index);
+      setHasInteracted(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMobile) {
+      setHoveredIndex(null);
+    }
+  };
+
   return (
     <div className="vertical-carousel">
       {displayedItems.map((item, index) => (
         <div 
           key={index} 
-          className={`carousel-item ${isMobile && activeIndex === index ? 'auto-expanded' : ''}`}
+          className={`carousel-item ${
+            isMobile && activeIndex === index ? 'auto-expanded' : ''
+          } ${
+            !isMobile && !hasInteracted && index === 0 ? 'default-expanded' : ''
+          } ${
+            !isMobile && hoveredIndex === index ? 'hover-expanded' : ''
+          }`}
+          onMouseEnter={() => handleMouseEnter(index)}
+          onMouseLeave={handleMouseLeave}
         >
           {/* Media background */}
           {item.mediaType === "video" ? (

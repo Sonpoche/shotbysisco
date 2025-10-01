@@ -70,7 +70,7 @@ const ContactForm = () => {
           <div className="contact-form-header">
             <h3>une histoire a raconter ? rendons-la memorable.</h3>
             <p>
-              ton histoire merite d'etre partagee. confie-moi ton projet et voyons comment la mettre en lumiere.
+              Contactez-nous et écrivons-la ensemble.
             </p>
           </div>
 
